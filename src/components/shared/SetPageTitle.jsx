@@ -5,7 +5,7 @@ const SetPageTitle = ({ title }) => {
   return (
     <div>
       <Helmet>
-        <title>{title} - Scholars Home</title>
+        <title>{title} - EduGrant</title>
       </Helmet>
     </div>
   );
