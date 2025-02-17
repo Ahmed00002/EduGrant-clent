@@ -1,15 +1,11 @@
-import { Outlet } from "react-router";
-import Navbar from "../../components/Navbar";
-import Footer from "../../components/Footer";
+import { useContext } from "react";
+import { AuthContext } from "../../contexts/contexts";
 
 const HomePage = () => {
+  const { name } = useContext(AuthContext);
   return (
     <>
-      <Navbar />
-      <main>
-        <Outlet />
-      </main>
-      <Footer />
+      <h1>{name}</h1>
     </>
   );
 };
