@@ -1,13 +1,9 @@
-import { useContext } from "react";
-import { AuthContext } from "../../contexts/contexts";
+// import { useContext } from "react";
+// import { AuthContext } from "../../contexts/contexts";
 
 const HomePage = () => {
-  const { name } = useContext(AuthContext);
-  return (
-    <>
-      <h1>{name}</h1>
-    </>
-  );
+  // const { name } = useContext(AuthContext);
+  return <></>;
 };
 
 export default HomePage;

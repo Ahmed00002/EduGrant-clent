@@ -14,6 +14,8 @@ const AllRoutes = () => {
         {/* Users only routes */}
         <Route element={<HomeLayout />}>
           <Route index path="/" element={<HomePage />} />
+          <Route index path="/dashboard" element={<p>dashboard</p>} />
+          <Route index path="/scholarships" element={<p>scholarships</p>} />
         </Route>
 
         {/* Admins Only Routes */}
@@ -23,9 +25,9 @@ const AllRoutes = () => {
 
         {/* authentication routes */}
         <Route element={<AuthLayout />}>
-          <Route index path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/forget-pass" element={<Forget />} />
+          <Route index path="/auth/login" element={<Login />} />
+          <Route path="/auth/register" element={<Register />} />
+          <Route path="/auth/reset-pass" element={<Forget />} />
         </Route>
       </Routes>
     </>

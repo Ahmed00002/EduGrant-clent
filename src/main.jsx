@@ -2,10 +2,12 @@
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router";
 import "./index.css";
+import "swiper/css";
 
 import AllRoutes from "./routes/AllRoutes.jsx";
 import { Bounce, ToastContainer } from "react-toastify";
 import AuthProvider from "./provider/AuthProvider.jsx";
+import { Toaster } from "sonner";
 
 createRoot(document.getElementById("root")).render(
   <AuthProvider>
@@ -23,6 +25,7 @@ createRoot(document.getElementById("root")).render(
         theme="light"
         transition={Bounce}
       />
+      <Toaster />
       <AllRoutes />
     </BrowserRouter>
   </AuthProvider>
