@@ -6,6 +6,9 @@ import Register from "../pages/Auth/Register";
 import Forget from "../pages/Auth/Forget";
 import DashboardLayout from "../layouts/DashboardLayout";
 import HomePage from "../pages/users/HomePage";
+import Profile from "@/pages/users/dashboard/Profile";
+import Applications from "@/pages/users/dashboard/Applications";
+import Reviews from "@/pages/users/dashboard/Reviews";
 
 const AllRoutes = () => {
   return (
@@ -21,9 +24,9 @@ const AllRoutes = () => {
         {/* Admins Only Routes */}
         <Route element={<DashboardLayout />}>
           <Route index path="/dashboard" element={<DashboardLayout />} />
-          <Route path="/dashboard/profile" element={<p>Profile</p>} />
-          <Route path="/dashboard/applications" element={<p>applications</p>} />
-          <Route path="/dashboard/reviews" element={<p>reviews</p>} />
+          <Route path="/dashboard/profile" element={<Profile />} />
+          <Route path="/dashboard/applications" element={<Applications />} />
+          <Route path="/dashboard/reviews" element={<Reviews />} />
         </Route>
 
         {/* authentication routes */}

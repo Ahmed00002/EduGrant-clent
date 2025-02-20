@@ -1,20 +1,31 @@
-import { SidebarProvider } from "@/components/ui/sidebar";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
-import { Outlet } from "react-router";
+import { Outlet, useLocation } from "react-router";
 
 const DashboardLayout = () => {
+  const location = useLocation();
   return (
-    <SidebarProvider>
-      <div className="flex">
-        {/* Sidebar */}
-        <AppSidebar />
+    <>
+      <SidebarProvider className="bg-PrimaryContent">
+        <div className="flex w-full">
+          {/* Sidebar */}
+          <AppSidebar />
 
-        {/* Main Content */}
-        <main className="flex-1">
-          <Outlet />
-        </main>
-      </div>
-    </SidebarProvider>
+          {/* Main Content */}
+          <main className="flex-1 w-[600px] ">
+            <div className="flex items-center sticky top-0 bg-white shadow-md ">
+              <SidebarTrigger />
+              <h2 className="uppercase">
+                Dashboard/{location.pathname.split("/")[2]}
+              </h2>
+            </div>
+            <div className="p-4">
+              <Outlet />
+            </div>
+          </main>
+        </div>
+      </SidebarProvider>
+    </>
   );
 };
 

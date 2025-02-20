@@ -3,29 +3,19 @@ import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
-  SidebarGroup,
-  SidebarGroupLabel,
   SidebarHeader,
-  SidebarMenu,
   SidebarMenuButton,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import {
-  BookUser,
-  ChevronsUpDown,
-  LogOut,
-  Star,
-  Terminal,
-  User,
-} from "lucide-react";
+import { BookUser, LogOut, Star, User } from "lucide-react";
 import { Link, NavLink } from "react-router";
 
 export function AppSidebar() {
   return (
     <Sidebar collapsible="icon">
-      <div className="flex items-center justify-center">
+      {/* <div className="flex items-center justify-center">
         <SidebarTrigger />
-      </div>
+      </div> */}
       <SidebarHeader />
       <SidebarContent className={"flex items-center"}>
         <Link className="w-full" to={"/"}>
