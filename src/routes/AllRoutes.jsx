@@ -14,13 +14,16 @@ const AllRoutes = () => {
         {/* Users only routes */}
         <Route element={<HomeLayout />}>
           <Route index path="/" element={<HomePage />} />
-          <Route index path="/dashboard" element={<p>dashboard</p>} />
+
           <Route index path="/scholarships" element={<p>scholarships</p>} />
         </Route>
 
         {/* Admins Only Routes */}
         <Route element={<DashboardLayout />}>
-          <Route index path="/admin/stats" element={<h1>Dashboard</h1>} />
+          <Route index path="/dashboard" element={<DashboardLayout />} />
+          <Route path="/dashboard/profile" element={<p>Profile</p>} />
+          <Route path="/dashboard/applications" element={<p>applications</p>} />
+          <Route path="/dashboard/reviews" element={<p>reviews</p>} />
         </Route>
 
         {/* authentication routes */}
