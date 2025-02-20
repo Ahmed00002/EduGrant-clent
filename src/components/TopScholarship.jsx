@@ -78,6 +78,9 @@ const TopScholarship = () => {
         <SectionTitle
           title={"Top Scholarships for You"}
           heading={"top scholarships"}
+          des={
+            "Discover top scholarships to fund your education and achieve your dreams!🎓"
+          }
         />
 
         <div className="grid grid-cols-1 md:grid-cols-3 2xl:grid-cols-4 gap-4 mt-12">

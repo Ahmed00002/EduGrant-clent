@@ -28,18 +28,20 @@ export function AppSidebar() {
       </div>
       <SidebarHeader />
       <SidebarContent className={"flex items-center"}>
-        <SidebarMenuButton
-          size="lg"
-          className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-        >
-          <div className="flex aspect-square mx-auto size-8 items-center justify-center rounded-lg bg-Primary">
-            <img src={Logo} alt="site logo" />
-          </div>
-          <div className="grid flex-1 text-left text-sm leading-tight">
-            <span className="truncate font-semibold">EduGrant</span>
-            <span className="truncate font-xs">Your Dream Ahead</span>
-          </div>
-        </SidebarMenuButton>
+        <Link className="w-full" to={"/"}>
+          <SidebarMenuButton
+            size="lg"
+            className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+          >
+            <div className="flex aspect-square mx-auto size-8 items-center justify-center rounded-lg bg-Primary">
+              <img src={Logo} alt="site logo" />
+            </div>
+            <div className="grid flex-1 text-left text-sm leading-tight">
+              <span className="truncate font-semibold">EduGrant</span>
+              <span className="truncate font-xs">Your Dream Ahead</span>
+            </div>
+          </SidebarMenuButton>
+        </Link>
 
         {/* user options */}
         <div className="w-full sidebarMenu">

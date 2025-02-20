@@ -4,7 +4,7 @@ import Footer from "../components/Footer";
 
 const HomeLayout = () => {
   return (
-    <div>
+    <div className="bg-PrimaryContent">
       <Navbar />
       <main>
         <Outlet />
