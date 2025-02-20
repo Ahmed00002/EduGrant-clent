@@ -12,8 +12,8 @@ const DashboardLayout = () => {
           <AppSidebar />
 
           {/* Main Content */}
-          <main className="flex-1 w-[600px] ">
-            <div className="flex items-center sticky top-0 bg-white shadow-md ">
+          <main className="flex-1 w-full ">
+            <div className="flex items-center sticky top-0 bg-white shadow-md py-4">
               <SidebarTrigger />
               <h2 className="uppercase">
                 Dashboard/{location.pathname.split("/")[2]}

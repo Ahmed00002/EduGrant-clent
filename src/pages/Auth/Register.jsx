@@ -37,7 +37,7 @@ const Register = () => {
         }}
         className="h-screen flex justify-center items-center"
       >
-        <div className="flex flex-wrap items-center justify-center lg:justify-between w-full max-w-5xl p-4">
+        <div className="flex flex-wrap items-center justify-center lg:justify-between w-full max-w-5xl p-4 md:p-0">
           {/* Left Side Image */}
           <div className="hidden md:block md:w-6/12">
             <Lottie animationData={loginLottie} loop={true} />
