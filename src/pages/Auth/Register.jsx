@@ -6,14 +6,18 @@ import * as motion from "motion/react-client";
 import Lottie from "lottie-react";
 import loginLottie from "../../assets/lottie/login.json";
 import { useEffect, useState } from "react";
+import useAuth from "@/hooks/useAuth";
+import useCustomToast from "@/hooks/useCustomToast";
+import { ScaleLoader } from "react-spinners";
 
 const Register = () => {
+  const customToast = useCustomToast();
+  const { signupWithGoogle, signUpEmailPass } = useAuth();
   const { register, handleSubmit } = useForm();
   const [isExit, setIsExit] = useState(false);
+  const [isCreating, setIsCreating] = useState(false);
   const navigate = useNavigate();
-  const loginWithEmailPass = (data) => {
-    console.log(data);
-  };
+
   useEffect(() => {
     setIsExit(false);
   }, []);
@@ -24,9 +28,57 @@ const Register = () => {
       // Logic to hide or navigate away after animation ends
     }, 500); // Corresponds to the 3s duration in transition
   };
+
+  // login with email and password
+  const loginWithEmailPass = (data) => {
+    setIsCreating(true);
+    signUpEmailPass(data.email, data.password)
+      .then(() => {
+        setIsCreating(false);
+        customToast(
+          "Successfull",
+          "You have successfully created your account"
+        );
+        navigate("/");
+      })
+      .catch((e) => {
+        setIsCreating(false);
+        console.log(e);
+        customToast(
+          "Failed",
+          e.message
+            .split("(")[1]
+            .split("/")[1]
+            .split(")")[0]
+            .split("-")
+            .join(" ")
+        );
+      });
+  };
+
+  // google login
+  const signInGoogle = () => {
+    setIsCreating(true);
+    signupWithGoogle()
+      .then(() => {
+        setIsCreating(false);
+        customToast(
+          "Congratulations!",
+          "Now, You are a member of our family. Explore your desire scholarship to achieve your dream. :)"
+        );
+        navigate("/");
+      })
+      .catch(() => {
+        setIsCreating(false);
+        customToast(
+          "Opps!",
+          "Failed to logged in your account :) Check your internet and try again!"
+        );
+      });
+  };
   return (
     <>
-      <SetPageTitle title={"Login"} />
+      <SetPageTitle title={"Register"} />
       <motion.section
         initial={isExit ? { y: 0, opacity: 1 } : { y: -50, opacity: 0 }}
         animate={isExit ? { y: -50, opacity: 0 } : { y: 0, opacity: 1 }}
@@ -63,6 +115,7 @@ const Register = () => {
                 <FaFacebookF />
               </motion.button>
               <motion.button
+                onClick={signInGoogle}
                 whileHover={{ translateY: -5 }}
                 whileTap={{ translateY: 0 }}
                 className="bg-blue-600 text-white p-2 rounded-full w-10 h-10 flex justify-center items-center cursor-pointer hover:shadow-lg shadow-Secondary"
@@ -110,13 +163,18 @@ const Register = () => {
                 placeholder="********"
               />
 
-              {/* Login Button */}
+              {/* register Button */}
               <motion.button
+                disabled={isCreating}
                 whileHover={{ scale: 1.01 }}
                 whileTap={{ scale: 1 }}
-                className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 cursor-pointerf hover:shadow-lg shadow-Primary mt-4"
+                className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 cursor-pointerf hover:shadow-lg shadow-Primary flex justify-center items-center gap-2 cursor-pointer"
               >
-                Register
+                {isCreating ? (
+                  <ScaleLoader height={20} width={1} color="white" />
+                ) : (
+                  "Login"
+                )}
               </motion.button>
             </form>
 

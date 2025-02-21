@@ -6,17 +6,22 @@ import * as motion from "motion/react-client";
 import Lottie from "lottie-react";
 import loginLottie from "../../assets/lottie/login.json";
 import { useEffect, useState } from "react";
+import useAuth from "@/hooks/useAuth";
+import { toast } from "sonner";
+import { X } from "lucide-react";
+import { ScaleLoader } from "react-spinners";
 
 const Login = () => {
+  const { signinEmailPass, signupWithGoogle } = useAuth();
+  const [isLogging, setIsLogging] = useState(false);
   const { register, handleSubmit } = useForm();
   const [isExit, setIsExit] = useState(false);
+  // set is exit to false on loading page
   useEffect(() => {
     setIsExit(false);
   }, []);
   const navigate = useNavigate();
-  const loginWithEmailPass = (data) => {
-    console.log(data);
-  };
+
   const handleNavigate = () => {
     setIsExit(true);
     setTimeout(() => {
@@ -24,6 +29,59 @@ const Login = () => {
       // Logic to hide or navigate away after animation ends
     }, 500); // Corresponds to the 3s duration in transition
   };
+
+  // google login
+  const signInGoogle = () => {
+    setIsLogging(true);
+    signupWithGoogle()
+      .then(() => {
+        setIsLogging(false);
+        toast("Successful!", {
+          description: "You have successfully logged in to your account",
+          action: {
+            label: <X size={10} />,
+          },
+        });
+        navigate("/");
+      })
+      .catch(() => {
+        setIsLogging(false);
+        toast("Failed!", {
+          description:
+            "Failed to logged in your account :) Check your internet and try again!",
+          action: {
+            label: <X size={10} />,
+          },
+        });
+      });
+  };
+
+  // login functionality
+  const loginWithEmailPass = (data) => {
+    setIsLogging(true);
+    signinEmailPass(data.email, data.password)
+      .then(() => {
+        setIsLogging(false);
+        toast("Successful!", {
+          description: "You have successfully logged in to your account",
+          action: {
+            label: <X size={10} />,
+          },
+        });
+        navigate("/");
+      })
+      .catch(() => {
+        setIsLogging(false);
+        toast("Failed!", {
+          description:
+            "Failed to logged in your account :) Check your internet and try again!",
+          action: {
+            label: <X size={10} />,
+          },
+        });
+      });
+  };
+
   return (
     <>
       <SetPageTitle title={"Login"} />
@@ -63,6 +121,7 @@ const Login = () => {
                 <FaFacebookF />
               </motion.button>
               <motion.button
+                onClick={signInGoogle}
                 whileHover={{ translateY: -5 }}
                 whileTap={{ translateY: 0 }}
                 className="bg-blue-600 text-white p-2 rounded-full w-10 h-10 flex justify-center items-center cursor-pointer hover:shadow-lg shadow-Secondary"
@@ -108,11 +167,16 @@ const Login = () => {
 
               {/* Login Button */}
               <motion.button
+                disabled={isLogging}
                 whileHover={{ scale: 1.01 }}
                 whileTap={{ scale: 1 }}
-                className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 cursor-pointerf hover:shadow-lg shadow-Primary"
+                className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 cursor-pointerf hover:shadow-lg shadow-Primary flex justify-center items-center gap-2"
               >
-                Login
+                {isLogging ? (
+                  <ScaleLoader height={20} width={1} color="white" />
+                ) : (
+                  "Login"
+                )}
               </motion.button>
             </form>
 

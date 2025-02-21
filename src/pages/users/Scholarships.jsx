@@ -1,6 +1,7 @@
 import PageHeader from "@/components/PageHeader";
 import ScholarshipCard from "@/components/shared/SholarshipCard";
 import { Search } from "lucide-react";
+import svg from "@/assets/graduate.svg";
 
 const Scholarships = () => {
   const scholarships = [
@@ -82,6 +83,11 @@ const Scholarships = () => {
               type="search"
               className=" w-full outline-none "
               placeholder="University, Degree, location"
+            />
+            <img
+              className="absolute bottom-full h-20 w-full mx-auto"
+              src={svg}
+              alt=""
             />
           </div>
         </div>

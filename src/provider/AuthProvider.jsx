@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-import AuthContext from "../context/Context";
 import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
@@ -9,8 +8,9 @@ import {
   signInWithPopup,
   signOut,
 } from "firebase/auth";
-import auth from "../firebase/firebase_init";
 import { useEffect, useState } from "react";
+import auth from "@/firebase/firebase_init";
+import { AuthContext } from "@/contexts/contexts";
 
 const AuthProvider = ({ children }) => {
   // user data
