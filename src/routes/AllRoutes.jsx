@@ -15,6 +15,7 @@ import AllApplications from "@/pages/admin/AllApplications";
 import AllReviews from "@/pages/admin/AllReviews";
 import Scholarships from "@/pages/users/Scholarships";
 import ScholarshipDetails from "@/pages/users/ScholarshipDetails";
+import Payment from "@/pages/payment/Payment";
 
 const AllRoutes = () => {
   return (
@@ -25,6 +26,7 @@ const AllRoutes = () => {
           <Route index path="/" element={<HomePage />} />
           <Route path="/scholarships" element={<Scholarships />} />
           <Route path="/scholarships/:id" element={<ScholarshipDetails />} />
+          <Route path="/checkout" element={<Payment />} />
         </Route>
 
         {/* user dashboard paths */}
