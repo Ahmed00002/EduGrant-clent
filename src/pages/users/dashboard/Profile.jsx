@@ -1,7 +1,9 @@
 import EditButton from "@/components/ui/EditButton";
+import useAuth from "@/hooks/useAuth";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 
 const Profile = () => {
+  const { user } = useAuth();
   return (
     <>
       <section className=" bg-white  rounded-lg p-6 font-inter">
@@ -12,14 +14,16 @@ const Profile = () => {
             <Avatar>
               <AvatarImage
                 className="rounded-full w-18"
-                src="https://github.com/shadcn.png"
+                src={user?.photoURL}
                 alt="@shadcn"
               />
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
             <div>
-              <h1 className="text-lg font-bold text-text">Ahmed Numan</h1>
-              <p className="text-md text-gray-600">example@gmail.com</p>
+              <h1 className="text-lg font-bold text-text">
+                {user?.displayName}
+              </h1>
+              <p className="text-md text-gray-600">{user?.email}</p>
               <p className="text-xs text-gray-600">Bangladesh</p>
             </div>
           </div>
@@ -39,16 +43,16 @@ const Profile = () => {
                 <input
                   className="font-medium mt-1"
                   type="text"
-                  defaultValue={"Ahmed Numan"}
+                  defaultValue={user?.displayName}
                 />
               </div>
               {/* user name */}
               <div className="text-gray-500 text-md">
                 <h1 className="text-md font-inter">Email</h1>
                 <input
-                  className="font-medium mt-1"
+                  className="font-medium mt-1 w-full"
                   type="text"
-                  defaultValue={"example@gmail.com"}
+                  defaultValue={user?.email}
                 />
               </div>
             </div>
