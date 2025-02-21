@@ -31,7 +31,7 @@ const Navbar = () => {
           <div className="grow text-right space-x-4 navMenu">
             <NavLink to={"/"}>Home</NavLink>
             <NavLink to={"/scholarships"}>All Scholarship</NavLink>
-            <NavLink to={"/dashboard/profile"}>Dashboard</NavLink>
+            <NavLink to={"/dashboard/user/profile"}>Dashboard</NavLink>
           </div>
           <div>
             <div className="flex  gap-4">

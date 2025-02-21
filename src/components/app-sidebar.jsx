@@ -6,10 +6,105 @@ import {
   SidebarHeader,
   SidebarMenuButton,
 } from "@/components/ui/sidebar";
-import { BookUser, LogOut, Star, User } from "lucide-react";
+import {
+  BookUser,
+  ClipboardCheck,
+  GraduationCap,
+  LogOut,
+  Star,
+  User,
+  Users,
+} from "lucide-react";
 import { Link, NavLink } from "react-router";
 
 export function AppSidebar() {
+  const isAdmin = true;
+  const userRoutes = (
+    <>
+      <NavLink to={"/dashboard/user/profile"}>
+        <SidebarMenuButton
+          tooltip={"My Profile"}
+          className={"mx-auto userDashMenu"}
+        >
+          <User size={30} />
+          <span>My Profile</span>
+        </SidebarMenuButton>
+      </NavLink>
+      <NavLink to={"/dashboard/user/applications"}>
+        <SidebarMenuButton
+          tooltip={"My Applications"}
+          className={"mx-auto userDashMenu"}
+        >
+          <BookUser size={30} />
+          <span>My Applications</span>
+        </SidebarMenuButton>
+      </NavLink>
+      <NavLink to={"/dashboard/user/reviews"}>
+        <SidebarMenuButton
+          tooltip={"My Reviews"}
+          className={"mx-auto userDashMenu"}
+        >
+          <Star size={30} />
+          <span>My Reviews</span>
+        </SidebarMenuButton>
+      </NavLink>
+    </>
+  );
+  const ModeratorORAdmin = (admin) => (
+    <>
+      <NavLink to={"/admin/profile"} end>
+        <SidebarMenuButton
+          tooltip={"My Profile"}
+          className={"mx-auto userDashMenu"}
+        >
+          <User size={30} />
+          <span>My Profile</span>
+        </SidebarMenuButton>
+      </NavLink>
+
+      {admin && (
+        <NavLink to={"/admin/users"} end>
+          <SidebarMenuButton
+            tooltip={"My Profile"}
+            className={"mx-auto userDashMenu"}
+          >
+            <Users size={30} />
+            <span>Users</span>
+          </SidebarMenuButton>
+        </NavLink>
+      )}
+
+      <NavLink to={"/admin/scholarships/reviews"} end>
+        <SidebarMenuButton
+          tooltip={"My Reviews"}
+          className={"mx-auto userDashMenu"}
+        >
+          <Star size={30} />
+          <span>All reviews</span>
+        </SidebarMenuButton>
+      </NavLink>
+
+      <NavLink to={"/admin/scholarships"} end>
+        <SidebarMenuButton
+          tooltip={"My Reviews"}
+          className={"mx-auto userDashMenu"}
+        >
+          <GraduationCap size={30} />
+          <span>All Scholarship</span>
+        </SidebarMenuButton>
+      </NavLink>
+
+      <NavLink to={"/admin/scholarships/applications"} end>
+        <SidebarMenuButton
+          tooltip={"My Reviews"}
+          className={"mx-auto userDashMenu"}
+        >
+          <ClipboardCheck size={30} />
+          <span>All applied Scholarship</span>
+        </SidebarMenuButton>
+      </NavLink>
+    </>
+  );
   return (
     <Sidebar collapsible="icon">
       {/* <div className="flex items-center justify-center">
@@ -33,34 +128,8 @@ export function AppSidebar() {
         </Link>
 
         {/* user options */}
-        <div className="w-full sidebarMenu">
-          <NavLink to={"/dashboard/profile"}>
-            <SidebarMenuButton
-              tooltip={"My Profile"}
-              className={"mx-auto userDashMenu"}
-            >
-              <User size={30} />
-              <span>My Profile</span>
-            </SidebarMenuButton>
-          </NavLink>
-          <NavLink to={"/dashboard/applications"}>
-            <SidebarMenuButton
-              tooltip={"My Applications"}
-              className={"mx-auto userDashMenu"}
-            >
-              <BookUser size={30} />
-              <span>My Applications</span>
-            </SidebarMenuButton>
-          </NavLink>
-          <NavLink to={"/dashboard/reviews"}>
-            <SidebarMenuButton
-              tooltip={"My Reviews"}
-              className={"mx-auto userDashMenu"}
-            >
-              <Star size={30} />
-              <span>My Reviews</span>
-            </SidebarMenuButton>
-          </NavLink>
+        <div className="w-full sidebarMenu ">
+          {isAdmin ? ModeratorORAdmin(true) : userRoutes}
         </div>
       </SidebarContent>
       <SidebarFooter>

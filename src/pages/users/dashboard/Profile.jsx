@@ -8,7 +8,7 @@ const Profile = () => {
         <h1 className="text-xl font-bold font-railway">My Profile</h1>
         {/* profile image  */}
         <div className="mt-6 border-[1.5px] border-dashed rounded-lg p-4 flex justify-between relative">
-          <div className="flex flex-col md:flex-col gap-2 md:gap-4">
+          <div className="flex flex-col md:flex-row gap-2 md:gap-4">
             <Avatar>
               <AvatarImage
                 className="rounded-full w-18"

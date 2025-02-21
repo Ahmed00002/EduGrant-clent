@@ -15,7 +15,7 @@ const LatestArticles = () => {
       {/* articles */}
       <div className="grid grid-cols-12 gap-4 grid-rows-6  mt-12 mb-12">
         {/* left side article 1 */}
-        <div className="col-span-8 row-span-3 bg-white rounded-xl grid gap-4 grid-cols-12 p-4">
+        <div className="col-span-8 row-span-3 bg-white shadow-lg rounded-xl grid gap-4 grid-cols-12 p-4">
           <div className="col-span-4">
             <img
               className="aspect-video rounded-lg h-[150px] object-cover"
@@ -49,7 +49,7 @@ const LatestArticles = () => {
         </div>
 
         {/* artilce 2 */}
-        <div className="col-span-4 row-span-6 bg-white rounded-xl  p-4">
+        <div className="col-span-4 row-span-6 bg-white shadow-lg rounded-xl  p-4">
           {/* article thumbnail */}
           <div className="col-span-4">
             <img
@@ -84,7 +84,7 @@ const LatestArticles = () => {
         </div>
 
         {/* article 3 */}
-        <div className="col-span-8 row-span-3  bg-white rounded-xl grid gap-4 grid-cols-12 p-4">
+        <div className="col-span-8 row-span-3  bg-white shadow-lg rounded-xl grid gap-4 grid-cols-12 p-4">
           {/* image */}
           <div className="col-span-4">
             <img

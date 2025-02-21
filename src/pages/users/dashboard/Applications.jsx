@@ -27,15 +27,15 @@ const Applications = () => {
         <Table className="mt-6">
           <TableHeader>
             <TableRow>
-              <TableHead className="w-[100px]">#SL</TableHead>
-              <TableHead>University</TableHead>
-              <TableHead>Feedback</TableHead>
-              <TableHead>Subject</TableHead>
-              <TableHead>Degree</TableHead>
-              <TableHead>Fees</TableHead>
-              <TableHead>Charge</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Actions</TableHead>
+              <TableHead className="font-thin">#SL</TableHead>
+              <TableHead className="font-thin">University</TableHead>
+              <TableHead className="font-thin">Feedback</TableHead>
+              <TableHead className="font-thin">Subject</TableHead>
+              <TableHead className="font-thin">Degree</TableHead>
+              <TableHead className="font-thin">Fees</TableHead>
+              <TableHead className="font-thin">Charge</TableHead>
+              <TableHead className="font-thin">Status</TableHead>
+              <TableHead className="font-thin">Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>

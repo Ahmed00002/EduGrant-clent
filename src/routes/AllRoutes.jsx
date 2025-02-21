@@ -9,6 +9,11 @@ import HomePage from "../pages/users/HomePage";
 import Profile from "@/pages/users/dashboard/Profile";
 import Applications from "@/pages/users/dashboard/Applications";
 import Reviews from "@/pages/users/dashboard/Reviews";
+import ManageScholarships from "@/pages/admin/ManageScholarships";
+import AllUsers from "@/pages/admin/AllUsers";
+import AllApplications from "@/pages/admin/AllApplications";
+import AllReviews from "@/pages/admin/AllReviews";
+import Scholarships from "@/pages/users/Scholarships";
 
 const AllRoutes = () => {
   return (
@@ -17,16 +22,29 @@ const AllRoutes = () => {
         {/* Users only routes */}
         <Route element={<HomeLayout />}>
           <Route index path="/" element={<HomePage />} />
+          <Route index path="/scholarships" element={<Scholarships />} />
+        </Route>
 
-          <Route index path="/scholarships" element={<p>scholarships</p>} />
+        {/* user dashboard paths */}
+        <Route element={<DashboardLayout />}>
+          <Route index path="/dashboard/user/profile" element={<Profile />} />
+          <Route
+            path="/dashboard/user/applications"
+            element={<Applications />}
+          />
+          <Route path="/dashboard/user/reviews" element={<Reviews />} />
         </Route>
 
         {/* Admins Only Routes */}
         <Route element={<DashboardLayout />}>
-          <Route index path="/dashboard" element={<DashboardLayout />} />
-          <Route path="/dashboard/profile" element={<Profile />} />
-          <Route path="/dashboard/applications" element={<Applications />} />
-          <Route path="/dashboard/reviews" element={<Reviews />} />
+          <Route index path="/admin/profile" element={<Profile />} />
+          <Route path="/admin/users" element={<AllUsers />} />
+          <Route path="/admin/scholarships" element={<ManageScholarships />} />
+          <Route
+            path="/admin/scholarships/applications"
+            element={<AllApplications />}
+          />
+          <Route path="/admin/scholarships/reviews" element={<AllReviews />} />
         </Route>
 
         {/* authentication routes */}
