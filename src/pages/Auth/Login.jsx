@@ -7,7 +7,6 @@ import Lottie from "lottie-react";
 import loginLottie from "../../assets/lottie/login.json";
 import { useEffect, useState } from "react";
 import useAuth from "@/hooks/useAuth";
-import { X } from "lucide-react";
 import { ScaleLoader } from "react-spinners";
 import useCustomToast from "@/hooks/useCustomToast";
 
@@ -66,13 +65,10 @@ const Login = () => {
       })
       .catch(() => {
         setIsLogging(false);
-        toast("Failed!", {
-          description:
-            "Failed to logged in your account :) Check your internet and try again!",
-          action: {
-            label: <X size={10} />,
-          },
-        });
+        customToast(
+          "Failed!",
+          "Failed to logged in your account :) Check your internet and try again!"
+        );
       });
   };
 

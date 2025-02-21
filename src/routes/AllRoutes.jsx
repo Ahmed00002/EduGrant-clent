@@ -16,11 +16,14 @@ import AllReviews from "@/pages/admin/AllReviews";
 import Scholarships from "@/pages/users/Scholarships";
 import ScholarshipDetails from "@/pages/users/ScholarshipDetails";
 import Payment from "@/pages/payment/Payment";
+import NotFound from "@/pages/NotFound";
 
 const AllRoutes = () => {
   return (
     <>
       <Routes>
+        <Route path="*" element={<NotFound />} />
+
         {/* Users only routes */}
         <Route element={<HomeLayout />}>
           <Route index path="/" element={<HomePage />} />

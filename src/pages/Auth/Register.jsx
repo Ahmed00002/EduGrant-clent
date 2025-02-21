@@ -157,7 +157,14 @@ const Register = () => {
 
               {/* Password Input */}
               <input
-                {...register("password", { required: true })}
+                {...register("password", {
+                  required: true,
+                  pattern: {
+                    value: /^(?=.*[A-Z])(?=.*[\W_]).{6,}$/,
+                    message:
+                      "Password must have at least 6 characters, 1 uppercase & 1 special character",
+                  },
+                })}
                 type="password"
                 className="w-full p-2 mb-3 border rounded-md"
                 placeholder="********"
