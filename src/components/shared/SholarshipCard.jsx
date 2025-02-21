@@ -7,6 +7,7 @@ import {
   ArrowDownRight,
 } from "lucide-react";
 import PropTypes from "prop-types";
+import { Link } from "react-router";
 
 const ScholarshipCard = ({ scholarship }) => {
   return (
@@ -48,13 +49,15 @@ const ScholarshipCard = ({ scholarship }) => {
 
         {/* View Details Always at Bottom */}
         <div className="w-full mt-auto text-Primary cursor-pointer text-md">
-          <p className="group flex items-center justify-end gap-2">
-            View Details{" "}
-            <ArrowDownRight
-              size={15}
-              className="arrow transition-transform duration-300 group-hover:-rotate-45"
-            />
-          </p>
+          <Link to={"/scholarships/1"}>
+            <p className="group flex items-center justify-end gap-2">
+              View Details{" "}
+              <ArrowDownRight
+                size={15}
+                className="arrow transition-transform duration-300 group-hover:-rotate-45"
+              />
+            </p>
+          </Link>
         </div>
       </CardContent>
     </Card>

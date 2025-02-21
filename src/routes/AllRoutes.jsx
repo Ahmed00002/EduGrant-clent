@@ -14,6 +14,7 @@ import AllUsers from "@/pages/admin/AllUsers";
 import AllApplications from "@/pages/admin/AllApplications";
 import AllReviews from "@/pages/admin/AllReviews";
 import Scholarships from "@/pages/users/Scholarships";
+import ScholarshipDetails from "@/pages/users/ScholarshipDetails";
 
 const AllRoutes = () => {
   return (
@@ -22,7 +23,8 @@ const AllRoutes = () => {
         {/* Users only routes */}
         <Route element={<HomeLayout />}>
           <Route index path="/" element={<HomePage />} />
-          <Route index path="/scholarships" element={<Scholarships />} />
+          <Route path="/scholarships" element={<Scholarships />} />
+          <Route path="/scholarships/:id" element={<ScholarshipDetails />} />
         </Route>
 
         {/* user dashboard paths */}

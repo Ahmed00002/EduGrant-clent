@@ -23,7 +23,7 @@ const Slider = () => {
           nextEl: nextRef.current,
         }}
         modules={[EffectFade, Autoplay, Navigation]}
-        className="h-[400px]"
+        className="h-[400px] 2xl:h-[600px]"
         onSwiper={(swiper) => {
           setTimeout(() => {
             if (swiper.params.navigation) {
@@ -38,7 +38,7 @@ const Slider = () => {
         <SwiperSlide>
           <div className="relative">
             <img
-              className="aspect-video h-[400px] w-full object-cover"
+              className="aspect-video h-full w-full object-cover"
               src="https://scholarship.kshec.kerala.gov.in/assets/index/assets/images/aq4.png"
               alt=""
             />
@@ -46,14 +46,14 @@ const Slider = () => {
         </SwiperSlide>
         <SwiperSlide>
           <img
-            className="aspect-video h-[400px] w-full object-cover"
+            className="aspect-video h-full w-full object-cover"
             src="https://www.utahtrooper.com/wp-content/uploads/2023/08/scholarship-program-img.jpg"
             alt=""
           />
         </SwiperSlide>
         <SwiperSlide>
           <img
-            className="aspect-video h-[400px] w-full object-cover"
+            className="aspect-video h-full w-full object-cover"
             src="https://mitwpu.edu.in/assets/frontend/images/scholarship-img1.jpg"
             alt=""
           />
@@ -80,10 +80,10 @@ const Slider = () => {
       {/* banner text */}
       <div className="absolute top-0 left-0 z-[5] w-full h-full flex flex-col justify-center items-center bg-gradient-to-t from-black/70 to-black/10">
         <h1 className="text-Secondary font-medium text-xl">Welcome to the</h1>
-        <h1 className="text-white text-5xl font-bold mb-3 font-inter">
+        <h1 className="text-white text-5xl 2xl:text-7xl font-bold mb-3 font-inter">
           EduGrant Scholarships
         </h1>
-        <h1 className="text-white text-md">
+        <h1 className="text-white text-md 2xl:text-lg">
           Empower the leaders of tomorrow through education
         </h1>
         <motion.button

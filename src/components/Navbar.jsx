@@ -105,11 +105,11 @@ const Navbar = () => {
                         src={user?.photoURL}
                       />
                       <AvatarFallback
-                        className={`w-10 h-10 bg-gray-200 text-Primary rounded-full  flex justify-center items-center cursor-pointer ${
-                          user.photoURL || "p-2"
-                        }`}
+                        className={`w-10 h-10 bg-gray-200 text-Primary rounded-full  flex justify-center items-center cursor-pointer`}
                       >
-                        {user?.displayName.split(" ")[0][0]}
+                        {user.displayName
+                          ? user?.displayName.split(" ")[0][0]
+                          : "AN"}
                       </AvatarFallback>
                     </Avatar>
                   </DropdownMenuTrigger>
@@ -129,7 +129,9 @@ const Navbar = () => {
                               user.photoURL || "p-2"
                             }`}
                           >
-                            {user?.displayName.split(" ")[0][0]}
+                            {user.displayName
+                              ? user?.displayName.split(" ")[0][0]
+                              : "AN"}
                           </AvatarFallback>
                         </Avatar>
                         <h1 className="text-xs mx-auto">{user?.displayName}</h1>

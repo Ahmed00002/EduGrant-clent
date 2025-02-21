@@ -173,7 +173,7 @@ const Register = () => {
                 {isCreating ? (
                   <ScaleLoader height={20} width={1} color="white" />
                 ) : (
-                  "Login"
+                  "Register"
                 )}
               </motion.button>
             </form>

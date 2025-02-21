@@ -7,11 +7,12 @@ import Lottie from "lottie-react";
 import loginLottie from "../../assets/lottie/login.json";
 import { useEffect, useState } from "react";
 import useAuth from "@/hooks/useAuth";
-import { toast } from "sonner";
 import { X } from "lucide-react";
 import { ScaleLoader } from "react-spinners";
+import useCustomToast from "@/hooks/useCustomToast";
 
 const Login = () => {
+  const customToast = useCustomToast();
   const { signinEmailPass, signupWithGoogle } = useAuth();
   const [isLogging, setIsLogging] = useState(false);
   const { register, handleSubmit } = useForm();
@@ -36,23 +37,18 @@ const Login = () => {
     signupWithGoogle()
       .then(() => {
         setIsLogging(false);
-        toast("Successful!", {
-          description: "You have successfully logged in to your account",
-          action: {
-            label: <X size={10} />,
-          },
-        });
+        customToast(
+          "Successful!",
+          "You have successfully logged in to your account"
+        );
         navigate("/");
       })
       .catch(() => {
         setIsLogging(false);
-        toast("Failed!", {
-          description:
-            "Failed to logged in your account :) Check your internet and try again!",
-          action: {
-            label: <X size={10} />,
-          },
-        });
+        customToast(
+          "Failed!",
+          "Failed to logged in your account :) Check your internet and try again!"
+        );
       });
   };
 
@@ -62,12 +58,10 @@ const Login = () => {
     signinEmailPass(data.email, data.password)
       .then(() => {
         setIsLogging(false);
-        toast("Successful!", {
-          description: "You have successfully logged in to your account",
-          action: {
-            label: <X size={10} />,
-          },
-        });
+        customToast(
+          "Successful!",
+          "You have successfully logged in to your account"
+        );
         navigate("/");
       })
       .catch(() => {
