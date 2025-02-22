@@ -17,8 +17,10 @@ import Scholarships from "@/pages/users/Scholarships";
 import ScholarshipDetails from "@/pages/users/ScholarshipDetails";
 import Payment from "@/pages/payment/Payment";
 import NotFound from "@/pages/NotFound";
+import useAxiosSecure from "@/hooks/useAxiosSecure";
 
 const AllRoutes = () => {
+  const axiosSecure = useAxiosSecure();
   return (
     <>
       <Routes>
@@ -29,7 +31,7 @@ const AllRoutes = () => {
           <Route index path="/" element={<HomePage />} />
           <Route path="/scholarships" element={<Scholarships />} />
           <Route path="/scholarships/:id" element={<ScholarshipDetails />} />
-          <Route path="/checkout" element={<Payment />} />
+          <Route path="/scholarships/:id/checkout" element={<Payment />} />
         </Route>
 
         {/* user dashboard paths */}

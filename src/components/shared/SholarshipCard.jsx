@@ -10,46 +10,60 @@ import PropTypes from "prop-types";
 import { Link } from "react-router";
 
 const ScholarshipCard = ({ scholarship }) => {
+  console.log(scholarship);
+  const {
+    application_deadline = "21 Feb, 2025",
+    // application_fees,
+    post_date = "23",
+    scholarship_category = "robotics ",
+    scholarship_description = "simple",
+    // service_charge,
+    stipend = "212",
+    subject_name = "bangla",
+    university_location = "bangladesh",
+    university_logo = "sdf",
+    university_name = "Demo",
+    _id,
+  } = scholarship;
   return (
     <Card className="max-w-md p-4 shadow-lg rounded-2xl border border-gray-200 flex flex-col">
       <div className="flex items-center gap-4">
         <img
-          src={scholarship.logo}
-          alt={scholarship.university}
+          src={university_logo}
+          alt={university_name}
           className="w-16 h-16 object-contain"
         />
         <div>
-          <h2 className="text-lg font-semibold">{scholarship.university}</h2>
-          <p className="text-sm text-gray-500">{scholarship.category}</p>
+          <h2 className="text-lg font-semibold">{university_name}</h2>
+          <p className="text-sm text-gray-500">{scholarship_category}</p>
         </div>
       </div>
       <CardContent className="mt-4 space-y-2 flex flex-col flex-1">
         <div className="flex items-center text-sm text-gray-600">
-          <MapPin className="w-4 h-4 mr-2" /> {scholarship.location}
+          <MapPin className="w-4 h-4 mr-2" /> {university_location}
         </div>
         <div className="flex items-center text-sm text-gray-600">
           <PenBoxIcon className="w-4 h-4 mr-2" />
-          Posted On: {scholarship.postDate}
+          Posted On: {post_date}
         </div>
         <div className="flex items-center text-sm text-gray-600">
           <Calendar className="w-4 h-4 mr-2" /> Application Deadline:{" "}
-          {scholarship.deadline}
+          {application_deadline}
         </div>
 
-        <p className="text-sm font-medium">Subject: {scholarship.subject}</p>
+        <p className="text-sm font-medium">Subject: {subject_name}</p>
         <p className="text-sm text-gray-700 line-clamp-3">
-          {scholarship.description}
+          {scholarship_description}
         </p>
-        {scholarship.stipend && (
+        {stipend && (
           <div className="flex items-center text-sm text-Primary font-medium">
-            <DollarSign className="w-4 h-4 mr-2" /> Stipend:{" "}
-            {scholarship.stipend}
+            <DollarSign className="w-4 h-4 mr-2" /> Stipend: {stipend}
           </div>
         )}
 
         {/* View Details Always at Bottom */}
         <div className="w-full mt-auto text-Primary cursor-pointer text-md">
-          <Link to={"/scholarships/1"}>
+          <Link to={`/scholarships/${_id}`}>
             <p className="group flex items-center justify-end gap-2">
               View Details{" "}
               <ArrowDownRight

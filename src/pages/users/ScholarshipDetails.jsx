@@ -1,5 +1,6 @@
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList } from "@/components/ui/tabs";
+import useSingleLoader from "@/hooks/useSingleLoader";
 import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
 import { TabsTrigger } from "@radix-ui/react-tabs";
 import {
@@ -11,9 +12,31 @@ import {
   MessageSquareHeart,
   Star,
 } from "lucide-react";
+import { Link, useParams } from "react-router";
 
 // import svg from
 const ScholarshipDetails = () => {
+  const scholarship = useSingleLoader();
+  const params = useParams();
+  console.log("params", params);
+
+  console.log(scholarship);
+
+  //   de-structure scholarship
+  const {
+    application_deadline = "21 Feb 2023",
+    application_fees = "2000",
+    // post_date = "23 Oct 2024",
+    scholarship_category = "Robotics",
+    scholarship_description = "Demo description",
+    service_charge = "200",
+    stipend = "500",
+    subject_name = "Bangla",
+    university_location = "Uganda",
+    university_logo = "demo",
+    university_name = "Pabna University",
+    _id,
+  } = scholarship;
   const reviews = [
     {
       id: 1,
@@ -47,26 +70,26 @@ const ScholarshipDetails = () => {
             {/* title and rating */}
             <div className="bg-white shadow-xl px-6 py-4 rounded-xl rounded-tl-none">
               <div className="text-3xl font-inter font-bold text-text">
-                <h1>University Name Here</h1>
+                <h1>{university_name}</h1>
               </div>
               {/* university name */}
               <div className="mt-4 flex gap-4 items-center">
                 <div className="flex gap-2 items-center">
                   <Avatar className="w-10 h-10">
-                    <AvatarImage src="https://themephi.net/template/eduan/eduan/assets/img/course/details/author.jpg" />
+                    <AvatarImage src={university_logo} />
                   </Avatar>
                   <div className="p-0">
                     <p className="text-md font-medium text-gray-400">
                       Location
                     </p>
-                    <p>America, losangeles</p>
+                    <p>{university_location}</p>
                   </div>
                 </div>
 
                 {/* stipend */}
                 <div className="p-0 border-l-[1.5px] pl-4">
                   <p className="text-md font-medium text-gray-400">Category</p>
-                  <p>Robotics</p>
+                  <p>{scholarship_category}</p>
                 </div>
                 {/* Rating */}
                 <div className="p-0 border-l-[1.5px] pl-4">
@@ -100,22 +123,17 @@ const ScholarshipDetails = () => {
               {/* tab content : overview */}
               <TabsContent value="overview">
                 <h1 className="text-2xl font-medium mb-2">Description</h1>
-                <h2>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Veniam quis tempora ipsum esse vero temporibus corrupti
-                  obcaecati, consectetur, a velit quod, eos voluptate distinctio
-                  dolorem accusamus odit. Quidem facere at qui blanditiis,
-                  recusandae suscipit incidunt accusamus, similique aliquid
-                  beatae fugiat voluptatum ratione quia accusantium dolores,
-                  maiores quae provident odit? Eligendi!
-                </h2>
+                <h2>{scholarship_description}</h2>
               </TabsContent>
 
               {/* tab content : reviews */}
               <TabsContent value="reviews" className={"space-y-2"}>
-                {reviews.map((review) => (
+                {reviews.map((review, idx) => (
                   <>
-                    <div className="p-4 bg-gray-50 text-text rounded-lg">
+                    <div
+                      key={idx}
+                      className="p-4 bg-gray-50 text-text rounded-lg"
+                    >
                       <div className="flex items-center gap-4">
                         <img
                           src={review.image}
@@ -143,7 +161,9 @@ const ScholarshipDetails = () => {
           {/* details card and apply button */}
           <aside className=" col-span-4 ">
             <div className="bg-white shadow-xl rounded-xl">
-              <h1 className="text-5xl font-medium text-text p-6">$200</h1>
+              <h1 className="text-5xl font-medium text-text p-6">
+                ${application_fees}
+              </h1>
 
               {/* subject name */}
               <Separator />
@@ -152,7 +172,7 @@ const ScholarshipDetails = () => {
                   <BookOpen size={17} color="#004aad" />
                   Subject
                 </p>
-                <p className="text-right">Robotics</p>
+                <p className="text-right">{subject_name}</p>
               </div>
 
               {/* stipend */}
@@ -162,7 +182,7 @@ const ScholarshipDetails = () => {
                   <HandCoins size={17} color="#004aad" />
                   Stipend
                 </p>
-                <p className="text-right">$ 5000</p>
+                <p className="text-right">$ {stipend}</p>
               </div>
 
               {/* service charge */}
@@ -172,7 +192,7 @@ const ScholarshipDetails = () => {
                   <CreditCard size={17} color="#004aad" />
                   Service Charge
                 </p>
-                <p className="text-right">$ 5000</p>
+                <p className="text-right">{service_charge}</p>
               </div>
 
               {/* Deadline */}
@@ -182,13 +202,15 @@ const ScholarshipDetails = () => {
                   <Calendar size={17} color="#004aad" />
                   Deadline
                 </p>
-                <p className="text-right">24 March, 2025</p>
+                <p className="text-right">{application_deadline}</p>
               </div>
 
               <div className="p-6">
-                <button className="w-full bg-Primary text-white text-xl font-medium py-2 rounded-xl cursor-pointer">
-                  Apply Now
-                </button>
+                <Link to={`/scholarships/${_id}/checkout`}>
+                  <button className="w-full bg-Primary text-white text-xl font-medium py-2 rounded-xl cursor-pointer">
+                    Apply Now
+                  </button>
+                </Link>
               </div>
             </div>
           </aside>

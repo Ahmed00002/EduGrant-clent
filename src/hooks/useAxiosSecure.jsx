@@ -1,7 +1,10 @@
 import axios from "axios";
 
 const axiosSecure = axios.create({
-  baseURL: "http://localhost:5000/",
+  baseURL: "http://localhost:5000/apis/",
+  headers: {
+    Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+  },
 });
 const useAxiosSecure = () => {
   return axiosSecure;

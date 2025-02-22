@@ -11,8 +11,10 @@ import {
 import { useEffect, useState } from "react";
 import auth from "@/firebase/firebase_init";
 import { AuthContext } from "@/contexts/contexts";
+import useAxiosPublic from "@/hooks/useAxiosPublic";
 
 const AuthProvider = ({ children }) => {
+  const axiosPublic = useAxiosPublic();
   // user data
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -65,6 +67,17 @@ const AuthProvider = ({ children }) => {
       if (user) {
         setUser(user);
         setLoading(false);
+        axiosPublic
+          .post("/jwt", {
+            email: user.email,
+          })
+          .then((res) => {
+            console.log(res.data);
+            localStorage.setItem("accessToken", res.data.token);
+          })
+          .catch((e) => {
+            console.log(e);
+          });
       } else {
         setUser(null);
         setLoading(false);
