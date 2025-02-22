@@ -19,10 +19,18 @@ import useAuth from "@/hooks/useAuth";
 import { useForm } from "react-hook-form";
 import { Camera } from "lucide-react";
 import axios from "axios";
+import useSingleLoader from "@/hooks/useSingleLoader";
+import useCustomToast from "@/hooks/useCustomToast";
 
 export default function CheckoutForm() {
   // react hook form
   const { register, handleSubmit } = useForm();
+
+  // custom sooner toast
+  const customToast = useCustomToast();
+
+  // load scholarship data
+  const scholarship = useSingleLoader();
 
   const { register: registerForm2, handleSubmit: handleSubmitForm2 } =
     useForm();
@@ -37,7 +45,7 @@ export default function CheckoutForm() {
   const stripe = useStripe();
   const elements = useElements();
   const [clientSecret, setClientSecret] = useState(null);
-  const [transactionId, setTransactionId] = useState(true);
+  const [transactionId, setTransactionId] = useState();
   const [loading, setLoading] = useState(false);
   const [processing, setProcessing] = useState(false);
 
@@ -56,7 +64,7 @@ export default function CheckoutForm() {
     });
 
     if (error) {
-      toast.error(error.message);
+      customToast("Opps!", error.message);
       return;
     }
 
@@ -66,10 +74,13 @@ export default function CheckoutForm() {
       });
 
     if (confirmError) {
-      toast.error("Payment Failed. Please try again.");
+      customToast("Opps!", "Payment Failed. Please try again.");
     } else {
       setTransactionId(paymentIntent.id);
-      toast.success("Payment Successful!");
+      customToast(
+        "Congratulations!",
+        `You have successfully made payment for scholarship in ${scholarship.university_name}`
+      );
     }
   };
 
@@ -102,9 +113,6 @@ export default function CheckoutForm() {
   };
 
   const handleSelect = (field, value) => {
-    // e.preventDefault();
-    // console.log(e.target);
-    // setSelect({ ...select, [e.target.name]: e.target.value });
     setSelect((prev) => ({
       ...prev,
       [field]: value,
@@ -157,7 +165,7 @@ export default function CheckoutForm() {
                 <button
                   type="submit"
                   disabled={processing}
-                  className="w-full p-2 bg-black text-white rounded"
+                  className="w-full p-2 bg-black text-white rounded cursor-pointer"
                 >
                   {processing ? "Processing..." : "Pay Now"}
                 </button>
@@ -166,24 +174,28 @@ export default function CheckoutForm() {
 
             {/* Order Summary */}
             <div className="w-1/2 bg-gray-100 p-4 rounded-lg">
-              <h2 className="text-lg font-bold">Checkout Summary</h2>
+              <h2 className="text-lg font-bold">Scholarship</h2>
               <div className="flex justify-between my-2">
                 <div>
-                  <p className="font-semibold">Scholarship Name</p>
-                  <p className="text-sm text-gray-500">University Name</p>
+                  <p className="font-semibold">{scholarship.subject_name}</p>
+                  <p className="text-sm text-gray-500">
+                    {scholarship.university_name}
+                  </p>
                 </div>
-                <p className="font-semibold">$ 7000</p>
+                <p className="font-semibold">
+                  $ {scholarship.application_fees}
+                </p>
               </div>
 
               <hr className="my-2" />
               <div className="flex justify-between">
                 <p>Subtotal</p>
-                <p>$ 13000</p>
+                <p>$ {scholarship.application_fees}</p>
               </div>
               <hr className="my-2" />
               <div className="flex justify-between text-lg font-bold">
                 <p>Total</p>
-                <p>$ 13200</p>
+                <p>$ {scholarship.application_fees}</p>
               </div>
             </div>
           </div>
