@@ -2,9 +2,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import CheckoutForm from "./CheckoutForm";
 
-const stripePromise = loadStripe(
-  "pk_test_51QsyY7Rp6trY62j7UKoqmX0LwkyiHxXEyAusCdEOffIkkE5p97nGJ0DXFiyvOZSFfzu3hlyl3i8p5iyRaLqCJVsU00bE2ZaFYs"
-);
+const stripePromise = loadStripe(import.meta.env.VITE_stipe_secret_key);
 const Payment = () => {
   return (
     <div>

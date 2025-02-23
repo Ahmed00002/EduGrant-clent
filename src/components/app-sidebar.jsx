@@ -18,7 +18,7 @@ import {
 import { Link, NavLink } from "react-router";
 
 export function AppSidebar() {
-  const isAdmin = true;
+  const isAdmin = false;
   const userRoutes = (
     <>
       <NavLink to={"/dashboard/user/profile"}>

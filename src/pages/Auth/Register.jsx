@@ -43,7 +43,6 @@ const Register = () => {
       })
       .catch((e) => {
         setIsCreating(false);
-        console.log(e);
         customToast(
           "Failed",
           e.message

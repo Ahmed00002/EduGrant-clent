@@ -17,10 +17,8 @@ import Scholarships from "@/pages/users/Scholarships";
 import ScholarshipDetails from "@/pages/users/ScholarshipDetails";
 import Payment from "@/pages/payment/Payment";
 import NotFound from "@/pages/NotFound";
-import useAxiosSecure from "@/hooks/useAxiosSecure";
 
 const AllRoutes = () => {
-  const axiosSecure = useAxiosSecure();
   return (
     <>
       <Routes>

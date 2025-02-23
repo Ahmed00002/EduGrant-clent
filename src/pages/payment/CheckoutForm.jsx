@@ -1,9 +1,8 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import useAxiosPublic from "@/hooks/useAxiosPublic";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { toast } from "react-toastify";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -21,6 +20,10 @@ import { Camera } from "lucide-react";
 import axios from "axios";
 import useSingleLoader from "@/hooks/useSingleLoader";
 import useCustomToast from "@/hooks/useCustomToast";
+import useStripeInstant from "@/hooks/useStripeInstant";
+import { HashLoader } from "react-spinners";
+import useAxiosSecure from "@/hooks/useAxiosSecure";
+import { useNavigate } from "react-router";
 
 export default function CheckoutForm() {
   // react hook form
@@ -31,6 +34,9 @@ export default function CheckoutForm() {
 
   // load scholarship data
   const scholarship = useSingleLoader();
+  const totalFee =
+    parseInt(scholarship.application_fees) +
+    parseInt(scholarship.service_charge);
 
   const { register: registerForm2, handleSubmit: handleSubmitForm2 } =
     useForm();
@@ -44,18 +50,20 @@ export default function CheckoutForm() {
   // stripe
   const stripe = useStripe();
   const elements = useElements();
-  const [clientSecret, setClientSecret] = useState(null);
-  const [transactionId, setTransactionId] = useState();
+  // const [clientSecret, setClientSecret] = useState(null);
+  const clientSecret = useStripeInstant(totalFee);
+  console.log(clientSecret);
+  const [transactionId, setTransactionId] = useState(null);
   const [loading, setLoading] = useState(false);
   const [processing, setProcessing] = useState(false);
 
-  // axios
-  const axiosSecure = useAxiosPublic();
+  // // axios
+  const axiosSecure = useAxiosSecure();
+  const navigate = useNavigate();
 
-  const handleCheckout = async (data) => {
-    // e.preventDefault();
+  const handleCheckout = async () => {
+    setLoading(true);
     const card = elements.getElement(CardElement);
-    console.log(data, card);
     if (!stripe || !elements || !card) return;
 
     const { error, paymentMethod } = await stripe.createPaymentMethod({
@@ -64,6 +72,7 @@ export default function CheckoutForm() {
     });
 
     if (error) {
+      setLoading(false);
       customToast("Opps!", error.message);
       return;
     }
@@ -74,9 +83,12 @@ export default function CheckoutForm() {
       });
 
     if (confirmError) {
+      setLoading(false);
       customToast("Opps!", "Payment Failed. Please try again.");
     } else {
       setTransactionId(paymentIntent.id);
+      setLoading(false);
+
       customToast(
         "Congratulations!",
         `You have successfully made payment for scholarship in ${scholarship.university_name}`
@@ -91,13 +103,48 @@ export default function CheckoutForm() {
     applicantPhoto: "",
   });
 
+  // get file data and generate local link
   const handleFileInput = async (e) => {
     const localUrl = URL.createObjectURL(e.target.files[0]);
     setUploadedImg(localUrl);
     handleSelect("applicantPhoto", e.target.files[0]);
+  };
+
+  // handle select inputs
+  const handleSelect = (field, value) => {
+    setSelect((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+  };
+
+  const handleApplicationSumbit = async (data) => {
+    setLoading(true);
+
+    const finalData = {
+      ...data,
+      applicantGender: select.applicantGender,
+      applicantDegree: select.applicantDegree,
+      applicantStudyGap: select.applicantStudyGap,
+      appliedScholarshipId: scholarship._id,
+      applicantEmail: user.email,
+      applicantId: "demoId",
+    };
+
+    if (!select.applicantPhoto) {
+      customToast("Warning!", "Please upload a passport size picture");
+      setLoading(false);
+      return;
+    }
+
+    if (data.applicantHscResult > 5 || data.applicantSscResult > 5) {
+      setLoading(false);
+      customToast("Warning!", "SSC/HSC result cant be grater then 5");
+      return;
+    }
 
     const imgFile = {
-      image: e.target.files[0],
+      image: select.applicantPhoto,
     };
     const res = await axios.post(
       `https://api.imgbb.com/1/upload?key=16ad715e21266e431725fd0d0253ddfc`,
@@ -108,20 +155,34 @@ export default function CheckoutForm() {
         },
       }
     );
-    const data = res.data;
-    console.log(data);
-  };
 
-  const handleSelect = (field, value) => {
-    setSelect((prev) => ({
-      ...prev,
-      [field]: value,
-    }));
-  };
-  console.log(select);
+    console.log(res.data);
 
-  const handleApplicationSumbit = (data) => {
-    console.log("Form Submitted:", data);
+    if (res.data.data.display_url) {
+      setLoading(false);
+      finalData.applicantPhoto = res.data.data.display_url;
+
+      // upload data to server
+      axiosSecure.post("/applications", finalData).then((res) => {
+        console.log(res.data);
+
+        if (res.data.insertedId) {
+          navigate("/dashboard/user/applications");
+          customToast(
+            "Congratulations",
+            "Your application has been submitted and will reviewed soon"
+          );
+        }
+
+        if (res.data.isExist) {
+          customToast(
+            "Hey?",
+            "You have already applied for this scholarship. Wait for the feedback form university"
+          );
+        }
+      });
+    }
+    console.log(finalData);
   };
 
   return (
@@ -133,7 +194,7 @@ export default function CheckoutForm() {
       <div className="flex flex-col justify-center items-center    center -translate-y-15">
         {!transactionId ? (
           // checkout form
-          <div className="max-w-6xl mx-auto p-6 shadow-lg bg-white rounded-lg flex gap-8 text-text">
+          <div className="max-w-6xl mx-auto p-6 shadow-lg bg-white rounded-lg flex gap-8 text-text relative">
             {/* Payment Details */}
             <div className="w-1/2">
               <h2 className="text-2xl font-bold mb-4">Payment Details</h2>
@@ -187,21 +248,44 @@ export default function CheckoutForm() {
                 </p>
               </div>
 
+              <div className="flex justify-between my-2">
+                <div>
+                  <p className="text-sm text-gray-500">Service Charge</p>
+                </div>
+                <p className="font-semibold">$ {scholarship.service_charge}</p>
+              </div>
+
               <hr className="my-2" />
               <div className="flex justify-between">
                 <p>Subtotal</p>
-                <p>$ {scholarship.application_fees}</p>
+                <p>
+                  ${" "}
+                  {parseInt(scholarship.application_fees) +
+                    parseInt(scholarship.service_charge)}
+                </p>
               </div>
               <hr className="my-2" />
               <div className="flex justify-between text-lg font-bold">
                 <p>Total</p>
-                <p>$ {scholarship.application_fees}</p>
+                <p>
+                  ${" "}
+                  {parseInt(scholarship.application_fees) +
+                    parseInt(scholarship.service_charge)}
+                </p>
               </div>
             </div>
+
+            {/* loader */}
+            {loading && (
+              <div className="absolute top-0 left-0 w-full h-full flex flex-col gap-4 justify-center items-center backdrop-blur-xs">
+                <HashLoader color="#004aad" size={40} />
+                <p className="text-lg">Payment Proceccing</p>
+              </div>
+            )}
           </div>
         ) : (
           // {/* form after payment */}
-          <Card className=" mx-auto p-6 w-7/12 shadow-lg">
+          <Card className=" mx-auto p-6 w-7/12 shadow-lg relative">
             <CardContent>
               <div className="flex justify-between">
                 <div>
@@ -294,20 +378,26 @@ export default function CheckoutForm() {
                 </Select>
                 <Input
                   {...registerForm2("applicantSscResult")}
+                  step="0.01"
                   className="shadow-none "
-                  type="text"
+                  type="number"
+                  max={5}
                   name="applicantSscResult"
-                  placeholder="SSC Result"
+                  placeholder="SSC Result in GPA"
                   required
                 />
+
                 <Input
                   {...registerForm2("applicantHscResult")}
+                  step="0.01"
+                  max={5}
                   className="shadow-none "
-                  type="text"
+                  type="number"
                   name="applicantHscResult"
-                  placeholder="HSC Result"
+                  placeholder="HSC Result in GPA"
                   required
                 />
+
                 <Select
                   onValueChange={(value) =>
                     handleSelect("applicantStudyGap", value)
@@ -331,7 +421,7 @@ export default function CheckoutForm() {
                   className="shadow-none "
                   type="text"
                   name="university"
-                  value={"harvard university"}
+                  value={scholarship.university_name}
                   readOnly
                 />
                 <Input
@@ -339,7 +429,7 @@ export default function CheckoutForm() {
                   className="shadow-none "
                   type="text"
                   name="category"
-                  value={"RObotix"}
+                  value={scholarship.scholarshipCategory}
                   readOnly
                 />
                 <Input
@@ -347,7 +437,7 @@ export default function CheckoutForm() {
                   className="shadow-none "
                   type="text"
                   name="subject"
-                  value={"formData.subject"}
+                  value={scholarship.subject_name}
                   readOnly
                 />
                 <Button type="submit" className="w-full bg-blue-600 text-white">
@@ -355,6 +445,14 @@ export default function CheckoutForm() {
                 </Button>
               </form>
             </CardContent>
+
+            {/* loader */}
+            {loading && (
+              <div className="absolute top-0 left-0 w-full h-full flex flex-col gap-4 justify-center items-center backdrop-blur-xs">
+                <HashLoader color="#004aad" size={40} />
+                <p className="text-lg">Submitting Application</p>
+              </div>
+            )}
           </Card>
         )}
       </div>

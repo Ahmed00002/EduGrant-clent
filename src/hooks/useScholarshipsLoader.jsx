@@ -11,7 +11,6 @@ const useScholarshipsLoader = () => {
       .get("/scholarships")
       .then((res) => setScholarships(res.data))
       .catch((e) => {
-        console.log(e);
         customToast("Opps!", e.response.data.message);
       });
   }, []);

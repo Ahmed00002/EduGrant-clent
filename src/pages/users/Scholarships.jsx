@@ -75,7 +75,6 @@ const Scholarships = () => {
   // ];
 
   const scholarships = useScholarshipsLoader();
-  console.log(scholarships);
   return (
     <>
       <section className="mb-12">

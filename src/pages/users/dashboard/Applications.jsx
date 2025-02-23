@@ -7,8 +7,24 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import useAuth from "@/hooks/useAuth";
+import useAxiosSecure from "@/hooks/useAxiosSecure";
+import { useEffect, useState } from "react";
 
 const Applications = () => {
+  const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
+  const [applications, setApplications] = useState([]);
+  useEffect(() => {
+    if (user) {
+      axiosSecure
+        .get(`/applications?email=${user?.email}`)
+        .then((res) => {
+          setApplications(res.data);
+        })
+        .catch((e) => console.log(e));
+    }
+  }, [user?.email, axiosSecure, user]);
   return (
     <>
       <section className=" bg-white rounded-lg p-6 font-inter">
@@ -39,10 +55,12 @@ const Applications = () => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            <ApplicationTableRow />
-            <ApplicationTableRow />
-            <ApplicationTableRow />
-            <ApplicationTableRow />
+            {applications.map((application) => (
+              <ApplicationTableRow
+                application={application}
+                key={application._id}
+              />
+            ))}
           </TableBody>
         </Table>
       </section>

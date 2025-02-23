@@ -5,7 +5,7 @@ const useCustomToast = () => {
     toast(title, {
       description: description,
       action: {
-        label: "Undo",
+        label: "Close",
       },
     });
   };

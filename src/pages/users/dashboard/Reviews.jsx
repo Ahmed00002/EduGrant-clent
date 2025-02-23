@@ -7,8 +7,44 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import useAxiosSecure from "@/hooks/useAxiosSecure";
+import useCustomToast from "@/hooks/useCustomToast";
+import useUserReviews from "@/hooks/useUserReviews";
+import Swal from "sweetalert2";
 
 const Reviews = () => {
+  const { userReview, refetch } = useUserReviews();
+  const axiosSecure = useAxiosSecure();
+  const customToast = useCustomToast();
+
+  const handleDeleteReview = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Delete",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.delete(`reviews/${id}`).then((res) => {
+          if (res.data.deletedCount > 0) {
+            customToast(
+              "Review Deleted!",
+              "Your review has been deleted successfully"
+            );
+            refetch();
+          }
+        });
+      }
+    });
+  };
+
+  const updateRating = (data) => {
+    console.log(data);
+    customToast("hitted");
+  };
   return (
     <>
       <section className=" bg-white rounded-lg p-6 font-inter">
@@ -23,17 +59,6 @@ const Reviews = () => {
           </form>
         </div>
 
-        {/**
-         * university name,
-Review comments,
-Review date.
-Delete button,
-Edit Button,
-User can delete his/her review by clicking the delete button.
-User can edit his/her review by clicking the edit button.
-
-         */}
-
         {/* applications data */}
         <Table className="mt-6">
           <TableHeader>
@@ -46,9 +71,16 @@ User can edit his/her review by clicking the edit button.
             </TableRow>
           </TableHeader>
           <TableBody>
-            <ReviewsRow />
-            <ReviewsRow />
-            <ReviewsRow />
+            {userReview.map((review) => {
+              return (
+                <ReviewsRow
+                  handleDeleteReview={handleDeleteReview}
+                  updateRating={updateRating}
+                  scholarship={review}
+                  key={review._id}
+                />
+              );
+            })}
           </TableBody>
         </Table>
       </section>

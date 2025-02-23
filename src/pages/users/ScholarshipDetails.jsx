@@ -1,8 +1,13 @@
+import Rating from "@/components/Rating";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList } from "@/components/ui/tabs";
+import useAuth from "@/hooks/useAuth";
+import useAxiosSecure from "@/hooks/useAxiosSecure";
+import useCustomToast from "@/hooks/useCustomToast";
 import useSingleLoader from "@/hooks/useSingleLoader";
 import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
 import { TabsTrigger } from "@radix-ui/react-tabs";
+import * as motion from "motion/react-client";
 import {
   Bookmark,
   BookOpen,
@@ -10,17 +15,76 @@ import {
   CreditCard,
   HandCoins,
   MessageSquareHeart,
-  Star,
 } from "lucide-react";
-import { Link, useParams } from "react-router";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { Link } from "react-router";
+import useAverageRating from "@/hooks/useAverageRating";
+import { FaStar } from "react-icons/fa";
 
-// import svg from
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/autoplay";
+import { Pagination, Autoplay } from "swiper/modules";
+import { SwiperSlide, Swiper } from "swiper/react";
+
 const ScholarshipDetails = () => {
   const scholarship = useSingleLoader();
-  const params = useParams();
-  console.log("params", params);
+  const [userRatings, setUserRatings] = useState([]);
+  const customToast = useCustomToast();
+  const { ratings, refetch } = useAverageRating(scholarship?._id);
+  console.log(ratings);
 
-  console.log(scholarship);
+  //   user data
+  const { user } = useAuth();
+  const { register, handleSubmit } = useForm();
+
+  // axios secure
+  const axiosSecure = useAxiosSecure();
+
+  useEffect(() => {
+    axiosSecure
+      .get(`scholarships/ratings/${scholarship._id}`)
+      .then((res) => setUserRatings(res.data))
+      .catch((e) => console.log(e));
+  }, [axiosSecure, scholarship._id]);
+
+  // rating
+  const [rating, setRating] = useState(null);
+
+  const handleReview = (data) => {
+    if (!rating) {
+      customToast("Alert!", "Please select your rating");
+      return;
+    }
+    if (!data.review) {
+      customToast("Alert!", "Please explain your experience");
+      return;
+    }
+    axiosSecure
+      .post("/reviews", {
+        email: user?.email,
+        name: user?.displayName,
+        userPhoto: user?.photoURL,
+        review: data.review,
+        rating: rating,
+        scholarshipId: scholarship._id,
+      })
+      .then((res) => {
+        console.log(res.data);
+        if (res.data.insertedId) {
+          refetch();
+          customToast(
+            "Thank You",
+            "Your review added and thanks for your valuable review"
+          );
+        }
+
+        if (res.data.isExist) {
+          customToast("Hey!", "You have already reviewed on this scholarship");
+        }
+      });
+  };
 
   //   de-structure scholarship
   const {
@@ -37,24 +101,7 @@ const ScholarshipDetails = () => {
     university_name = "Pabna University",
     _id,
   } = scholarship;
-  const reviews = [
-    {
-      id: 1,
-      name: "John Doe",
-      image: "https://randomuser.me/api/portraits/men/1.jpg",
-      date: "Feb 20, 2025",
-      rating: 4.5,
-      comment: "Great scholarship opportunity!",
-    },
-    {
-      id: 2,
-      name: "Jane Smith",
-      image: "https://randomuser.me/api/portraits/women/2.jpg",
-      date: "Jan 15, 2025",
-      rating: 5,
-      comment: "Highly recommended!",
-    },
-  ];
+
   return (
     <>
       <section className="center mt-8 mb-8">
@@ -95,7 +142,8 @@ const ScholarshipDetails = () => {
                 <div className="p-0 border-l-[1.5px] pl-4">
                   <p className="text-md font-medium text-gray-400">Rating</p>
                   <p className="flex items-center gap-1">
-                    5 <Star size={15} color="#ffa121" />
+                    {ratings?.averageRating.toFixed(1) || 0}{" "}
+                    <FaStar size={15} color="#ffa121" />
                   </p>
                 </div>
               </div>
@@ -128,32 +176,108 @@ const ScholarshipDetails = () => {
 
               {/* tab content : reviews */}
               <TabsContent value="reviews" className={"space-y-2"}>
-                {reviews.map((review, idx) => (
-                  <>
-                    <div
-                      key={idx}
-                      className="p-4 bg-gray-50 text-text rounded-lg"
+                <div className="p-2 rounded-md shadow-sm space-y-2">
+                  <Rating ratingData={{ rating, setRating }} />
+                  <form
+                    onSubmit={handleSubmit(handleReview)}
+                    className="w-full flex justify-between"
+                  >
+                    <input
+                      {...register("review")}
+                      type="text"
+                      className="w-full px-4 py-2 outline-none border-b"
+                      placeholder="Write something..."
+                    />
+                    <motion.button
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 1 }}
+                      type="submit"
+                      className="px-4 py-2 h-full bg-gray-100 rounded-xs cursor-pointer"
                     >
-                      <div className="flex items-center gap-4">
-                        <img
-                          src={review.image}
-                          alt={review.name}
-                          className="w-12 h-12 rounded-full"
-                        />
-                        <div className="flex justify-between w-full">
-                          <div>
-                            <h4 className="font-semibold">{review.name}</h4>
-                            <p className="text-sm text-gray-500">
-                              {review.date}
+                      Post
+                    </motion.button>
+                  </form>
+                </div>
+
+                {ratings?.averageRating > 0 ? (
+                  <div className="max-w-3xl mx-auto py-10">
+                    <Swiper
+                      modules={[Pagination, Autoplay]}
+                      slidesPerView={1}
+                      // pagination={{ clickable: true }}
+                      autoplay={{ delay: 3000, disableOnInteraction: false }}
+                      loop={true}
+                    >
+                      {userRatings.map((review) => (
+                        <SwiperSlide key={review._id}>
+                          <div className="p-6 bg-gray-50 rounded-2xl shadow-lg text-center flex flex-col items-center">
+                            <img
+                              src={review.userPhoto}
+                              alt={review.name}
+                              className="w-20 h-20 rounded-full mb-4 border-2 border-gray-300"
+                            />
+                            <h3 className="text-xl font-semibold mb-2">
+                              {review.name}
+                            </h3>
+                            <p className="text-gray-600 italic mb-4">
+                              &quot;{review.review}&quot;
                             </p>
+                            <div className="flex justify-center gap-1">
+                              {[...Array(5)].map((_, index) => (
+                                <FaStar
+                                  key={index}
+                                  className={
+                                    index < review.rating
+                                      ? "text-yellow-500"
+                                      : "text-gray-300"
+                                  }
+                                />
+                              ))}
+                            </div>
                           </div>
-                          <p className="text-yellow-500">⭐ {review.rating}</p>
-                        </div>
-                      </div>
-                      <p className="mt-2">{review.comment}</p>
+                        </SwiperSlide>
+                      ))}
+                    </Swiper>
+                  </div>
+                ) : (
+                  <>
+                    <div className="flex justify-center">
+                      <svg
+                        fill="#d4d4d4"
+                        version="1.1"
+                        id="Capa_1"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlnsXlink="http://www.w3.org/1999/xlink"
+                        width="60px"
+                        height="60px"
+                        viewBox="0 0 410.76 410.76"
+                        xmlSpace="preserve"
+                        stroke="#d4d4d4"
+                        strokeWidth="0.00410758"
+                        className="mt-6"
+                      >
+                        <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+                        <g
+                          id="SVGRepo_tracerCarrier"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          stroke="#CCCCCC"
+                          strokeWidth="0.8215159999999999"
+                        ></g>
+                        <g id="SVGRepo_iconCarrier">
+                          {" "}
+                          <g>
+                            {" "}
+                            <path d="M350.604,60.153C311.812,21.362,260.237,0,205.379,0C150.521,0,98.945,21.362,60.154,60.153S0,150.52,0,205.378 c0,54.858,21.363,106.437,60.154,145.227c38.79,38.791,90.366,60.153,145.225,60.153c54.859,0,106.434-21.362,145.225-60.153 c38.791-38.79,60.154-90.366,60.154-145.227C410.758,150.521,389.395,98.944,350.604,60.153z M255.626,121.808 c16.955,0,30.749,13.794,30.749,30.749c0,16.955-13.794,30.749-30.749,30.749c-16.954,0-30.749-13.794-30.749-30.749 C224.877,135.602,238.672,121.808,255.626,121.808z M155.131,121.808c16.955,0,30.749,13.794,30.749,30.749 c0,16.955-13.794,30.749-30.749,30.749c-16.956,0-30.748-13.794-30.748-30.749C124.383,135.602,138.175,121.808,155.131,121.808z M292.355,289.348c-7.299,3.916-16.391,1.174-20.309-6.125c-12.428-23.154-36.398-38.406-62.562-39.805 c-26.392-1.408-52.002,11.326-66.799,33.23c-1.436,2.125-2.771,4.336-3.973,6.573c-3.92,7.302-13.014,10.041-20.311,6.123 c-7.301-3.918-10.041-13.012-6.123-20.312c1.68-3.127,3.543-6.215,5.545-9.178c19.625-29.049,52.842-46.543,87.713-46.543 c1.844,0,3.694,0.049,5.547,0.146c36.56,1.953,70.047,23.248,87.396,55.576C302.398,276.336,299.656,285.43,292.355,289.348z"></path>{" "}
+                          </g>{" "}
+                        </g>
+                      </svg>
                     </div>
+                    <h1 className="text-center mt-6 font-inter font-medium text-gray-400">
+                      No One Reviewed Yet{" "}
+                    </h1>
                   </>
-                ))}
+                )}
               </TabsContent>
             </Tabs>
           </aside>
