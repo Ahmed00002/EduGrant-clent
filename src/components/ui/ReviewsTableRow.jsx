@@ -17,7 +17,6 @@ import { Input } from "./input";
 import { useState } from "react";
 import Rating from "../Rating";
 import { useForm } from "react-hook-form";
-import useCustomToast from "@/hooks/useCustomToast";
 
 const ReviewsRow = ({
   scholarship: review,
@@ -26,12 +25,16 @@ const ReviewsRow = ({
 }) => {
   const { register, handleSubmit } = useForm();
   const [rating, setRating] = useState(review.rating);
-  const customToast = useCustomToast();
   //   de-structure review
   const {
     scholarship_category = "Robotics",
     university_name = "Pabna University",
   } = review.scholarshipDetails;
+
+  const handleUpdate = (data) => {
+    data.rating = rating;
+    updateRating(data, review._id);
+  };
 
   return (
     <TableRow className="py-2">
@@ -77,15 +80,15 @@ const ReviewsRow = ({
                   <Input
                     type="text"
                     id="ussername"
-                    value="@peduarte"
-                    {...register("comment")}
+                    defaultValue={review.review}
+                    {...register("review")}
                     className="col-span-3"
                   />
                 </form>
               </div>
             </div>
             <DialogFooter>
-              <Button onClick={handleSubmit(updateRating)} type="submit">
+              <Button onClick={handleSubmit(handleUpdate)} type="submit">
                 Save changes
               </Button>
             </DialogFooter>

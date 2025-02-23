@@ -9,12 +9,15 @@ import {
 } from "@/components/ui/table";
 import useAuth from "@/hooks/useAuth";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
+import useCustomToast from "@/hooks/useCustomToast";
 import { useEffect, useState } from "react";
 
 const Applications = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const [applications, setApplications] = useState([]);
+  const customToast = useCustomToast();
+
   useEffect(() => {
     if (user) {
       axiosSecure
@@ -25,6 +28,40 @@ const Applications = () => {
         .catch((e) => console.log(e));
     }
   }, [user?.email, axiosSecure, user]);
+
+  // Add review
+  const handleAddReview = (data, applicationId, scholarshipId) => {
+    if (!data.rating) {
+      customToast("Alert!", "Please select your rating");
+      return;
+    }
+    if (!data.review) {
+      customToast("Alert!", "Please explain your experience");
+      return;
+    }
+    axiosSecure
+      .post("/reviews", {
+        email: user?.email,
+        name: user?.displayName,
+        userPhoto: user?.photoURL,
+        review: data.review,
+        rating: data.rating,
+        scholarshipId: scholarshipId,
+      })
+      .then((res) => {
+        console.log(res.data);
+        if (res.data.insertedId) {
+          customToast(
+            "Thank You",
+            "Your review added and thanks for your valuable review"
+          );
+        }
+
+        if (res.data.isExist) {
+          customToast("Hey!", "You have already reviewed on this scholarship");
+        }
+      });
+  };
   return (
     <>
       <section className=" bg-white rounded-lg p-6 font-inter">
@@ -58,6 +95,7 @@ const Applications = () => {
             {applications.map((application) => (
               <ApplicationTableRow
                 application={application}
+                handleAddReview={handleAddReview}
                 key={application._id}
               />
             ))}

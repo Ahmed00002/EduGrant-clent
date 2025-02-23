@@ -41,9 +41,14 @@ const Reviews = () => {
     });
   };
 
-  const updateRating = (data) => {
-    console.log(data);
-    customToast("hitted");
+  const updateRating = (data, reviewId) => {
+    axiosSecure.patch(`/reviews/${reviewId}`, data).then((res) => {
+      if (res.data.modifiedCount > 0) {
+        customToast("Updated!", "Your rating has been updated successfully");
+        refetch();
+      }
+    });
+    console.log(data, reviewId);
   };
   return (
     <>
