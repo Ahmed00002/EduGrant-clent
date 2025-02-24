@@ -9,12 +9,15 @@ import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
 import { TabsTrigger } from "@radix-ui/react-tabs";
 import * as motion from "motion/react-client";
 import {
+  Banknote,
   Bookmark,
   BookOpen,
   Calendar,
   CreditCard,
+  GraduationCap,
   HandCoins,
   MessageSquareHeart,
+  TrendingUp,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -69,6 +72,7 @@ const ScholarshipDetails = () => {
         review: data.review,
         rating: rating,
         scholarshipId: scholarship._id,
+        scholarship_name: scholarship.scholarship_name,
       })
       .then((res) => {
         console.log(res.data);
@@ -88,18 +92,23 @@ const ScholarshipDetails = () => {
 
   //   de-structure scholarship
   const {
-    application_deadline = "21 Feb 2023",
-    application_fees = "2000",
+    application_deadline = "--",
+    application_fees = "--",
     // post_date = "23 Oct 2024",
-    scholarship_category = "Robotics",
-    scholarship_description = "Demo description",
-    service_charge = "200",
-    stipend = "500",
-    subject_name = "Bangla",
-    university_location = "Uganda",
-    university_logo = "demo",
-    university_name = "Pabna University",
+    scholarship_category = "--",
+    scholarship_description = "--",
+    service_charge = "--",
+    stipend = "--",
+    subject_category = "--",
+    university_city = "--",
+    university_country = "--",
+    university_logo = "--",
+    university_name = "--",
+    tuition_fees = "--",
+    university_rank = "--",
+    scholarship_name = "--",
     _id,
+    degree = "--",
   } = scholarship;
 
   return (
@@ -116,24 +125,30 @@ const ScholarshipDetails = () => {
           <aside className="col-span-8">
             {/* title and rating */}
             <div className="bg-white shadow-xl px-6 py-4 rounded-xl rounded-tl-none">
-              <div className="text-3xl font-inter font-bold text-text">
-                <h1>{university_name}</h1>
+              <div className=" font-inter font-bold text-text">
+                <h1 className="text-3xl">{scholarship_name}</h1>
+                <p className="text-md font-medium text-gray-400">
+                  {university_name}
+                </p>
               </div>
               {/* university name */}
               <div className="mt-4 flex gap-4 items-center">
                 <div className="flex gap-2 items-center">
                   <Avatar className="w-10 h-10">
-                    <AvatarImage src={university_logo} />
+                    <AvatarImage
+                      className="w-10 h-10 object-cover"
+                      src={university_logo}
+                    />
                   </Avatar>
                   <div className="p-0">
                     <p className="text-md font-medium text-gray-400">
                       Location
                     </p>
-                    <p>{university_location}</p>
+                    <p>{university_city + ", " + university_country}</p>
                   </div>
                 </div>
 
-                {/* stipend */}
+                {/* category */}
                 <div className="p-0 border-l-[1.5px] pl-4">
                   <p className="text-md font-medium text-gray-400">Category</p>
                   <p>{scholarship_category}</p>
@@ -144,6 +159,16 @@ const ScholarshipDetails = () => {
                   <p className="flex items-center gap-1">
                     {ratings?.averageRating.toFixed(1) || 0}{" "}
                     <FaStar size={15} color="#ffa121" />
+                  </p>
+                </div>
+                {/* Rating */}
+                <div className="p-0 border-l-[1.5px] pl-4">
+                  <p className="text-md font-medium text-gray-400">
+                    World Rank
+                  </p>
+                  <p className="flex items-center gap-1">
+                    {university_rank || 0}{" "}
+                    <TrendingUp size={15} color="#ffa121" />
                   </p>
                 </div>
               </div>
@@ -293,10 +318,20 @@ const ScholarshipDetails = () => {
               <Separator />
               <div className="flex justify-between px-6 py-2">
                 <p className="flex items-center gap-2">
+                  <GraduationCap size={17} color="#004aad" />
+                  Degree
+                </p>
+                <p className="text-right">{degree}</p>
+              </div>
+
+              {/* subject name */}
+              <Separator />
+              <div className="flex justify-between px-6 py-2">
+                <p className="flex items-center gap-2">
                   <BookOpen size={17} color="#004aad" />
                   Subject
                 </p>
-                <p className="text-right">{subject_name}</p>
+                <p className="text-right">{subject_category}</p>
               </div>
 
               {/* stipend */}
@@ -309,6 +344,16 @@ const ScholarshipDetails = () => {
                 <p className="text-right">$ {stipend}</p>
               </div>
 
+              {/* tuition fees */}
+              <Separator />
+              <div className="flex justify-between px-6 py-2">
+                <p className="flex items-center gap-2">
+                  <Banknote size={17} color="#004aad" />
+                  Tuition Fees
+                </p>
+                <p className="text-right">$ {tuition_fees}</p>
+              </div>
+
               {/* service charge */}
               <Separator />
               <div className="flex justify-between px-6 py-2">
@@ -316,7 +361,7 @@ const ScholarshipDetails = () => {
                   <CreditCard size={17} color="#004aad" />
                   Service Charge
                 </p>
-                <p className="text-right">{service_charge}</p>
+                <p className="text-right">$ {service_charge}</p>
               </div>
 
               {/* Deadline */}

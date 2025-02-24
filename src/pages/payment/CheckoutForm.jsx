@@ -147,7 +147,7 @@ export default function CheckoutForm() {
       image: select.applicantPhoto,
     };
     const res = await axios.post(
-      `https://api.imgbb.com/1/upload?key=16ad715e21266e431725fd0d0253ddfc`,
+      `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_imgbb}`,
       imgFile,
       {
         headers: {
@@ -238,7 +238,9 @@ export default function CheckoutForm() {
               <h2 className="text-lg font-bold">Scholarship</h2>
               <div className="flex justify-between my-2">
                 <div>
-                  <p className="font-semibold">{scholarship.subject_name}</p>
+                  <p className="font-semibold">
+                    {scholarship.scholarship_name}
+                  </p>
                   <p className="text-sm text-gray-500">
                     {scholarship.university_name}
                   </p>

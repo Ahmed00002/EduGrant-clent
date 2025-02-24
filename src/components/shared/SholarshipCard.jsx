@@ -13,17 +13,18 @@ import { Link } from "react-router";
 
 const ScholarshipCard = ({ scholarship }) => {
   const {
-    application_deadline = "21 Feb, 2025",
+    application_deadline = "--",
     // application_fees,
-    post_date = "23",
-    scholarship_category = "robotics ",
-    scholarship_description = "simple",
+    post_date = "--",
+    scholarship_category = "-- ",
+    scholarship_description = "--",
     // service_charge,
-    stipend = "212",
-    subject_name = "bangla",
-    university_location = "bangladesh",
-    university_logo = "sdf",
-    university_name = "Demo",
+    stipend = "--",
+    subject_category = "--",
+    university_city = "--",
+    university_country = "--",
+    university_logo = "--",
+    university_name = "--",
     _id,
   } = scholarship;
 
@@ -48,7 +49,8 @@ const ScholarshipCard = ({ scholarship }) => {
       </div>
       <CardContent className="mt-4 space-y-2 flex flex-col flex-1">
         <div className="flex items-center text-sm text-gray-600">
-          <MapPin className="w-4 h-4 mr-2" /> {university_location}
+          <MapPin className="w-4 h-4 mr-2" /> {university_country},
+          {university_city}
         </div>
         <div className="flex items-center text-sm text-gray-600">
           <PenBoxIcon className="w-4 h-4 mr-2" />
@@ -59,7 +61,7 @@ const ScholarshipCard = ({ scholarship }) => {
           {application_deadline}
         </div>
 
-        <p className="text-sm font-medium">Subject: {subject_name}</p>
+        <p className="text-sm font-medium">Subject: {subject_category}</p>
         <p className="text-sm text-gray-700 line-clamp-3">
           {scholarship_description}
         </p>

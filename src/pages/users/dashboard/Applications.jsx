@@ -21,7 +21,7 @@ const Applications = () => {
   useEffect(() => {
     if (user) {
       axiosSecure
-        .get(`/applications?email=${user?.email}`)
+        .get(`/user/applications?email=${user?.email}`)
         .then((res) => {
           setApplications(res.data);
         })
@@ -30,7 +30,12 @@ const Applications = () => {
   }, [user?.email, axiosSecure, user]);
 
   // Add review
-  const handleAddReview = (data, applicationId, scholarshipId) => {
+  const handleAddReview = (
+    data,
+    applicationId,
+    scholarshipId,
+    scholarshipName
+  ) => {
     if (!data.rating) {
       customToast("Alert!", "Please select your rating");
       return;
@@ -47,6 +52,7 @@ const Applications = () => {
         review: data.review,
         rating: data.rating,
         scholarshipId: scholarshipId,
+        scholarship_name: scholarshipName,
       })
       .then((res) => {
         console.log(res.data);

@@ -11,6 +11,7 @@ import {
   ClipboardCheck,
   GraduationCap,
   LogOut,
+  PlusCircle,
   Star,
   User,
   Users,
@@ -18,7 +19,7 @@ import {
 import { Link, NavLink } from "react-router";
 
 export function AppSidebar() {
-  const isAdmin = false;
+  const isAdmin = true;
   const userRoutes = (
     <>
       <NavLink to={"/dashboard/user/profile"}>
@@ -86,11 +87,21 @@ export function AppSidebar() {
 
       <NavLink to={"/admin/scholarships"} end>
         <SidebarMenuButton
-          tooltip={"My Reviews"}
+          tooltip={"All Scholarships"}
           className={"mx-auto userDashMenu"}
         >
           <GraduationCap size={30} />
           <span>All Scholarship</span>
+        </SidebarMenuButton>
+      </NavLink>
+
+      <NavLink to={"/admin/scholarships/add"} end>
+        <SidebarMenuButton
+          tooltip={"Add Scholarship"}
+          className={"mx-auto userDashMenu"}
+        >
+          <PlusCircle size={30} />
+          <span>Add Scholarship</span>
         </SidebarMenuButton>
       </NavLink>
 

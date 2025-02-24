@@ -14,7 +14,7 @@ const useUserReviews = () => {
     enabled: !!user?.email,
     queryFn: async () => {
       console.log("Query Key:", ["userReviews", user?.email]);
-      const res = await axiosSecure.get(`reviews?email=${user?.email}`);
+      const res = await axiosSecure.get(`scholarships/reviews/${user?.email}`);
       console.log(res.data);
       return res.data;
     },

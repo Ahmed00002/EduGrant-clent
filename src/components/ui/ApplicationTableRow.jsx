@@ -47,12 +47,13 @@ const ApplicationTableRow = ({ application, handleAddReview }) => {
     service_charge = "200",
     subject_name = "Bangla",
     university_name = "Pabna University",
+    scholarship_name,
     _id,
   } = application.scholarshipDetails;
 
   const handleReview = (data) => {
     data.rating = rating;
-    handleAddReview(data, applicationId, _id);
+    handleAddReview(data, applicationId, _id, scholarship_name);
   };
 
   // handle cancel

@@ -64,7 +64,7 @@ const Reviews = () => {
           </form>
         </div>
 
-        {/* applications data */}
+        {/* reviews data */}
         <Table className="mt-6">
           <TableHeader>
             <TableRow>
@@ -88,6 +88,9 @@ const Reviews = () => {
             })}
           </TableBody>
         </Table>
+        <p className="text-center text-gray-400">
+          {userReview.length === 0 && "No Review Found"}
+        </p>
       </section>
     </>
   );

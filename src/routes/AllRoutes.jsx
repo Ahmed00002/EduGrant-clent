@@ -9,7 +9,7 @@ import HomePage from "../pages/users/HomePage";
 import Profile from "@/pages/users/dashboard/Profile";
 import Applications from "@/pages/users/dashboard/Applications";
 import Reviews from "@/pages/users/dashboard/Reviews";
-import ManageScholarships from "@/pages/admin/ManageScholarships";
+import ManageScholarships from "@/pages/admin/manage_Scholarships/ManageScholarships";
 import AllUsers from "@/pages/admin/AllUsers";
 import AllApplications from "@/pages/admin/AllApplications";
 import AllReviews from "@/pages/admin/AllReviews";
@@ -17,6 +17,7 @@ import Scholarships from "@/pages/users/Scholarships";
 import ScholarshipDetails from "@/pages/users/ScholarshipDetails";
 import Payment from "@/pages/payment/Payment";
 import NotFound from "@/pages/NotFound";
+import AddScholarship from "@/pages/admin/AddScholarship";
 
 const AllRoutes = () => {
   return (
@@ -47,6 +48,7 @@ const AllRoutes = () => {
           <Route index path="/admin/profile" element={<Profile />} />
           <Route path="/admin/users" element={<AllUsers />} />
           <Route path="/admin/scholarships" element={<ManageScholarships />} />
+          <Route path="/admin/scholarships/add" element={<AddScholarship />} />
           <Route
             path="/admin/scholarships/applications"
             element={<AllApplications />}
