@@ -19,11 +19,13 @@ import useAxiosSecure from "@/hooks/useAxiosSecure";
 import useCustomToast from "@/hooks/useCustomToast";
 import Swal from "sweetalert2";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useState } from "react";
 
-const roles = ["user", "moderator", "admin"];
+const roles = ["All", "user", "moderator", "admin"];
 
 const AllUsers = () => {
-  const { users, refetch, isLoading } = useUserLoader();
+  const [sortBy, setSortBy] = useState("All");
+  const { users, refetch, isLoading } = useUserLoader(sortBy);
   const axiosSecure = useAxiosSecure();
   const customToast = useCustomToast();
 
@@ -81,7 +83,21 @@ const AllUsers = () => {
     <>
       <section className=" bg-white rounded-lg p-6 font-inter">
         <div className="flex justify-between items-center mb-6">
-          <h1 className="text-xl font-bold font-railway">All Reviews</h1>
+          <h1 className="text-xl font-bold font-railway">All Users</h1>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline">
+                {sortBy} <ChevronDown />{" "}
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              {roles.map((role) => (
+                <DropdownMenuItem onClick={() => setSortBy(role)} key={role}>
+                  {role}
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
 
         <Table>
