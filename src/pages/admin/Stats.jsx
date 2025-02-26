@@ -1,17 +1,11 @@
+import GenderBasedChart from "@/components/GenderBasedChard";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
 import { BookUser, GraduationCap, Users } from "lucide-react";
+// import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from "recharts";
 import { useEffect, useState } from "react";
-import { PieChart, Pie, Cell } from "recharts";
 const Stats = () => {
   const axiosSecure = useAxiosSecure();
   const [stats, setStats] = useState();
-  const data = [
-    { name: "Group A", value: 400 },
-    { name: "Group B", value: 300 },
-    { name: "Group C", value: 300 },
-    { name: "Group D", value: 200 },
-  ];
-  const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 
   useEffect(() => {
     axiosSecure.get("stats").then((res) => setStats(res.data));
@@ -64,44 +58,15 @@ const Stats = () => {
             </div>
           </div>
         </div>
-        <PieChart width={800} height={400}>
-          <Pie
-            data={data}
-            cx={120}
-            cy={200}
-            innerRadius={60}
-            outerRadius={80}
-            fill="#8884d8"
-            paddingAngle={5}
-            dataKey="value"
-          >
-            {data.map((entry, index) => (
-              <Cell
-                key={`cell-${index}`}
-                fill={COLORS[index % COLORS.length]}
-              />
-            ))}
-          </Pie>
-          <Pie
-            data={data}
-            cx={420}
-            cy={200}
-            startAngle={180}
-            endAngle={0}
-            innerRadius={60}
-            outerRadius={80}
-            fill="#8884d8"
-            paddingAngle={5}
-            dataKey="value"
-          >
-            {data.map((entry, index) => (
-              <Cell
-                key={`cell-${index}`}
-                fill={COLORS[index % COLORS.length]}
-              />
-            ))}
-          </Pie>
-        </PieChart>
+
+        <div className="grid md:grid-cols-3 lg:grid-cols-4">
+          <div className="drop-shadow-xl mt-6 rounded-lg bg-white flex flex-col justify-center items-center p-4">
+            <h1 className="text-left w-full text-xl font-medium text-gray-500">
+              Applicants Gender
+            </h1>
+            <GenderBasedChart />
+          </div>
+        </div>
       </section>
     </>
   );
