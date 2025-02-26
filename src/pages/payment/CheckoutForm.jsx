@@ -25,6 +25,7 @@ import { HashLoader } from "react-spinners";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
 import { useNavigate } from "react-router";
 import useUserData from "@/hooks/useUserData";
+import SetPageTitle from "@/components/shared/SetPageTitle";
 
 export default function CheckoutForm() {
   // react hook form
@@ -185,6 +186,7 @@ export default function CheckoutForm() {
 
   return (
     <>
+      <SetPageTitle title={"Checkout"} />
       <PageHeader
         title={"Checkout"}
         subTitle={"Secure & Fast Checkout – Complete Your Payment Safely!"}

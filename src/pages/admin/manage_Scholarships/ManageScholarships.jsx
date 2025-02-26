@@ -11,6 +11,7 @@ import useScholarshipsLoader from "@/hooks/useScholarshipsLoader";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
 import ScholarshipTRow from "./ScholarshipTRow";
 import useCustomToast from "@/hooks/useCustomToast";
+import SetPageTitle from "@/components/shared/SetPageTitle";
 const Applications = () => {
   const axiosSecure = useAxiosSecure();
   const customToast = useCustomToast();
@@ -45,6 +46,7 @@ const Applications = () => {
 
   return (
     <>
+      <SetPageTitle title={"Manage Scholarships"} />
       <section className=" bg-white rounded-lg p-6 font-inter">
         <div className="flex justify-between items-center">
           <h1 className="text-xl font-bold font-railway">My Applications</h1>

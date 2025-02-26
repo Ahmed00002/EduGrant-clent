@@ -20,6 +20,7 @@ import useCustomToast from "@/hooks/useCustomToast";
 import Swal from "sweetalert2";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useState } from "react";
+import SetPageTitle from "@/components/shared/SetPageTitle";
 
 const roles = ["All", "user", "moderator", "admin"];
 
@@ -81,6 +82,7 @@ const AllUsers = () => {
 
   return (
     <>
+      <SetPageTitle title={"Users"} />
       <section className=" bg-white rounded-lg p-6 font-inter">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-xl font-bold font-railway">All Users</h1>

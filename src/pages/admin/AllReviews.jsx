@@ -1,4 +1,5 @@
 import AdminReviewCard from "@/components/adminReviewCard";
+import SetPageTitle from "@/components/shared/SetPageTitle";
 import { Input } from "@/components/ui/input";
 import ReviewSkelton from "@/components/ui/ReviewSkelton";
 import useAllReviews from "@/hooks/useAllReviews";
@@ -76,6 +77,7 @@ const AllReviews = () => {
           {!isLoading && reviews.length === 0 && "No Review Found"}
         </p>
       </section>
+      <SetPageTitle title={"All Reviews"} />
     </>
   );
 };

@@ -1,4 +1,5 @@
 import GenderBasedChart from "@/components/GenderBasedChard";
+import SetPageTitle from "@/components/shared/SetPageTitle";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
 import { BookUser, GraduationCap, Users } from "lucide-react";
 // import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from "recharts";
@@ -68,6 +69,7 @@ const Stats = () => {
           </div>
         </div>
       </section>
+      <SetPageTitle title={"Statistics"} />
     </>
   );
 };

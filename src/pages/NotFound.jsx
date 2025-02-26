@@ -1,3 +1,4 @@
+import SetPageTitle from "@/components/shared/SetPageTitle";
 import { Link } from "react-router";
 
 const NotFound = () => {
@@ -23,6 +24,7 @@ const NotFound = () => {
       >
         Go Back Home
       </Link>
+      <SetPageTitle title={"Not Found"} />
     </div>
   );
 };

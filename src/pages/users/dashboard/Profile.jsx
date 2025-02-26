@@ -1,3 +1,4 @@
+import SetPageTitle from "@/components/shared/SetPageTitle";
 import EditButton from "@/components/ui/EditButton";
 import useAuth from "@/hooks/useAuth";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
@@ -6,6 +7,7 @@ const Profile = () => {
   const { user } = useAuth();
   return (
     <>
+      <SetPageTitle title={"Profile"} />
       <section className=" bg-white  rounded-lg p-6 font-inter">
         <h1 className="text-xl font-bold font-railway">My Profile</h1>
         {/* profile image  */}

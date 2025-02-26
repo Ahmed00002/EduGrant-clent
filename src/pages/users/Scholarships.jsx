@@ -5,6 +5,7 @@ import svg from "@/assets/graduate.svg";
 import useScholarshipsLoader from "@/hooks/useScholarshipsLoader";
 import ScholarshipCardSkeleton from "@/components/shared/ScholarshipCardSkeleton";
 import { useState } from "react";
+import SetPageTitle from "@/components/shared/SetPageTitle";
 
 const Scholarships = () => {
   const [search, setSearch] = useState("");
@@ -16,6 +17,7 @@ const Scholarships = () => {
   };
   return (
     <>
+      <SetPageTitle title={"Scholarships"} />
       <section className="mb-12">
         <div className="relative">
           <PageHeader

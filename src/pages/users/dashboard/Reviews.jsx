@@ -1,3 +1,4 @@
+import SetPageTitle from "@/components/shared/SetPageTitle";
 import { Input } from "@/components/ui/input";
 import ReviewsRow from "@/components/ui/ReviewsTableRow";
 import {
@@ -51,6 +52,7 @@ const Reviews = () => {
   };
   return (
     <>
+      <SetPageTitle title={"Reviews"} />
       <section className=" bg-white rounded-lg p-6 font-inter">
         <div className="flex justify-between items-center">
           <h1 className="text-xl font-bold font-railway">My Reviews</h1>

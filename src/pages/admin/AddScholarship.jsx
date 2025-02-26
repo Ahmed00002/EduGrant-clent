@@ -5,6 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import useCustomToast from "@/hooks/useCustomToast";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
 import useAuth from "@/hooks/useAuth";
+import SetPageTitle from "@/components/shared/SetPageTitle";
 
 const AddScholarship = () => {
   const { user } = useAuth();
@@ -50,7 +51,6 @@ const AddScholarship = () => {
       university_logo: imageURL,
       post_date: new Date().toISOString().split("T")[0],
     };
-
 
     try {
       const res = await axiosSecure.post("scholarship", newScholarship);
@@ -266,6 +266,7 @@ const AddScholarship = () => {
           Publish
         </button>
       </form>
+      <SetPageTitle title={"Add Scholarships"} />
     </div>
   );
 };

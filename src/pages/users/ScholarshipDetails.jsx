@@ -30,6 +30,7 @@ import "swiper/css/pagination";
 import "swiper/css/autoplay";
 import { Pagination, Autoplay } from "swiper/modules";
 import { SwiperSlide, Swiper } from "swiper/react";
+import SetPageTitle from "@/components/shared/SetPageTitle";
 
 const ScholarshipDetails = () => {
   const { scholarship } = useSingleLoader();
@@ -112,6 +113,7 @@ const ScholarshipDetails = () => {
 
   return (
     <>
+      <SetPageTitle title={"Scholarship Details"} />
       <section className="center mt-8 mb-8">
         <div>
           <img

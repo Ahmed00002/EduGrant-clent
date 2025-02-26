@@ -14,6 +14,7 @@ import useManageApplications from "@/hooks/useManageApplications";
 import { useState } from "react";
 import TopLoader from "@/components/shared/loader/TopLoader";
 import TableSkeleton from "@/components/ui/TableSkeleton";
+import SetPageTitle from "@/components/shared/SetPageTitle";
 
 const ManageApplications = () => {
   const [updating, setUpdating] = useState(false);
@@ -73,6 +74,7 @@ const ManageApplications = () => {
 
   return (
     <>
+      <SetPageTitle title={"Manage Applications"} />
       <section className=" bg-white rounded-lg p-6 font-inter">
         <div className="flex justify-between items-center">
           <h1 className="text-xl font-bold font-railway">All Applications</h1>
