@@ -141,6 +141,9 @@
   .navMenu a.active {
     @apply text-Secondary;
   }
+  .navMenuM a.active {
+    @apply text-Primary bg-gray-100;
+  }
 
   .center {
     @apply max-w-[1440px] mx-auto px-5 md:px-8 2xl:px-24;

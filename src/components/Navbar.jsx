@@ -17,8 +17,11 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import useUserRole from "@/hooks/useUserRole";
+import { useIsMobile } from "@/hooks/use-mobile";
+import MobileDrawer from "./shared/MobileNav";
 
 const Navbar = () => {
+  const isMobile = useIsMobile();
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const toast = useCustomToast();
@@ -51,26 +54,29 @@ const Navbar = () => {
        */}
       <nav className="bg-Primary text-PrimaryContent font-inter sticky top-0 left-0 z-50 w-full">
         <section className=" flex justify-between gap-4 items-center center">
-          <div>
+          <div className="flex items-center gap-4">
+            {isMobile && <MobileDrawer />}
             <img
               className="h-[50px] md:h-[60px] 2xl:h-[70px]"
               src={logo}
               alt=""
             />
           </div>
-          <div className="grow text-right space-x-4 navMenu">
-            <NavLink to={"/"}>Home</NavLink>
-            <NavLink to={"/scholarships"}>All Scholarship</NavLink>
-            <NavLink
-              to={
-                role?.isAdmin || role?.isModerator
-                  ? "/admin/stats"
-                  : "/dashboard/user/profile"
-              }
-            >
-              Dashboard
-            </NavLink>
-          </div>
+          {!isMobile && (
+            <div className="grow text-right space-x-4 navMenu">
+              <NavLink to={"/"}>Home</NavLink>
+              <NavLink to={"/scholarships"}>All Scholarship</NavLink>
+              <NavLink
+                to={
+                  role?.isAdmin || role?.isModerator
+                    ? "/admin/stats"
+                    : "/dashboard/user/profile"
+                }
+              >
+                Dashboard
+              </NavLink>
+            </div>
+          )}
           <div>
             {!user ? (
               // login signup buttons
