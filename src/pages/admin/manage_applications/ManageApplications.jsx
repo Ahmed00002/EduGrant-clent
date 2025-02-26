@@ -13,12 +13,13 @@ import ApplicationTRow from "./ApplicationTRow";
 import useManageApplications from "@/hooks/useManageApplications";
 import { useState } from "react";
 import TopLoader from "@/components/shared/loader/TopLoader";
+import TableSkeleton from "@/components/ui/TableSkeleton";
 
 const ManageApplications = () => {
   const [updating, setUpdating] = useState(false);
   const axiosSecure = useAxiosSecure();
   const customToast = useCustomToast();
-  const { applications, refetch } = useManageApplications();
+  const { applications, refetch, isLoading } = useManageApplications();
 
   // update application status
   const handleUpdateStatus = (status, id) => {
@@ -106,6 +107,14 @@ const ManageApplications = () => {
                 handleUpdateStatus={handleUpdateStatus}
               />
             ))}
+            {isLoading && (
+              <>
+                <TableSkeleton />
+                <TableSkeleton />
+                <TableSkeleton />
+                <TableSkeleton />
+              </>
+            )}
           </TableBody>
         </Table>
 

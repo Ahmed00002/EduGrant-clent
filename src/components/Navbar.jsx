@@ -64,7 +64,7 @@ const Navbar = () => {
             <NavLink
               to={
                 role?.isAdmin || role?.isModerator
-                  ? "/admin/profile"
+                  ? "/admin/stats"
                   : "/dashboard/user/profile"
               }
             >

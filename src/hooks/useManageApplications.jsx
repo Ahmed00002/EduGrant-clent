@@ -4,7 +4,11 @@ import { useQuery } from "@tanstack/react-query";
 const useManageApplications = () => {
   const axiosSecure = useAxiosSecure();
 
-  const { data: applications = [], refetch } = useQuery({
+  const {
+    data: applications = [],
+    refetch,
+    isLoading,
+  } = useQuery({
     queryKey: ["allApplications"],
     queryFn: async () => {
       const res = await axiosSecure.get(`applications`);
@@ -13,7 +17,7 @@ const useManageApplications = () => {
     },
   });
 
-  return { applications, refetch };
+  return { applications, refetch, isLoading };
 };
 
 export default useManageApplications;

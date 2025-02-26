@@ -1,12 +1,13 @@
 import AdminReviewCard from "@/components/adminReviewCard";
 import { Input } from "@/components/ui/input";
+import ReviewSkelton from "@/components/ui/ReviewSkelton";
 import useAllReviews from "@/hooks/useAllReviews";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
 import useCustomToast from "@/hooks/useCustomToast";
 import Swal from "sweetalert2";
 
 const AllReviews = () => {
-  const { reviews, refetch } = useAllReviews();
+  const { reviews, refetch, isLoading } = useAllReviews();
   const axiosSecure = useAxiosSecure();
   const customToast = useCustomToast();
 
@@ -62,10 +63,17 @@ const AllReviews = () => {
               review={{ review, handleDeleteReview }}
             />
           ))}
+          {isLoading && (
+            <>
+              <ReviewSkelton />
+              <ReviewSkelton />
+              <ReviewSkelton />
+            </>
+          )}
         </div>
 
         <p className="text-center text-gray-400">
-          {reviews.length === 0 && "No Review Found"}
+          {!isLoading && reviews.length === 0 && "No Review Found"}
         </p>
       </section>
     </>

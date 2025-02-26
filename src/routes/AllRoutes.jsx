@@ -20,6 +20,7 @@ import AddScholarship from "@/pages/admin/AddScholarship";
 import PrivateRoutes from "./private/PrivateRoutes";
 import AdminOnly from "./private/AdminOnly";
 import ManageApplications from "@/pages/admin/manage_applications/ManageApplications";
+import Stats from "@/pages/admin/Stats";
 
 const AllRoutes = () => {
   return (
@@ -78,6 +79,14 @@ const AllRoutes = () => {
         <Route element={<DashboardLayout />}>
           <Route
             index
+            path="/admin/stats"
+            element={
+              <AdminOnly>
+                <Stats />
+              </AdminOnly>
+            }
+          />
+          <Route
             path="/admin/profile"
             element={
               <AdminOnly>

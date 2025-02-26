@@ -8,7 +8,6 @@ const useAverageRating = (id) => {
     enabled: !!id,
     queryFn: async () => {
       const res = await axiosSecure.get(`scholarships/${id}/average-rating`);
-      console.log(res.data);
       return res.data;
     },
   });

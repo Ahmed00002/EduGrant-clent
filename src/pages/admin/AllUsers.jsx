@@ -127,6 +127,38 @@ const AllUsers = () => {
                 </TableCell>
               </TableRow>
             ))}
+            {isLoading && (
+              <>
+                <TableRow>
+                  <TableCell>
+                    <Skeleton className={"w-full py-4"} />
+                  </TableCell>
+                  <TableCell>
+                    <Skeleton className={"w-full py-4"} />
+                  </TableCell>
+                  <TableCell>
+                    <Skeleton className={"w-full py-4"} />
+                  </TableCell>
+                  <TableCell>
+                    <Skeleton className={"w-full py-4"} />
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>
+                    <Skeleton className={"w-full py-4"} />
+                  </TableCell>
+                  <TableCell>
+                    <Skeleton className={"w-full py-4"} />
+                  </TableCell>
+                  <TableCell>
+                    <Skeleton className={"w-full py-4"} />
+                  </TableCell>
+                  <TableCell>
+                    <Skeleton className={"w-full py-4"} />
+                  </TableCell>
+                </TableRow>
+              </>
+            )}
           </TableBody>
         </Table>
 
@@ -134,12 +166,6 @@ const AllUsers = () => {
           <p className="text-center mt-6 text-gray-400 font-medium font-inter">
             No User Found
           </p>
-        )}
-
-        {isLoading && (
-          <div>
-            <Skeleton className={"w-full py-2"} />
-          </div>
         )}
       </section>
     </>

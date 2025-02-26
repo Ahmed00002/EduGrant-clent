@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/sidebar";
 import useUserRole from "@/hooks/useUserRole";
 import {
+  BarChart,
   BookUser,
   ClipboardCheck,
   GraduationCap,
@@ -21,7 +22,6 @@ import { Link, NavLink } from "react-router";
 
 export function AppSidebar() {
   const { role } = useUserRole();
-  const isAdmin = true;
 
   const userRoutes = (
     <>
@@ -56,6 +56,16 @@ export function AppSidebar() {
   );
   const ModeratorORAdmin = (admin) => (
     <>
+      <NavLink to={"/admin/stats"} end>
+        <SidebarMenuButton
+          tooltip={"My Profile"}
+          className={"mx-auto userDashMenu"}
+        >
+          <BarChart size={30} />
+          <span>Statistics</span>
+        </SidebarMenuButton>
+      </NavLink>
+
       <NavLink to={"/admin/profile"} end>
         <SidebarMenuButton
           tooltip={"My Profile"}

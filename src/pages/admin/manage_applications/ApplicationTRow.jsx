@@ -40,7 +40,7 @@ const ApplicationTRow = ({ applications, handleUpdateStatus }) => {
   const {
     register: registerFeedback,
     handleSubmit: handleFeedbackSubmit,
-    formState: { errors },
+    // formState: { errors },
     reset,
   } = useForm({
     defaultValues: applications,
