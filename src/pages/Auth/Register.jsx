@@ -9,11 +9,17 @@ import { useEffect, useState } from "react";
 import useAuth from "@/hooks/useAuth";
 import useCustomToast from "@/hooks/useCustomToast";
 import { ScaleLoader } from "react-spinners";
+import { updateProfile } from "firebase/auth";
+import auth from "@/firebase/firebase_init";
 
 const Register = () => {
   const customToast = useCustomToast();
   const { signupWithGoogle, signUpEmailPass } = useAuth();
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const [isExit, setIsExit] = useState(false);
   const [isCreating, setIsCreating] = useState(false);
   const navigate = useNavigate();
@@ -40,6 +46,10 @@ const Register = () => {
           "You have successfully created your account"
         );
         navigate("/");
+        updateProfile(auth.currentUser, {
+          displayName: data.name,
+          photoURL: data.photoURL,
+        });
       })
       .catch((e) => {
         setIsCreating(false);
@@ -168,6 +178,11 @@ const Register = () => {
                 className="w-full p-2 mb-3 border rounded-md"
                 placeholder="********"
               />
+              {errors.password && (
+                <p className="text-red-500 text-xs mb-2">
+                  {errors.password.message}
+                </p>
+              )}
 
               {/* register Button */}
               <motion.button

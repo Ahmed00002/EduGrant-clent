@@ -15,6 +15,7 @@ const AdminReviewCard = ({ review }) => {
     review: comment,
     scholarshipDetails: {
       // _id,
+      scholarship_name,
       university_name,
       // university_logo,
       // university_location,
@@ -28,6 +29,7 @@ const AdminReviewCard = ({ review }) => {
       // post_date,
     },
   } = reviewDetails;
+  console.log("review name", scholarship_name);
   return (
     <motion.div
       className="bg-white rounded-2xl shadow-lg p-5 flex flex-col justify-between border hover:shadow-xl transition"
@@ -35,6 +37,7 @@ const AdminReviewCard = ({ review }) => {
     >
       {/* University Info */}
       <div className="mb-3">
+        <h3 className="text-xl font-semibold">{scholarship_name}</h3>
         <h3 className="text-xl font-semibold">{university_name}</h3>
         <p className="text-sm text-gray-500">{subject_name}</p>
       </div>

@@ -16,11 +16,13 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
+import useUserRole from "@/hooks/useUserRole";
 
 const Navbar = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const toast = useCustomToast();
+  const { role } = useUserRole();
 
   // logout user
   const handleLogout = () => {
@@ -59,7 +61,15 @@ const Navbar = () => {
           <div className="grow text-right space-x-4 navMenu">
             <NavLink to={"/"}>Home</NavLink>
             <NavLink to={"/scholarships"}>All Scholarship</NavLink>
-            <NavLink to={"/dashboard/user/profile"}>Dashboard</NavLink>
+            <NavLink
+              to={
+                role?.isAdmin || role?.isModerator
+                  ? "/admin/profile"
+                  : "/dashboard/user/profile"
+              }
+            >
+              Dashboard
+            </NavLink>
           </div>
           <div>
             {!user ? (

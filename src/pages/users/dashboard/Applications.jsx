@@ -10,31 +10,21 @@ import {
 import useAuth from "@/hooks/useAuth";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
 import useCustomToast from "@/hooks/useCustomToast";
-import { useEffect, useState } from "react";
+import useApplications from "@/hooks/userUserApplications";
 
 const Applications = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
-  const [applications, setApplications] = useState([]);
+  const { applications } = useApplications();
+  console.log(applications);
   const customToast = useCustomToast();
-
-  useEffect(() => {
-    if (user) {
-      axiosSecure
-        .get(`/user/applications?email=${user?.email}`)
-        .then((res) => {
-          setApplications(res.data);
-        })
-        .catch((e) => console.log(e));
-    }
-  }, [user?.email, axiosSecure, user]);
 
   // Add review
   const handleAddReview = (
     data,
-    applicationId,
     scholarshipId,
-    scholarshipName
+    scholarshipName,
+    university_name
   ) => {
     if (!data.rating) {
       customToast("Alert!", "Please select your rating");
@@ -45,7 +35,7 @@ const Applications = () => {
       return;
     }
     axiosSecure
-      .post("/reviews", {
+      .post("reviews", {
         email: user?.email,
         name: user?.displayName,
         userPhoto: user?.photoURL,
@@ -53,6 +43,7 @@ const Applications = () => {
         rating: data.rating,
         scholarshipId: scholarshipId,
         scholarship_name: scholarshipName,
+        university_name: university_name,
       })
       .then((res) => {
         console.log(res.data);
@@ -66,6 +57,20 @@ const Applications = () => {
         if (res.data.isExist) {
           customToast("Hey!", "You have already reviewed on this scholarship");
         }
+      });
+  };
+
+  const handleUpdate = (data, id) => {
+    axiosSecure
+      .patch(`users/applications/${id}`, data)
+      .then((res) => {
+        if (res.data.modifiedCount) {
+          customToast("Successful", "Your application data updated.");
+          // refetch
+        }
+      })
+      .catch(() => {
+        customToast("failed", "Your application data failed to update.");
       });
   };
   return (
@@ -102,11 +107,18 @@ const Applications = () => {
               <ApplicationTableRow
                 application={application}
                 handleAddReview={handleAddReview}
+                handleUpdate={handleUpdate}
                 key={application._id}
               />
             ))}
           </TableBody>
         </Table>
+
+        {applications.length === 0 && (
+          <p className="text-center mt-6 text-gray-400 font-medium font-inter">
+            No Applications Found
+          </p>
+        )}
       </section>
     </>
   );

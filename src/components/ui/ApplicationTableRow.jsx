@@ -1,4 +1,16 @@
-import { Pen, X } from "lucide-react";
+import {
+  Book,
+  Edit2,
+  Eye,
+  GraduationCap,
+  GraduationCapIcon,
+  Pen,
+  Phone,
+  Star,
+  Triangle,
+  University,
+  X,
+} from "lucide-react";
 import { TableCell, TableRow } from "./table";
 import PropTypes from "prop-types";
 
@@ -17,29 +29,39 @@ import { Input } from "./input";
 import { useState } from "react";
 import Rating from "../Rating";
 import { useForm } from "react-hook-form";
+import { Badge } from "./badge";
+import { FaAddressCard } from "react-icons/fa";
 
-const ApplicationTableRow = ({ application, handleAddReview }) => {
+const ApplicationTableRow = ({
+  application,
+  handleAddReview,
+  handleUpdate,
+}) => {
   const {
-    _id: applicationId,
-    // applicantNumber,
-    // applicantAddress,
-    // applicantSscResult,
-    // applicantHscResult,
-    // scholarshipUniversity,
-    // scholarshipCategory,
-    // scholarshipSub,
-    // applicantGender,
+    _id,
+    applicantNumber,
+    applicantAddress,
+    applicantSscResult,
+    applicantHscResult,
+    scholarshipUniversity,
+    scholarshipCategory,
+    scholarshipSub,
+    applicantGender,
     applicantDegree,
     applicationStatus,
-    // applicantStudyGap,
-    // applicantPhoto,
+    applicantStudyGap,
+    applicantPhoto,
     // applied_ScholarshipId,
-    // applicant_email,
-    // applicant_Id,
-    // appliedData,
+    applicantEmail,
+    // applicantId,
+    applicantName,
+    appliedData,
+    feedback,
   } = application;
 
   const { register, handleSubmit } = useForm();
+  const { register: registerUpdate, handleSubmit: handleSubmitOnUpdate } =
+    useForm();
   const [rating, setRating] = useState(0);
 
   const {
@@ -48,12 +70,16 @@ const ApplicationTableRow = ({ application, handleAddReview }) => {
     subject_name = "Bangla",
     university_name = "Pabna University",
     scholarship_name,
-    _id,
+    // _id: scholarshipId,
   } = application.scholarshipDetails;
 
   const handleReview = (data) => {
     data.rating = rating;
-    handleAddReview(data, applicationId, _id, scholarship_name);
+    handleAddReview(data, _id, scholarship_name, university_name);
+  };
+
+  const handleUpdateApplication = (data) => {
+    handleUpdate(data, _id);
   };
 
   // handle cancel
@@ -64,11 +90,12 @@ const ApplicationTableRow = ({ application, handleAddReview }) => {
     <TableRow className="py-2">
       <TableCell>1</TableCell>
       <TableCell>{university_name}</TableCell>
-      <TableCell></TableCell>
+      <TableCell>{feedback || "--"}</TableCell>
       <TableCell>{subject_name}</TableCell>
       <TableCell>{applicantDegree}</TableCell>
       <TableCell>${application_fees}</TableCell>
       <TableCell>${service_charge}</TableCell>
+      {/* application status */}
       <TableCell className="border-l">
         <div
           className={`px-[5px] py-[2px] rounded-full border-[1px] ${
@@ -84,38 +111,213 @@ const ApplicationTableRow = ({ application, handleAddReview }) => {
         </div>
       </TableCell>
       <TableCell className="flex gap-2 items-center border-l">
-        <button
-          className="uppercase text-xs bg-green-500 px-[4px] py-[2px] rounded-sm text-white cursor-pointer"
-          size={"sm"}
-        >
-          Details
-        </button>
+        {/* details button with dialog */}
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button
+              className={
+                "bg-green-500 cursor-pointer transition-all duration-300 hover:bg-green-600"
+              }
+            >
+              {" "}
+              <Eye />{" "}
+            </Button>
+          </DialogTrigger>
+          <DialogContent className={"max-h-[90vh] overflow-y-auto"}>
+            <DialogTitle>Application Details</DialogTitle>
+            <div className="flex gap-4 items-center">
+              <img
+                src={applicantPhoto}
+                alt={applicantNumber}
+                className="w-16 h-16 rounded-full border"
+              />
+              <div>
+                <h3 className="text-lg font-semibold">
+                  {applicantName || "No name"}
+                </h3>
+                <p className="text-sm text-gray-600 flex items-center gap-2">
+                  <Phone size={16} /> {applicantNumber}
+                </p>
+                <p className="text-sm text-gray-600 flex items-center gap-2">
+                  <FaAddressCard size={16} /> {applicantAddress}
+                </p>
+              </div>
+            </div>
+            <div className="mt-4 space-y-2">
+              <p className="text-sm flex items-center gap-2">
+                <Triangle size={16} />{" "}
+                <span className="font-bold">Gender:</span> {applicantGender}
+              </p>
+              <p className="text-sm flex items-center gap-2">
+                <GraduationCap size={16} />{" "}
+                <span className="font-bold">SSC Result:</span> GPA-
+                {applicantSscResult}
+              </p>
+              <p className="text-sm flex items-center gap-2">
+                <GraduationCap size={16} />{" "}
+                <span className="font-bold">HSC Result:</span> GPA-
+                {applicantHscResult}
+              </p>
+              <p className="text-sm flex items-center gap-2">
+                <Book size={16} /> <span className="font-bold">Subject:</span>{" "}
+                {scholarshipSub}
+              </p>
+              <p className="text-sm flex items-center gap-2">
+                <GraduationCapIcon size={16} />{" "}
+                <span className="font-bold">Degree:</span> {applicantDegree}
+              </p>
+              <p className="text-sm flex items-center gap-2">
+                <University size={16} />{" "}
+                <span className="font-bold">University:</span>{" "}
+                {scholarshipUniversity}
+              </p>
+              <p className="text-sm flex items-center gap-2">
+                <University size={16} />{" "}
+                <span className="font-bold">Study Gap:</span>{" "}
+                {applicantStudyGap}
+              </p>
+            </div>
 
-        <button
-          className="uppercase text-xs bg-orange-500 px-[4px] py-[2px] rounded-sm text-white cursor-pointer flex  items-center gap-1"
-          size={"sm"}
-        >
-          <Pen size={10} /> Edit
-        </button>
+            <Badge className="mt-2">Aplied At: {appliedData}</Badge>
+          </DialogContent>
+        </Dialog>
 
-        <button
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button
+              className={
+                "bg-yellow-500 cursor-pointer transition-all duration-300 hover:bg-yellow-600"
+              }
+            >
+              <Edit2 />
+            </Button>
+          </DialogTrigger>
+          <DialogContent className={"max-h-[90vh] overflow-y-auto"}>
+            <DialogHeader>
+              <DialogTitle>Edit Application</DialogTitle>
+            </DialogHeader>
+
+            <form
+              onSubmit={handleSubmitOnUpdate(handleUpdateApplication)}
+              className="space-y-4 p-2"
+            >
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <Label>Name</Label>
+                  <Input
+                    type="text"
+                    defaultValue={applicantName}
+                    {...registerUpdate("applicantName")}
+                  />
+                </div>
+                <div>
+                  <Label>Number</Label>
+                  <Input
+                    type="number"
+                    defaultValue={applicantNumber}
+                    {...registerUpdate("applicantNumber")}
+                  />
+                </div>
+                <div>
+                  <Label>Email</Label>
+                  <Input
+                    type="email"
+                    defaultValue={applicantEmail}
+                    disabled
+                    {...registerUpdate("applicant_email")}
+                  />
+                </div>
+                <div>
+                  <Label>Address</Label>
+                  <Input
+                    type="text"
+                    defaultValue={applicantAddress}
+                    {...registerUpdate("applicantAddress")}
+                  />
+                </div>
+                <div>
+                  <Label>SSC Result</Label>
+                  <Input
+                    type="number"
+                    step="0.01"
+                    defaultValue={applicantSscResult}
+                    {...registerUpdate("applicantSscResult")}
+                  />
+                </div>
+                <div>
+                  <Label>HSC Result</Label>
+                  <Input
+                    type="number"
+                    step="0.01"
+                    defaultValue={applicantHscResult}
+                    {...registerUpdate("applicantHscResult")}
+                  />
+                </div>
+                <div>
+                  <Label>Degree</Label>
+                  <Input
+                    type="text"
+                    defaultValue={applicantDegree}
+                    {...registerUpdate("applicantDegree")}
+                  />
+                </div>
+                <div>
+                  <Label>Study Gap</Label>
+                  <Input
+                    type="number"
+                    defaultValue={applicantStudyGap}
+                    {...registerUpdate("applicantStudyGap")}
+                  />
+                </div>
+                <div>
+                  <Label>University</Label>
+                  <Input
+                    type="text"
+                    defaultValue={scholarshipUniversity}
+                    {...registerUpdate("scholarshipUniversity")}
+                  />
+                </div>
+                <div>
+                  <Label>Scholarship Category</Label>
+                  <Input
+                    type="text"
+                    defaultValue={scholarshipCategory}
+                    {...registerUpdate("scholarshipCategory")}
+                  />
+                </div>
+                <div>
+                  <Label>Scholarship Subject</Label>
+                  <Input
+                    defaultValue={scholarshipSub}
+                    {...registerUpdate("scholarshipSub")}
+                  />
+                </div>
+              </div>
+              <Button type="submit" className="w-full">
+                Save Changes
+              </Button>
+            </form>
+          </DialogContent>
+        </Dialog>
+
+        <Button
           onClick={hadleCancelApplication}
           className={`uppercase text-xs bg-red-500 px-[4px] py-[2px] rounded-sm text-white  flex  items-center gap-1 cursor-pointer
             `}
           size={"sm"}
         >
-          <X size={10} /> Cancel
-        </button>
+          <X size={10} />
+        </Button>
 
         {/* Add review button */}
         <Dialog>
           <DialogTrigger asChild>
-            <button
+            <Button
               className="uppercase text-xs bg-orange-500 px-[4px] py-[2px] rounded-sm text-white cursor-pointer flex  items-center gap-1"
               size={"sm"}
             >
-              <Pen size={10} /> Add Review
-            </button>
+              <Star size={10} />
+            </Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-[425px]">
             <DialogHeader>
@@ -169,4 +371,5 @@ export default ApplicationTableRow;
 ApplicationTableRow.propTypes = {
   application: PropTypes.object,
   handleAddReview: PropTypes.func,
+  handleUpdate: PropTypes.func,
 };

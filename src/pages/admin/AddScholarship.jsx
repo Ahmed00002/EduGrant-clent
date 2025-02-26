@@ -140,6 +140,7 @@ const AddScholarship = () => {
         )}
         <input
           {...register("university_rank", { required: true })}
+          type="number"
           placeholder="University World Rank"
           className="bordered w-full p-3 border rounded-lg"
         />
@@ -190,12 +191,14 @@ const AddScholarship = () => {
         {/* Fees & Charges  & stipend */}
         <input
           {...register("tuition_fees")}
+          type="number"
           placeholder="Tuition Fees (Optional)"
           className="input-bordered w-full p-3 border rounded-lg"
         />
 
         <input
           {...register("stipend", { required: true })}
+          type="number"
           placeholder="stipend (Optional)"
           className="input-bordered w-full p-3 border rounded-lg"
         />
@@ -204,6 +207,7 @@ const AddScholarship = () => {
         )}
         <input
           {...register("application_fees", { required: true })}
+          type="number"
           placeholder="Application Fees"
           className="input-bordered w-full p-3 border rounded-lg"
         />
@@ -212,6 +216,7 @@ const AddScholarship = () => {
         )}
         <input
           {...register("service_charge", { required: true })}
+          type="number"
           placeholder="Service Charge"
           className="input-bordered w-full p-3 border rounded-lg"
         />

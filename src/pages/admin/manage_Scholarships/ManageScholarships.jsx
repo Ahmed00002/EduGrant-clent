@@ -6,10 +6,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import ScholarshipTRow from "./ScholarshipTRow";
+import Swal from "sweetalert2";
 import useScholarshipsLoader from "@/hooks/useScholarshipsLoader";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
-import Swal from "sweetalert2";
+import ScholarshipTRow from "./ScholarshipTRow";
 import useCustomToast from "@/hooks/useCustomToast";
 const Applications = () => {
   const axiosSecure = useAxiosSecure();

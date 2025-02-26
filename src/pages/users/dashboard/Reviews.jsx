@@ -88,9 +88,11 @@ const Reviews = () => {
             })}
           </TableBody>
         </Table>
-        <p className="text-center text-gray-400">
-          {userReview.length === 0 && "No Review Found"}
-        </p>
+        {userReview.length === 0 && (
+          <p className="text-center mt-6 text-gray-400 font-medium font-inter">
+            No Review Found
+          </p>
+        )}
       </section>
     </>
   );

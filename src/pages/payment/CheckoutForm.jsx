@@ -24,6 +24,7 @@ import useStripeInstant from "@/hooks/useStripeInstant";
 import { HashLoader } from "react-spinners";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
 import { useNavigate } from "react-router";
+import useUserData from "@/hooks/useUserData";
 
 export default function CheckoutForm() {
   // react hook form
@@ -46,6 +47,8 @@ export default function CheckoutForm() {
   const [uploadedImg, setUploadedImg] = useState(
     "https://placehold.co/100x120.png?text=UPLOAD"
   );
+
+  const { userData } = useUserData();
 
   // stripe
   const stripe = useStripe();
@@ -128,7 +131,8 @@ export default function CheckoutForm() {
       applicantStudyGap: select.applicantStudyGap,
       appliedScholarshipId: scholarship._id,
       applicantEmail: user.email,
-      applicantId: "demoId",
+      applicantName: user.displayName,
+      applicantId: userData._id,
     };
 
     if (!select.applicantPhoto) {
@@ -431,7 +435,7 @@ export default function CheckoutForm() {
                   className="shadow-none "
                   type="text"
                   name="category"
-                  value={scholarship.scholarshipCategory}
+                  value={scholarship.scholarship_category}
                   readOnly
                 />
                 <Input
@@ -439,7 +443,7 @@ export default function CheckoutForm() {
                   className="shadow-none "
                   type="text"
                   name="subject"
-                  value={scholarship.subject_name}
+                  value={scholarship.subject_category}
                   readOnly
                 />
                 <Button type="submit" className="w-full bg-blue-600 text-white">

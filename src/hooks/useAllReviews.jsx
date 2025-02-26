@@ -7,7 +7,6 @@ const useAllReviews = () => {
   const { data: reviews = [], refetch } = useQuery({
     queryKey: ["userReviews"],
     queryFn: async () => {
-      console.log("Query Key:", ["allReviews"]);
       const res = await axiosSecure.get(`reviews`);
       console.log(res.data);
       return res.data;

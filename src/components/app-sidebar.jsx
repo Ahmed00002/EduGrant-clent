@@ -6,6 +6,7 @@ import {
   SidebarHeader,
   SidebarMenuButton,
 } from "@/components/ui/sidebar";
+import useUserRole from "@/hooks/useUserRole";
 import {
   BookUser,
   ClipboardCheck,
@@ -19,7 +20,9 @@ import {
 import { Link, NavLink } from "react-router";
 
 export function AppSidebar() {
+  const { role } = useUserRole();
   const isAdmin = true;
+
   const userRoutes = (
     <>
       <NavLink to={"/dashboard/user/profile"}>
@@ -140,7 +143,9 @@ export function AppSidebar() {
 
         {/* user options */}
         <div className="w-full sidebarMenu ">
-          {isAdmin ? ModeratorORAdmin(true) : userRoutes}
+          {role.isAdmin || role.isModerator
+            ? ModeratorORAdmin(role.isAdmin)
+            : userRoutes}
         </div>
       </SidebarContent>
       <SidebarFooter>

@@ -73,6 +73,7 @@ const ScholarshipDetails = () => {
         rating: rating,
         scholarshipId: scholarship._id,
         scholarship_name: scholarship.scholarship_name,
+        university_name: scholarship.university_name,
       })
       .then((res) => {
         console.log(res.data);
