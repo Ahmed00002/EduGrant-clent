@@ -32,7 +32,7 @@ import { Pagination, Autoplay } from "swiper/modules";
 import { SwiperSlide, Swiper } from "swiper/react";
 
 const ScholarshipDetails = () => {
-  const scholarship = useSingleLoader();
+  const { scholarship } = useSingleLoader();
   const [userRatings, setUserRatings] = useState([]);
   const customToast = useCustomToast();
   const { ratings, refetch } = useAverageRating(scholarship?._id);

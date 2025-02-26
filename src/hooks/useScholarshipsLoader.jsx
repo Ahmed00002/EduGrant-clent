@@ -14,7 +14,6 @@ const useScholarshipsLoader = (search) => {
       const res = await axiosSecure.get(`scholarships`, {
         params: search ? { search } : {},
       });
-      console.log(res.data);
       return res.data;
     },
   });
