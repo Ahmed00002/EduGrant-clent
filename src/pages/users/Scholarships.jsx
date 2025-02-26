@@ -3,9 +3,10 @@ import ScholarshipCard from "@/components/shared/SholarshipCard";
 import { Search } from "lucide-react";
 import svg from "@/assets/graduate.svg";
 import useScholarshipsLoader from "@/hooks/useScholarshipsLoader";
+import ScholarshipCardSkeleton from "@/components/shared/ScholarshipCardSkeleton";
 
 const Scholarships = () => {
-  const { scholarships } = useScholarshipsLoader();
+  const { scholarships, isLoading } = useScholarshipsLoader();
   return (
     <>
       <section className="mb-12">
@@ -33,6 +34,16 @@ const Scholarships = () => {
           {scholarships.map((scholarship, idx) => {
             return <ScholarshipCard key={idx} scholarship={scholarship} />;
           })}
+          {isLoading && (
+            <>
+              <ScholarshipCardSkeleton />
+              <ScholarshipCardSkeleton />
+              <ScholarshipCardSkeleton />
+              <ScholarshipCardSkeleton />
+              <ScholarshipCardSkeleton />
+              <ScholarshipCardSkeleton />
+            </>
+          )}
         </div>
       </section>
     </>

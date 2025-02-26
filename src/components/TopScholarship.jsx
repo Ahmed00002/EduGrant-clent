@@ -1,9 +1,10 @@
 import useTopScholarships from "@/hooks/useTopScholarship";
 import SectionTitle from "./shared/SectionTitle";
 import ScholarshipCard from "./shared/SholarshipCard";
+import ScholarshipCardSkeleton from "./shared/ScholarshipCardSkeleton";
 
 const TopScholarship = () => {
-  const { topScholarships } = useTopScholarships();
+  const { topScholarships, isLoading } = useTopScholarships();
 
   return (
     <>
@@ -21,6 +22,13 @@ const TopScholarship = () => {
           {topScholarships.map((scholarship, idx) => {
             return <ScholarshipCard key={idx} scholarship={scholarship} />;
           })}
+          {isLoading && (
+            <>
+              <ScholarshipCardSkeleton />
+              <ScholarshipCardSkeleton />
+              <ScholarshipCardSkeleton />
+            </>
+          )}
         </div>
       </section>
     </>
