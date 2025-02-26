@@ -8,3 +8,7 @@ const useAxiosPublic = () => {
 };
 
 export default useAxiosPublic;
+
+// baseURL: "https://scholarships-server.vercel.app/apis/",
+
+// baseURL: "http://localhost:5000/apis/",

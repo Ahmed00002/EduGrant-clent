@@ -1,7 +1,7 @@
 import useAxiosSecure from "./useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 
-const useScholarshipsLoader = () => {
+const useScholarshipsLoader = (search) => {
   const axiosSecure = useAxiosSecure();
 
   const {
@@ -9,9 +9,12 @@ const useScholarshipsLoader = () => {
     refetch,
     isLoading,
   } = useQuery({
-    queryKey: ["scholarships"],
+    queryKey: ["scholarships", search],
     queryFn: async () => {
-      const res = await axiosSecure.get("scholarships");
+      const res = await axiosSecure.get(`scholarships`, {
+        params: search ? { search } : {},
+      });
+      console.log(res.data);
       return res.data;
     },
   });

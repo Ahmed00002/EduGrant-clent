@@ -120,7 +120,7 @@ const ScholarshipDetails = () => {
             alt=""
           />
         </div>
-        <div className="grid grid-cols-12 gap-4 -translate-y-10 font-inter">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 -translate-y-10 font-inter">
           <aside className="col-span-8">
             {/* title and rating */}
             <div className="bg-white shadow-xl px-6 py-4 rounded-xl rounded-tl-none">
@@ -131,11 +131,11 @@ const ScholarshipDetails = () => {
                 </p>
               </div>
               {/* university name */}
-              <div className="mt-4 flex gap-4 items-center">
-                <div className="flex gap-2 items-center">
-                  <Avatar className="w-10 h-10">
+              <div className="mt-4 flex flex-wrap gap-4 items-center">
+                <div className="flex w-full gap-2 items-center">
+                  <Avatar className="w-16 md:w-10 h-16 md:h-10">
                     <AvatarImage
-                      className="w-10 h-10 object-cover"
+                      className="w-16 md:w-10 h-16 md:h-10 aspect-square object-cover"
                       src={university_logo}
                     />
                   </Avatar>
@@ -160,7 +160,7 @@ const ScholarshipDetails = () => {
                     <FaStar size={15} color="#ffa121" />
                   </p>
                 </div>
-                {/* Rating */}
+                {/* rank */}
                 <div className="p-0 border-l-[1.5px] pl-4">
                   <p className="text-md font-medium text-gray-400">
                     World Rank
@@ -174,7 +174,7 @@ const ScholarshipDetails = () => {
             </div>
 
             {/* scholarships details in tabs */}
-            <Tabs className="mt-12" defaultValue="overview">
+            <Tabs className="mt-12 order-3" defaultValue="overview">
               <TabsList className="grid w-full grid-cols-2 bg-transparent gap-4 mb-6">
                 <TabsTrigger
                   className="flex items-center justify-center gap-2 border-t-[2px] py-2 rounded-md bg-gray-100 data-[state=active]:border-Primary data-[state=active]:bg-blue-50 data-[state=active]:text-Primary cursor-pointer"

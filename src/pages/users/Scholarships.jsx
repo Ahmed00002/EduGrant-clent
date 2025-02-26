@@ -4,9 +4,16 @@ import { Search } from "lucide-react";
 import svg from "@/assets/graduate.svg";
 import useScholarshipsLoader from "@/hooks/useScholarshipsLoader";
 import ScholarshipCardSkeleton from "@/components/shared/ScholarshipCardSkeleton";
+import { useState } from "react";
 
 const Scholarships = () => {
-  const { scholarships, isLoading } = useScholarshipsLoader();
+  const [search, setSearch] = useState("");
+  const { scholarships, isLoading } = useScholarshipsLoader(search);
+  const onKeyUps = (e) => {
+    e.preventDefault();
+    const key = e.target.value;
+    setSearch(key);
+  };
   return (
     <>
       <section className="mb-12">
@@ -21,6 +28,7 @@ const Scholarships = () => {
               type="search"
               className=" w-full outline-none "
               placeholder="University, Degree, location"
+              onKeyUp={onKeyUps}
             />
             <img
               className="absolute bottom-full h-20 w-full mx-auto"
@@ -45,6 +53,11 @@ const Scholarships = () => {
             </>
           )}
         </div>
+        {scholarships.length === 0 && (
+          <p className="mx-auto w-full text-center font-medium text-gray-400">
+            No results found
+          </p>
+        )}
       </section>
     </>
   );
