@@ -86,7 +86,6 @@ const ApplicationTRow = ({ applications, handleUpdateStatus }) => {
         setOpen(false);
       }
     } catch (error) {
-      console.log(error);
       customToast("Opps!", "Failed to Update Scholarship!");
     }
   };

@@ -31,8 +31,7 @@ const Register = () => {
     setIsExit(true);
     setTimeout(() => {
       navigate("/auth/login");
-      // Logic to hide or navigate away after animation ends
-    }, 500); // Corresponds to the 3s duration in transition
+    }, 500);
   };
 
   // login with email and password

@@ -37,7 +37,6 @@ const ManageApplications = () => {
         axiosSecure
           .patch(`applications/${id}`, { status })
           .then((res) => {
-            console.log(res.data);
             if (res.data.modifiedCount > 0) {
               setTimeout(() => {
                 const timer = setTimeout(() => {
@@ -55,8 +54,7 @@ const ManageApplications = () => {
               setUpdating(false);
             }
           })
-          .catch((e) => {
-            console.log(e);
+          .catch(() => {
             setTimeout(() => {
               const timer = setTimeout(() => {
                 setUpdating(false);

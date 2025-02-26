@@ -6,20 +6,14 @@ const useUserReviews = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
 
-  console.log(user);
-  console.log(user?.email);
-
   const { data: userReview = [], refetch } = useQuery({
     queryKey: ["userReviews"],
     enabled: !!user?.email,
     queryFn: async () => {
-      console.log("Query Key:", ["userReviews", user?.email]);
       const res = await axiosSecure.get(`scholarships/reviews/${user?.email}`);
-      console.log(res.data);
       return res.data;
     },
   });
-  console.log(userReview);
   return { userReview, refetch };
 };
 

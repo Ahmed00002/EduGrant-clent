@@ -55,7 +55,6 @@ export default function CheckoutForm() {
   const elements = useElements();
   // const [clientSecret, setClientSecret] = useState(null);
   const clientSecret = useStripeInstant(totalFee);
-  console.log(clientSecret);
   const [transactionId, setTransactionId] = useState(null);
   const [loading, setLoading] = useState(false);
   const [processing, setProcessing] = useState(false);
@@ -160,16 +159,12 @@ export default function CheckoutForm() {
       }
     );
 
-    console.log(res.data);
-
     if (res.data.data.display_url) {
       setLoading(false);
       finalData.applicantPhoto = res.data.data.display_url;
 
       // upload data to server
       axiosSecure.post("/applications", finalData).then((res) => {
-        console.log(res.data);
-
         if (res.data.insertedId) {
           navigate("/dashboard/user/applications");
           customToast(
@@ -186,7 +181,6 @@ export default function CheckoutForm() {
         }
       });
     }
-    console.log(finalData);
   };
 
   return (
