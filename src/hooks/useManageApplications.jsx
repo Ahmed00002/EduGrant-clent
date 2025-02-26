@@ -12,7 +12,6 @@ const useManageApplications = () => {
     queryKey: ["allApplications"],
     queryFn: async () => {
       const res = await axiosSecure.get(`applications`);
-      console.log(res.data);
       return res.data;
     },
   });

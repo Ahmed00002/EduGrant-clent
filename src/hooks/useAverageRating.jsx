@@ -11,7 +11,6 @@ const useAverageRating = (id) => {
       return res.data;
     },
   });
-  console.log(ratings);
   return { ratings, refetch };
 };
 

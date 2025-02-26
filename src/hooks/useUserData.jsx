@@ -11,7 +11,6 @@ const useUserData = () => {
     enabled: !!user?.email,
     queryFn: async () => {
       const res = await axiosSecure.get(`users/data/${user?.email}`);
-      console.log(res.data);
       return res.data;
     },
   });

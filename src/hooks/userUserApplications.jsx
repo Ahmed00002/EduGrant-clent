@@ -13,7 +13,6 @@ const useApplications = () => {
       const res = await axiosSecure.get(
         `users/applications?email=${user?.email}`
       );
-      console.log(res.data);
       return res.data;
     },
   });

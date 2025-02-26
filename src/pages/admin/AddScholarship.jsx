@@ -51,7 +51,6 @@ const AddScholarship = () => {
       post_date: new Date().toISOString().split("T")[0],
     };
 
-    console.log(newScholarship);
 
     try {
       const res = await axiosSecure.post("scholarship", newScholarship);

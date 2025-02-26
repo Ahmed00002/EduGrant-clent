@@ -36,8 +36,7 @@ const Applications = () => {
             }
             refetch();
           })
-          .catch((e) => {
-            console.log(e);
+          .catch(() => {
             customToast("Opps!!", `${scholarshipName} Failed to delete`);
           });
       }

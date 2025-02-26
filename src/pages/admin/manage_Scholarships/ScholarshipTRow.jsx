@@ -78,7 +78,6 @@ const ScholarshipTRow = ({ scholarshipData, handleDelete }) => {
       post_date: new Date().toISOString().split("T")[0],
     };
 
-    console.log(updatedScholarshipData);
 
     try {
       const res = await axiosSecure.patch(
@@ -92,7 +91,6 @@ const ScholarshipTRow = ({ scholarshipData, handleDelete }) => {
         setOpen(false);
       }
     } catch (error) {
-      console.log(error);
       customToast("Opps!", "Failed to Update Scholarship!");
     }
   };

@@ -36,7 +36,6 @@ const ScholarshipDetails = () => {
   const [userRatings, setUserRatings] = useState([]);
   const customToast = useCustomToast();
   const { ratings, refetch } = useAverageRating(scholarship?._id);
-  console.log(ratings);
 
   //   user data
   const { user } = useAuth();
@@ -76,7 +75,6 @@ const ScholarshipDetails = () => {
         university_name: scholarship.university_name,
       })
       .then((res) => {
-        console.log(res.data);
         if (res.data.insertedId) {
           refetch();
           customToast(

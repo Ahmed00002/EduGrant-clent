@@ -48,7 +48,6 @@ const Reviews = () => {
         refetch();
       }
     });
-    console.log(data, reviewId);
   };
   return (
     <>

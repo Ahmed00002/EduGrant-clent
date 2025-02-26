@@ -16,7 +16,6 @@ const Applications = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const { applications } = useApplications();
-  console.log(applications);
   const customToast = useCustomToast();
 
   // Add review
@@ -46,7 +45,6 @@ const Applications = () => {
         university_name: university_name,
       })
       .then((res) => {
-        console.log(res.data);
         if (res.data.insertedId) {
           customToast(
             "Thank You",
