@@ -1,10 +1,14 @@
 import SetPageTitle from "@/components/shared/SetPageTitle";
+import { Badge } from "@/components/ui/badge";
 import EditButton from "@/components/ui/EditButton";
 import useAuth from "@/hooks/useAuth";
+import useUserRole from "@/hooks/useUserRole";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 
 const Profile = () => {
   const { user } = useAuth();
+  const { role } = useUserRole();
+
   return (
     <>
       <SetPageTitle title={"Profile"} />
@@ -22,8 +26,11 @@ const Profile = () => {
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
             <div>
-              <h1 className="text-lg font-bold text-text">
-                {user?.displayName}
+              <h1 className="text-lg font-bold text-text flex items-center gap-2">
+                {user?.displayName}{" "}
+                {role.isAdmin && (
+                  <Badge className={"bg-green-500"}>Admin</Badge>
+                )}
               </h1>
               <p className="text-md text-gray-600">{user?.email}</p>
               <p className="text-xs text-gray-600">Bangladesh</p>
