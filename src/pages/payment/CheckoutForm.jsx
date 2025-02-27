@@ -196,9 +196,9 @@ export default function CheckoutForm() {
       <div className="flex flex-col justify-center items-center    center -translate-y-15">
         {!transactionId ? (
           // checkout form
-          <div className="max-w-6xl mx-auto p-6 shadow-lg bg-white rounded-lg flex gap-8 text-text relative">
+          <div className="w-full md:max-w-6xl mx-auto p-6 shadow-lg bg-white rounded-lg flex flex-col md:flex-row gap-8 text-text relative">
             {/* Payment Details */}
-            <div className="w-1/2">
+            <div className="w-full md:w-1/2">
               <h2 className="text-2xl font-bold mb-4">Payment Details</h2>
               <form
                 onSubmit={handleSubmit(handleCheckout)}
@@ -236,7 +236,7 @@ export default function CheckoutForm() {
             </div>
 
             {/* Order Summary */}
-            <div className="w-1/2 bg-gray-100 p-4 rounded-lg">
+            <div className="w-full md:w-1/2 bg-gray-100 p-4 rounded-lg">
               <h2 className="text-lg font-bold">Scholarship</h2>
               <div className="flex justify-between my-2">
                 <div>
@@ -289,14 +289,16 @@ export default function CheckoutForm() {
           </div>
         ) : (
           // {/* form after payment */}
-          <Card className=" mx-auto p-6 w-7/12 shadow-lg relative">
+          <Card className=" mx-auto p-6 w-full md:w-7/12 shadow-lg relative">
             <CardContent>
-              <div className="flex justify-between">
+              <div className="md:flex justify-between">
                 <div>
                   <h2 className="text-2xl font-bold mb-4 text-left">
                     Scholarship Application
                   </h2>
-                  <p>Fill This Form carefully to submit your application</p>
+                  <p className="mb-6 md:mb-0">
+                    Fill This Form carefully to submit your application
+                  </p>
                 </div>
                 <label
                   htmlFor="fileInput"
