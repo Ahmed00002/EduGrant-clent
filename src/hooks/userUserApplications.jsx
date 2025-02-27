@@ -11,7 +11,7 @@ const useApplications = () => {
     enabled: !!user?.email,
     queryFn: async () => {
       const res = await axiosSecure.get(
-        `users/applications?email=${user?.email}`
+        `/users/applications?email=${user?.email}`
       );
       return res.data;
     },

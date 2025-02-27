@@ -11,7 +11,7 @@ const useAllReviews = () => {
   } = useQuery({
     queryKey: ["userReviews"],
     queryFn: async () => {
-      const res = await axiosSecure.get(`reviews`);
+      const res = await axiosSecure.get(`/reviews`);
       return res.data;
     },
   });

@@ -24,7 +24,7 @@ const AllReviews = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axiosSecure
-          .delete(`reviews/${id}`)
+          .delete(`/reviews/${id}`)
           .then((res) => {
             if (res.data.deletedCount > 0) {
               customToast(

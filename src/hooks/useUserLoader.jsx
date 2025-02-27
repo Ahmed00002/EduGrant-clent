@@ -11,7 +11,7 @@ const useUserLoader = (role) => {
     queryKey: role ? ["users", role] : ["users"],
     enabled: !!role,
     queryFn: async () => {
-      const res = await axiosSecure.get(`users?role=${role}`);
+      const res = await axiosSecure.get(`/users?role=${role}`);
       return res.data;
     },
   });

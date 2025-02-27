@@ -47,7 +47,7 @@ const ScholarshipDetails = () => {
 
   useEffect(() => {
     axiosSecure
-      .get(`scholarships/ratings/${scholarship._id}`)
+      .get(`/scholarships/ratings/${scholarship._id}`)
       .then((res) => setUserRatings(res.data))
       .catch((e) => console.log(e));
   }, [axiosSecure, scholarship._id]);

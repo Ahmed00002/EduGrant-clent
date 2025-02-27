@@ -7,7 +7,7 @@ const useAverageRating = (id) => {
     queryKey: ["averageRatings", id],
     enabled: !!id,
     queryFn: async () => {
-      const res = await axiosSecure.get(`scholarships/${id}/average-rating`);
+      const res = await axiosSecure.get(`/scholarships/${id}/average-rating`);
       return res.data;
     },
   });

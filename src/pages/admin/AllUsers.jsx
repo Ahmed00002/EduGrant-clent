@@ -63,7 +63,7 @@ const AllUsers = () => {
   const handleDeleteUser = (id) => {
     Swal.fire({
       title: "Alert",
-      text: "Are you sure to delete this user?",
+      text: "Are you sure tosw delete this user?",
       // icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#004aad",
@@ -71,7 +71,7 @@ const AllUsers = () => {
       confirmButtonText: "Delete",
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosSecure.delete(`users/${id}`).then((res) => {
+        axiosSecure.delete(`/users/${id}`).then((res) => {
           if (res.data.deletedCount > 0) {
             customToast("Successful..!", `User deleted successfully`);
             refetch();

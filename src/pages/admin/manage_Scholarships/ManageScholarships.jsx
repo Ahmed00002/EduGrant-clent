@@ -30,7 +30,7 @@ const Applications = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axiosSecure
-          .delete(`scholarships/${id}`)
+          .delete(`/scholarships/${id}`)
           .then((res) => {
             if (res.data.deletedCount > 0) {
               customToast("Deleted", `${scholarshipName} deleted successfully`);

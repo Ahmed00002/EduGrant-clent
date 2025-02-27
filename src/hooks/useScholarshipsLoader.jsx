@@ -11,7 +11,7 @@ const useScholarshipsLoader = (search) => {
   } = useQuery({
     queryKey: ["scholarships", search],
     queryFn: async () => {
-      const res = await axiosSecure.get(`scholarships`, {
+      const res = await axiosSecure.get(`/scholarships`, {
         params: search ? { search } : {},
       });
       return res.data;

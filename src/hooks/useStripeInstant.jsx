@@ -11,7 +11,7 @@ const useStripeInstant = (amount) => {
     }
 
     axiosSecure
-      .post("create-payment-intent", { amount: amount })
+      .post("/create-payment-intent", { amount: amount })
       .then((res) => {
         if (!res.data.clientSecret) {
           return;

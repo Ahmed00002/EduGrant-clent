@@ -10,7 +10,7 @@ const useUserReviews = () => {
     queryKey: ["userReviews"],
     enabled: !!user?.email,
     queryFn: async () => {
-      const res = await axiosSecure.get(`scholarships/reviews/${user?.email}`);
+      const res = await axiosSecure.get(`/scholarships/reviews/${user?.email}`);
       return res.data;
     },
   });

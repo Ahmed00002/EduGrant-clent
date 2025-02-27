@@ -36,7 +36,7 @@ const ManageApplications = () => {
       if (result.isConfirmed) {
         setUpdating(true);
         axiosSecure
-          .patch(`applications/${id}`, { status })
+          .patch(`/applications/${id}`, { status })
           .then((res) => {
             if (res.data.modifiedCount > 0) {
               setTimeout(() => {

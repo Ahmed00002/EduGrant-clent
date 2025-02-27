@@ -15,7 +15,7 @@ const useSingleLoader = () => {
     queryKey: ["scholarships", param.id],
     queryFn: async () => {
       try {
-        const res = await axiosSecure.get(`scholarships/${param.id}`);
+        const res = await axiosSecure.get(`/scholarships/${param.id}`);
         return res.data;
       } catch (error) {
         console.log(error);

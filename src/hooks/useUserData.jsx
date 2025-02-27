@@ -10,7 +10,7 @@ const useUserData = () => {
     queryKey: ["userData", user?.email],
     enabled: !!user?.email,
     queryFn: async () => {
-      const res = await axiosSecure.get(`users/data/${user?.email}`);
+      const res = await axiosSecure.get(`/users/data/${user?.email}`);
       return res.data;
     },
   });

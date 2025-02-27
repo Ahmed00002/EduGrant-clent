@@ -9,7 +9,7 @@ const Stats = () => {
   const [stats, setStats] = useState();
 
   useEffect(() => {
-    axiosSecure.get("stats").then((res) => setStats(res.data));
+    axiosSecure.get("/stats").then((res) => setStats(res.data));
   }, [axiosSecure]);
 
   return (

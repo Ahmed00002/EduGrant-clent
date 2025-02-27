@@ -78,10 +78,9 @@ const ScholarshipTRow = ({ scholarshipData, handleDelete }) => {
       post_date: new Date().toISOString().split("T")[0],
     };
 
-
     try {
       const res = await axiosSecure.patch(
-        `scholarships/${_id}`,
+        `/scholarships/${_id}`,
         updatedScholarshipData
       );
       if (res.data.modifiedCount > 0) {

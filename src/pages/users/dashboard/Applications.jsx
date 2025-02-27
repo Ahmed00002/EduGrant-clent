@@ -36,7 +36,7 @@ const Applications = () => {
       return;
     }
     axiosSecure
-      .post("reviews", {
+      .post("/reviews", {
         email: user?.email,
         name: user?.displayName,
         userPhoto: user?.photoURL,
@@ -62,7 +62,7 @@ const Applications = () => {
 
   const handleUpdate = (data, id) => {
     axiosSecure
-      .patch(`users/applications/${id}`, data)
+      .patch(`/users/applications/${id}`, data)
       .then((res) => {
         if (res.data.modifiedCount) {
           customToast("Successful", "Your application data updated.");
@@ -87,7 +87,7 @@ const Applications = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axiosSecure
-          .patch(`users/applications/cancel/${id}`, data)
+          .patch(`/users/applications/cancel/${id}`, data)
           .then((res) => {
             console.log(res.data);
             if (res.data.modifiedCount) {

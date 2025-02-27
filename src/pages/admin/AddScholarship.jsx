@@ -53,7 +53,7 @@ const AddScholarship = () => {
     };
 
     try {
-      const res = await axiosSecure.post("scholarship", newScholarship);
+      const res = await axiosSecure.post("/scholarship", newScholarship);
       if (res.data.insertedId) {
         customToast("Successful!", "Scholarship Added Successfully!");
         reset();
