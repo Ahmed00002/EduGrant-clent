@@ -22,7 +22,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useState } from "react";
 import SetPageTitle from "@/components/shared/SetPageTitle";
 
-const roles = ["All", "user", "moderator", "admin"];
+const roles = ["user", "moderator", "admin"];
+const sort = ["All", "user", "moderator", "admin"];
 
 const AllUsers = () => {
   const [sortBy, setSortBy] = useState("All");
@@ -93,9 +94,9 @@ const AllUsers = () => {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-              {roles.map((role) => (
-                <DropdownMenuItem onClick={() => setSortBy(role)} key={role}>
-                  {role}
+              {sort.map((sort) => (
+                <DropdownMenuItem onClick={() => setSortBy(sort)} key={sort}>
+                  {sort}
                 </DropdownMenuItem>
               ))}
             </DropdownMenuContent>

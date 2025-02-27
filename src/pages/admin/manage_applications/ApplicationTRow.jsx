@@ -65,6 +65,7 @@ const ApplicationTRow = ({ applications, handleUpdateStatus }) => {
     // applicant_Id,
     appliedDate,
     applicationStatus,
+    transactionId,
     feedback,
   } = applications;
 
@@ -197,6 +198,7 @@ const ApplicationTRow = ({ applications, handleUpdateStatus }) => {
               </div>
 
               <Badge className="mt-2">Aplied At: {appliedDate}</Badge>
+              <Badge className="mt-2">TRXN ID: {transactionId}</Badge>
               {feedback}
             </DialogContent>
           </Dialog>

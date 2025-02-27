@@ -4,7 +4,6 @@ import {
   Eye,
   GraduationCap,
   GraduationCapIcon,
-  Pen,
   Phone,
   Star,
   Triangle,
@@ -36,6 +35,7 @@ const ApplicationTableRow = ({
   application,
   handleAddReview,
   handleUpdate,
+  handleCancel,
 }) => {
   const {
     _id,
@@ -84,7 +84,10 @@ const ApplicationTableRow = ({
 
   // handle cancel
   const hadleCancelApplication = () => {
-    alert("clicked");
+    const data = {
+      status: "canceled",
+    };
+    handleCancel(data, _id);
   };
   return (
     <TableRow className="py-2">
@@ -182,9 +185,15 @@ const ApplicationTableRow = ({
           </DialogContent>
         </Dialog>
 
+        {/* edit application */}
         <Dialog>
           <DialogTrigger asChild>
             <Button
+              disabled={
+                applicationStatus === "canceled" ||
+                applicationStatus === "processing" ||
+                applicationStatus === "completed"
+              }
               className={
                 "bg-yellow-500 cursor-pointer transition-all duration-300 hover:bg-yellow-600"
               }
@@ -305,6 +314,7 @@ const ApplicationTableRow = ({
           className={`uppercase text-xs bg-red-500 px-[4px] py-[2px] rounded-sm text-white  flex  items-center gap-1 cursor-pointer
             `}
           size={"sm"}
+          disabled={applicationStatus === "canceled"}
         >
           <X size={10} />
         </Button>
@@ -372,4 +382,5 @@ ApplicationTableRow.propTypes = {
   application: PropTypes.object,
   handleAddReview: PropTypes.func,
   handleUpdate: PropTypes.func,
+  handleCancel: PropTypes.func,
 };

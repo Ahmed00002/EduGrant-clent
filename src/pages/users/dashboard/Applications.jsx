@@ -12,6 +12,7 @@ import useAuth from "@/hooks/useAuth";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
 import useCustomToast from "@/hooks/useCustomToast";
 import useApplications from "@/hooks/userUserApplications";
+import Swal from "sweetalert2";
 
 const Applications = () => {
   const { user } = useAuth();
@@ -72,6 +73,35 @@ const Applications = () => {
         customToast("failed", "Your application data failed to update.");
       });
   };
+  const handleCancel = (data, id) => {
+    data.email = user?.email;
+    console.log(data);
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Cancel",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure
+          .patch(`users/applications/cancel/${id}`, data)
+          .then((res) => {
+            console.log(res.data);
+            if (res.data.modifiedCount) {
+              customToast("Alert", "You have canceled your application");
+              // refetch
+            }
+          })
+          .catch((e) => {
+            console.log(e);
+            customToast("failed", "Failed to cancel your application");
+          });
+      }
+    });
+  };
   return (
     <>
       <SetPageTitle title={"Applications"} />
@@ -108,6 +138,7 @@ const Applications = () => {
                 application={application}
                 handleAddReview={handleAddReview}
                 handleUpdate={handleUpdate}
+                handleCancel={handleCancel}
                 key={application._id}
               />
             ))}

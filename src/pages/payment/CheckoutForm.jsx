@@ -35,10 +35,10 @@ export default function CheckoutForm() {
   const customToast = useCustomToast();
 
   // load scholarship data
-  const scholarship = useSingleLoader();
+  const { scholarship } = useSingleLoader();
   const totalFee =
-    parseInt(scholarship.application_fees) +
-    parseInt(scholarship.service_charge);
+    parseInt(scholarship?.application_fees) +
+    parseInt(scholarship?.service_charge);
 
   const { register: registerForm2, handleSubmit: handleSubmitForm2 } =
     useForm();
@@ -59,6 +59,7 @@ export default function CheckoutForm() {
   const [transactionId, setTransactionId] = useState(null);
   const [loading, setLoading] = useState(false);
   const [processing, setProcessing] = useState(false);
+  // console.log(clientSecret);
 
   // // axios
   const axiosSecure = useAxiosSecure();
@@ -94,7 +95,7 @@ export default function CheckoutForm() {
 
       customToast(
         "Congratulations!",
-        `You have successfully made payment for scholarship in ${scholarship.university_name}`
+        `You have successfully made payment for scholarship in ${scholarship?.university_name}`
       );
     }
   };
@@ -133,6 +134,7 @@ export default function CheckoutForm() {
       applicantEmail: user.email,
       applicantName: user.displayName,
       applicantId: userData._id,
+      transactionId: transactionId,
     };
 
     if (!select.applicantPhoto) {
@@ -239,14 +241,14 @@ export default function CheckoutForm() {
               <div className="flex justify-between my-2">
                 <div>
                   <p className="font-semibold">
-                    {scholarship.scholarship_name}
+                    {scholarship?.scholarship_name}
                   </p>
                   <p className="text-sm text-gray-500">
-                    {scholarship.university_name}
+                    {scholarship?.university_name}
                   </p>
                 </div>
                 <p className="font-semibold">
-                  $ {scholarship.application_fees}
+                  $ {scholarship?.application_fees}
                 </p>
               </div>
 
@@ -254,7 +256,7 @@ export default function CheckoutForm() {
                 <div>
                   <p className="text-sm text-gray-500">Service Charge</p>
                 </div>
-                <p className="font-semibold">$ {scholarship.service_charge}</p>
+                <p className="font-semibold">$ {scholarship?.service_charge}</p>
               </div>
 
               <hr className="my-2" />
@@ -262,8 +264,8 @@ export default function CheckoutForm() {
                 <p>Subtotal</p>
                 <p>
                   ${" "}
-                  {parseInt(scholarship.application_fees) +
-                    parseInt(scholarship.service_charge)}
+                  {parseInt(scholarship?.application_fees) +
+                    parseInt(scholarship?.service_charge)}
                 </p>
               </div>
               <hr className="my-2" />
@@ -271,8 +273,8 @@ export default function CheckoutForm() {
                 <p>Total</p>
                 <p>
                   ${" "}
-                  {parseInt(scholarship.application_fees) +
-                    parseInt(scholarship.service_charge)}
+                  {parseInt(scholarship?.application_fees) +
+                    parseInt(scholarship?.service_charge)}
                 </p>
               </div>
             </div>
@@ -423,7 +425,7 @@ export default function CheckoutForm() {
                   className="shadow-none "
                   type="text"
                   name="university"
-                  value={scholarship.university_name}
+                  value={scholarship?.university_name}
                   readOnly
                 />
                 <Input
@@ -431,7 +433,7 @@ export default function CheckoutForm() {
                   className="shadow-none "
                   type="text"
                   name="category"
-                  value={scholarship.scholarship_category}
+                  value={scholarship?.scholarship_category}
                   readOnly
                 />
                 <Input
@@ -439,7 +441,7 @@ export default function CheckoutForm() {
                   className="shadow-none "
                   type="text"
                   name="subject"
-                  value={scholarship.subject_category}
+                  value={scholarship?.subject_category}
                   readOnly
                 />
                 <Button type="submit" className="w-full bg-blue-600 text-white">
