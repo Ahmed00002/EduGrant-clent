@@ -30,6 +30,7 @@ import Rating from "../Rating";
 import { useForm } from "react-hook-form";
 import { Badge } from "./badge";
 import { FaAddressCard } from "react-icons/fa";
+import Swal from "sweetalert2";
 
 const ApplicationTableRow = ({
   application,
@@ -51,13 +52,16 @@ const ApplicationTableRow = ({
     applicationStatus,
     applicantStudyGap,
     applicantPhoto,
-    // applied_ScholarshipId,
+    appliedScholarshipId,
     applicantEmail,
     // applicantId,
     applicantName,
     appliedData,
     feedback,
   } = application;
+
+  const [open, setOpen] = useState(false);
+  const [openReview, setOpenReview] = useState(false);
 
   const { register, handleSubmit } = useForm();
   const { register: registerUpdate, handleSubmit: handleSubmitOnUpdate } =
@@ -75,11 +79,30 @@ const ApplicationTableRow = ({
 
   const handleReview = (data) => {
     data.rating = rating;
-    handleAddReview(data, _id, scholarship_name, university_name);
+    handleAddReview(
+      data,
+      appliedScholarshipId,
+      scholarship_name,
+      university_name
+    );
+    setOpenReview(false);
   };
 
   const handleUpdateApplication = (data) => {
-    handleUpdate(data, _id);
+    if (
+      applicationStatus === "canceled" ||
+      applicationStatus === "processing" ||
+      applicationStatus === "completed"
+    ) {
+      setOpen(false);
+      Swal.fire({
+        title: "Hey! Wait",
+        text: "Ahh! You can edit your applications right now",
+        icon: "info",
+      });
+    } else {
+      handleUpdate(data, _id);
+    }
   };
 
   // handle cancel
@@ -186,14 +209,9 @@ const ApplicationTableRow = ({
         </Dialog>
 
         {/* edit application */}
-        <Dialog>
+        <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
             <Button
-              disabled={
-                applicationStatus === "canceled" ||
-                applicationStatus === "processing" ||
-                applicationStatus === "completed"
-              }
               className={
                 "bg-yellow-500 cursor-pointer transition-all duration-300 hover:bg-yellow-600"
               }
@@ -320,7 +338,7 @@ const ApplicationTableRow = ({
         </Button>
 
         {/* Add review button */}
-        <Dialog>
+        <Dialog open={openReview} onOpenChange={setOpenReview}>
           <DialogTrigger asChild>
             <Button
               className="uppercase text-xs bg-orange-500 px-[4px] py-[2px] rounded-sm text-white cursor-pointer flex  items-center gap-1"

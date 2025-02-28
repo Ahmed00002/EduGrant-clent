@@ -12,6 +12,7 @@ import useAuth from "@/hooks/useAuth";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
 import useCustomToast from "@/hooks/useCustomToast";
 import useApplications from "@/hooks/userUserApplications";
+import { useState } from "react";
 import Swal from "sweetalert2";
 
 const Applications = () => {

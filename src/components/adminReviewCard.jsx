@@ -29,7 +29,6 @@ const AdminReviewCard = ({ review }) => {
       // post_date,
     },
   } = reviewDetails;
-  console.log("review name", scholarship_name);
   return (
     <motion.div
       className="bg-white rounded-2xl shadow-lg p-5 flex flex-col justify-between border hover:shadow-xl transition"

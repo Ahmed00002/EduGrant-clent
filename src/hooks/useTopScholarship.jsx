@@ -11,6 +11,7 @@ const useTopScholarships = () => {
     queryKey: ["topScholarships"],
     queryFn: async () => {
       const res = await axiosSecure.get(`/scholarships/top`);
+      console.log(res.data);
       return res.data;
     },
   });

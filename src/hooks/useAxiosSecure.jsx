@@ -1,14 +1,23 @@
 import axios from "axios";
 
-// import useAuth from "@/hooks/useAuth";
-
 const axiosSecure = axios.create({
-  baseURL: "https://scholarships-server.vercel.app/apis",
-  // baseURL: "http://localhost:5000/apis/",
-  headers: {
-    Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-  },
+  baseURL: "https://scholarships-server.vercel.app",
 });
+
+// Automatically add token to requests
+axiosSecure.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("accessToken");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
 const useAxiosSecure = () => {
   return axiosSecure;
 };
