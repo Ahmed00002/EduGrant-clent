@@ -249,7 +249,7 @@ const ApplicationTRow = ({ applications, handleUpdateStatus }) => {
             className={
               "bg-red-500 cursor-pointer transition-all duration-300 hover:bg-red-600"
             }
-            onClick={() => handleUpdateStatus("cancled", _id)}
+            onClick={() => handleUpdateStatus("rejected", _id)}
           >
             {" "}
             <XCircle />{" "}

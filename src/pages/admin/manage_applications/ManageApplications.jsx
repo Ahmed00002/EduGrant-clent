@@ -1,4 +1,3 @@
-import { Input } from "@/components/ui/input";
 import {
   Table,
   TableBody,
@@ -15,6 +14,14 @@ import { useState } from "react";
 import TopLoader from "@/components/shared/loader/TopLoader";
 import TableSkeleton from "@/components/ui/TableSkeleton";
 import SetPageTitle from "@/components/shared/SetPageTitle";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@radix-ui/react-dropdown-menu";
+import { Button } from "@/components/ui/button";
 
 const ManageApplications = () => {
   const [updating, setUpdating] = useState(false);
@@ -78,13 +85,6 @@ const ManageApplications = () => {
       <section className=" bg-white rounded-lg p-6 font-inter">
         <div className="flex justify-between items-center">
           <h1 className="text-xl font-bold font-railway">All Applications</h1>
-          <form>
-            <Input
-              className="border-none focus:border-none"
-              type="search"
-              placeholder="search"
-            />
-          </form>
         </div>
 
         {/* applications data */}

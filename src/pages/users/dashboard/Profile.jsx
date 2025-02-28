@@ -8,6 +8,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 const Profile = () => {
   const { user } = useAuth();
   const { role } = useUserRole();
+  console.log(role);
 
   return (
     <>
@@ -23,13 +24,21 @@ const Profile = () => {
                 src={user?.photoURL}
                 alt="@shadcn"
               />
-              <AvatarFallback>CN</AvatarFallback>
+              <AvatarFallback
+                className={`w-10 h-10 bg-gray-200 text-Primary rounded-full  flex justify-center items-center cursor-pointer`}
+              >
+                {user.displayName ? user?.displayName.split(" ")[0][0] : "AN"}
+              </AvatarFallback>
             </Avatar>
             <div>
               <h1 className="text-lg font-bold text-text flex items-center gap-2">
                 {user?.displayName}{" "}
-                {role.isAdmin && (
+                {role.isAdmin ? (
                   <Badge className={"bg-green-500"}>Admin</Badge>
+                ) : (
+                  role.isModerator && (
+                    <Badge className={"bg-green-500"}>Moderator</Badge>
+                  )
                 )}
               </h1>
               <p className="text-md text-gray-600">{user?.email}</p>
