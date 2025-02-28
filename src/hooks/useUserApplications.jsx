@@ -6,7 +6,11 @@ const useApplications = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
 
-  const { data: applications = [], refetch } = useQuery({
+  const {
+    data: applications = [],
+    refetch,
+    isLoading,
+  } = useQuery({
     queryKey: ["applications", user?.email],
     enabled: !!user?.email,
     queryFn: async () => {
@@ -17,7 +21,7 @@ const useApplications = () => {
     },
   });
 
-  return { applications, refetch };
+  return { applications, refetch, isLoading };
 };
 
 export default useApplications;

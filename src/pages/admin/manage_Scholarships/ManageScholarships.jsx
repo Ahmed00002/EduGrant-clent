@@ -2,6 +2,7 @@ import { Input } from "@/components/ui/input";
 import {
   Table,
   TableBody,
+  TableCell,
   TableHead,
   TableHeader,
   TableRow,
@@ -12,10 +13,11 @@ import useAxiosSecure from "@/hooks/useAxiosSecure";
 import ScholarshipTRow from "./ScholarshipTRow";
 import useCustomToast from "@/hooks/useCustomToast";
 import SetPageTitle from "@/components/shared/SetPageTitle";
+import { Skeleton } from "@/components/ui/skeleton";
 const Applications = () => {
   const axiosSecure = useAxiosSecure();
   const customToast = useCustomToast();
-  const { scholarships, refetch } = useScholarshipsLoader();
+  const { scholarships, refetch, isLoading } = useScholarshipsLoader();
 
   // Handle application deletion
   const handleDelete = (id, scholarshipName) => {
@@ -63,7 +65,6 @@ const Applications = () => {
         <Table className="mt-6">
           <TableHeader>
             <TableRow>
-              <TableHead className="font-thin">#SL</TableHead>
               <TableHead className="font-thin">Scholarship name</TableHead>
               <TableHead className="font-thin">University Name</TableHead>
               <TableHead className="font-thin">Subject Category</TableHead>
@@ -80,8 +81,80 @@ const Applications = () => {
                 handleDelete={handleDelete}
               />
             ))}
+
+            {/* loading effect */}
+            {isLoading && (
+              <>
+                <TableRow>
+                  <TableCell>
+                    <Skeleton className={"py-4"} />
+                  </TableCell>
+                  <TableCell>
+                    <Skeleton className={"py-4"} />
+                  </TableCell>
+                  <TableCell>
+                    <Skeleton className={"py-4"} />
+                  </TableCell>
+                  <TableCell>
+                    <Skeleton className={"py-4"} />
+                  </TableCell>
+                  <TableCell>
+                    <Skeleton className={"py-4"} />
+                  </TableCell>
+                  <TableCell>
+                    <Skeleton className={"py-4"} />
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>
+                    <Skeleton className={"py-4"} />
+                  </TableCell>
+                  <TableCell>
+                    <Skeleton className={"py-4"} />
+                  </TableCell>
+                  <TableCell>
+                    <Skeleton className={"py-4"} />
+                  </TableCell>
+                  <TableCell>
+                    <Skeleton className={"py-4"} />
+                  </TableCell>
+                  <TableCell>
+                    <Skeleton className={"py-4"} />
+                  </TableCell>
+                  <TableCell>
+                    <Skeleton className={"py-4"} />
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>
+                    <Skeleton className={"py-4"} />
+                  </TableCell>
+                  <TableCell>
+                    <Skeleton className={"py-4"} />
+                  </TableCell>
+                  <TableCell>
+                    <Skeleton className={"py-4"} />
+                  </TableCell>
+                  <TableCell>
+                    <Skeleton className={"py-4"} />
+                  </TableCell>
+                  <TableCell>
+                    <Skeleton className={"py-4"} />
+                  </TableCell>
+                  <TableCell>
+                    <Skeleton className={"py-4"} />
+                  </TableCell>
+                </TableRow>
+              </>
+            )}
           </TableBody>
         </Table>
+
+        {scholarships.length === 0 && !isLoading && (
+          <p className="text-center mt-6 text-gray-400 font-medium font-inter">
+            No User Found
+          </p>
+        )}
       </section>
     </>
   );

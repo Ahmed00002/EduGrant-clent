@@ -11,14 +11,13 @@ import {
 import useAuth from "@/hooks/useAuth";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
 import useCustomToast from "@/hooks/useCustomToast";
-import useApplications from "@/hooks/userUserApplications";
-import { useState } from "react";
+import useApplications from "@/hooks/useUserApplications";
 import Swal from "sweetalert2";
 
 const Applications = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
-  const { applications } = useApplications();
+  const { applications, isLoading } = useApplications();
   const customToast = useCustomToast();
 
   // Add review
@@ -146,9 +145,14 @@ const Applications = () => {
           </TableBody>
         </Table>
 
-        {applications.length === 0 && (
+        {isLoading && (
           <p className="text-center mt-6 text-gray-400 font-medium font-inter">
-            No Applications Found
+            Loading applications...
+          </p>
+        )}
+        {applications.length === 0 && !isLoading && (
+          <p className="text-center mt-6 text-gray-400 font-medium font-inter">
+            No Review Found
           </p>
         )}
       </section>

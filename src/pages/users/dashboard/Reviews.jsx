@@ -14,7 +14,7 @@ import useUserReviews from "@/hooks/useUserReviews";
 import Swal from "sweetalert2";
 
 const Reviews = () => {
-  const { userReview, refetch } = useUserReviews();
+  const { userReview, refetch, isLoading } = useUserReviews();
   const axiosSecure = useAxiosSecure();
   const customToast = useCustomToast();
 
@@ -89,7 +89,12 @@ const Reviews = () => {
             })}
           </TableBody>
         </Table>
-        {userReview.length === 0 && (
+        {isLoading && (
+          <p className="text-center mt-6 text-gray-400 font-medium font-inter">
+            Loading reviews...
+          </p>
+        )}
+        {userReview.length === 0 && !isLoading && (
           <p className="text-center mt-6 text-gray-400 font-medium font-inter">
             No Review Found
           </p>

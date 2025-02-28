@@ -116,7 +116,6 @@ const ScholarshipTRow = ({ scholarshipData, handleDelete }) => {
   return (
     <>
       <TableRow>
-        <TableCell>1</TableCell>
         <TableCell>{scholarship_name}</TableCell>
         <TableCell>{university_name}</TableCell>
         <TableCell>{subject_category}</TableCell>
@@ -198,88 +197,6 @@ const ScholarshipTRow = ({ scholarshipData, handleDelete }) => {
               <DialogHeader>
                 <DialogTitle>Edit Scholarship</DialogTitle>
               </DialogHeader>
-              {/* <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 ">
-                <Input
-                  {...register("scholarship_name")}
-                  placeholder="Scholarship Name"
-                  required
-                />
-                <Input
-                  {...register("university_name")}
-                  placeholder="University Name"
-                  required
-                />
-                <Input
-                  {...register("university_country")}
-                  placeholder="University Country"
-                  required
-                />
-                <Input
-                  {...register("university_city")}
-                  placeholder="University City"
-                  required
-                />
-                <Input
-                  {...register("university_rank")}
-                  placeholder="University Rank"
-                  required
-                  type="number"
-                />
-                <Input
-                  {...register("subject_category")}
-                  placeholder="Subject Category"
-                  required
-                />
-                <Input
-                  {...register("scholarship_category")}
-                  placeholder="Scholarship Category"
-                  required
-                />
-                <Input {...register("degree")} placeholder="Degree" required />
-                <Input
-                  {...register("tuition_fees")}
-                  placeholder="Tuition Fees"
-                  required
-                  type="number"
-                />
-                <Input
-                  {...register("stipend")}
-                  placeholder="Stipend"
-                  required
-                  type="number"
-                />
-                <Input
-                  {...register("application_fees")}
-                  placeholder="Application Fees"
-                  required
-                  type="number"
-                />
-                <Input
-                  {...register("service_charge")}
-                  placeholder="Service Charge"
-                  required
-                  type="number"
-                />
-                <Input
-                  {...register("application_deadline")}
-                  placeholder="Application Deadline"
-                  required
-                  type="date"
-                />
-                <Input
-                  {...register("post_date")}
-                  placeholder="Post Date"
-                  required
-                  type="date"
-                />
-                <textarea
-                  {...register("scholarship_description")}
-                  placeholder="Description"
-                  className="w-full border p-2"
-                  required
-                />
-                <Button type="submit">Update Scholarship</Button>
-              </form> */}
 
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
                 {/* Scholarship Name & University Name */}

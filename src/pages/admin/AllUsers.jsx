@@ -181,7 +181,7 @@ const AllUsers = () => {
           </TableBody>
         </Table>
 
-        {users.length === 0 && (
+        {users.length === 0 && !isLoading && (
           <p className="text-center mt-6 text-gray-400 font-medium font-inter">
             No User Found
           </p>

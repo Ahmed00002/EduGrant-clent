@@ -118,6 +118,12 @@ const ManageApplications = () => {
           </TableBody>
         </Table>
 
+        {applications.length === 0 && !isLoading && (
+          <p className="text-center mt-6 text-gray-400 font-medium font-inter">
+            No Application Found
+          </p>
+        )}
+
         {updating && <TopLoader status={"Updating..."} />}
       </section>
     </>

@@ -9,7 +9,7 @@ const useUserLoader = (role) => {
     isLoading,
   } = useQuery({
     queryKey: role ? ["users", role] : ["users"],
-    enabled: !!role,
+    enabled: Boolean(role),
     queryFn: async () => {
       const res = await axiosSecure.get(`/users?role=${role}`);
       return res.data;
