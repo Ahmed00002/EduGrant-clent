@@ -59,7 +59,7 @@ export function AppSidebar() {
       <NavLink to={"/admin/stats"} end>
         <SidebarMenuButton
           tooltip={"My Profile"}
-          className={"mx-auto userDashMenu"}
+          className={"mx-auto userDashMenu py-4"}
         >
           <BarChart size={30} />
           <span>Statistics</span>
@@ -135,7 +135,7 @@ export function AppSidebar() {
         <SidebarTrigger />
       </div> */}
       <SidebarHeader />
-      <SidebarContent className={"flex items-center"}>
+      <SidebarContent className={"flex items-center px-2"}>
         <Link className="w-full" to={"/"}>
           <SidebarMenuButton
             size="lg"

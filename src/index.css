@@ -139,7 +139,7 @@
 
 @layer utilities {
   .navMenu a.active {
-    @apply text-Secondary;
+    @apply text-Primary font-medium;
   }
   .navMenuM a.active {
     @apply text-Primary bg-gray-100;
@@ -150,7 +150,11 @@
   }
 
   .sidebarMenu a.active button {
-    @apply bg-blue-50 text-text border-r-4 border-Primary rounded-none;
+    @apply bg-Primary text-white font-bold rounded-md;
+  }
+
+  .cardContainer:hover .thumbnail {
+    @apply transition-all scale-105 duration-500;
   }
 
   /* eye loader */
