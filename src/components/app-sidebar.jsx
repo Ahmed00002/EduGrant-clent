@@ -19,6 +19,7 @@ import {
   Users,
 } from "lucide-react";
 import { Link, NavLink } from "react-router";
+import { Card } from "./ui/card";
 
 export function AppSidebar() {
   const { role } = useUserRole();
@@ -61,7 +62,7 @@ export function AppSidebar() {
           tooltip={"My Profile"}
           className={"mx-auto userDashMenu py-4"}
         >
-          <BarChart size={30} />
+          <BarChart size={40} />
           <span>Statistics</span>
         </SidebarMenuButton>
       </NavLink>
@@ -131,34 +132,34 @@ export function AppSidebar() {
   );
   return (
     <Sidebar collapsible="icon">
-      {/* <div className="flex items-center justify-center">
-        <SidebarTrigger />
-      </div> */}
-      <SidebarHeader />
-      <SidebarContent className={"flex items-center px-2"}>
-        <Link className="w-full" to={"/"}>
-          <SidebarMenuButton
-            size="lg"
-            className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-          >
-            <div className="flex aspect-square mx-auto size-8 items-center justify-center rounded-lg bg-Primary">
-              <img src={Logo} alt="site logo" />
-            </div>
-            <div className="grid flex-1 text-left text-sm leading-tight">
-              <span className="truncate font-semibold">EduGrant</span>
-              <span className="truncate font-xs">Your Dream Ahead</span>
-            </div>
-          </SidebarMenuButton>
+      {/* website logo */}
+      <SidebarHeader>
+        <Link className="w-full flex" to={"/"}>
+          {/* <SidebarMenuButton className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground">
+            
+          </SidebarMenuButton> */}
+          <div className="flex aspect-square mx-auto size-8 items-center justify-center rounded-lg bg-Primary">
+            <img src={Logo} alt="site logo" />
+          </div>
+          <div className="grid flex-1 text-left text-sm leading-tight overflow-ellipsis">
+            <span className="truncate font-semibold">EduGrant</span>
+            <span className="truncate font-xs">Your Dream Ahead</span>
+          </div>
         </Link>
+      </SidebarHeader>
 
+      {/* sidebar contents */}
+      <SidebarContent className={"flex items-center   px-2"}>
         {/* user options */}
-        <div className="w-full sidebarMenu ">
+        <Card className="w-full sidebarMenu bg-white h-full border-none rounded-xl p-2 my-4">
           {role.isAdmin || role.isModerator
             ? ModeratorORAdmin(role.isAdmin)
             : userRoutes}
-        </div>
+        </Card>
       </SidebarContent>
-      <SidebarFooter>
+
+      {/* sidebar footer */}
+      <SidebarFooter className={"bg-white mx-2 shadow rounded-lg"}>
         <SidebarMenuButton>
           <LogOut />
           <span>Logout</span>
