@@ -21,7 +21,7 @@ const DashboardLayout = () => {
 
           {/* Main Content */}
           <main className="flex-1 w-full ">
-            <div className="flex items-center gap-2 sticky top-0 z-50 p-2 md:p-3 rounded-lg bg-PrimaryContent">
+            <div className="flex items-center gap-2 sticky top-2 z-50 p-2 md:p-3 rounded-lg bg-white/10 backdrop-blur-2xl shadow mt-2">
               <SidebarTrigger />
               {/* menus */}
               <div className="flex items-center justify-between w-full">
