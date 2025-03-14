@@ -15,7 +15,7 @@ const Stats = () => {
 
   return (
     <>
-      <section className="  rounded-lg p-6 font-inter">
+      <section className="  rounded-lg font-inter">
         {/* <h1 className="mb-6 text-3xl font-bold">Statistics</h1> */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* Total Users */}

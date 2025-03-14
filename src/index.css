@@ -138,6 +138,9 @@
 }
 
 @layer utilities {
+  * {
+    @apply font-inter;
+  }
   .navMenu a.active {
     @apply text-Primary font-medium;
   }
