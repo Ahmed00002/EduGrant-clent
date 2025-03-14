@@ -134,24 +134,26 @@ export function AppSidebar() {
     <Sidebar collapsible="icon">
       {/* website logo */}
       <SidebarHeader>
-        <Link className="w-full flex" to={"/"}>
-          {/* <SidebarMenuButton className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground">
-            
-          </SidebarMenuButton> */}
-          <div className="flex aspect-square mx-auto size-8 items-center justify-center rounded-lg bg-Primary">
-            <img src={Logo} alt="site logo" />
-          </div>
-          <div className="grid flex-1 text-left text-sm leading-tight overflow-ellipsis">
-            <span className="truncate font-semibold">EduGrant</span>
-            <span className="truncate font-xs">Your Dream Ahead</span>
-          </div>
+        <Link className="p-0:" to={"/"}>
+          <SidebarMenuButton
+            size="lg"
+            className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground p-0 mx-auto"
+          >
+            <div className="flex aspect-square mx-auto size-12 p-2 items-center justify-center rounded-lg bg-Primary ">
+              <img className="" src={Logo} alt="site logo" />
+            </div>
+            <div className="grid flex-1 text-left text-sm leading-tight overflow-ellipsis">
+              <span className="truncate font-semibold">EduGrant</span>
+              <span className="truncate font-xs">Your Dream Ahead</span>
+            </div>
+          </SidebarMenuButton>
         </Link>
       </SidebarHeader>
 
       {/* sidebar contents */}
       <SidebarContent className={"flex items-center   px-2"}>
         {/* user options */}
-        <Card className="w-full sidebarMenu bg-white h-full border-none rounded-xl p-2 my-4">
+        <Card className="w-full sidebarMenu bg-white h-full border-none rounded-xl p-2 my-2">
           {role.isAdmin || role.isModerator
             ? ModeratorORAdmin(role.isAdmin)
             : userRoutes}

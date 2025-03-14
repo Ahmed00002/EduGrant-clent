@@ -41,7 +41,7 @@ const Stats = () => {
         </div>
 
         <div className="">
-          <div className="drop-shadow-xl mt-6 rounded-lg bg-white flex flex-col justify-center items-center p-4">
+          <div className="drop-shadow mt-6 rounded-lg bg-white flex flex-col justify-center items-center p-4">
             <h1 className="text-left w-full text-xl font-medium text-gray-500">
               Applicants
             </h1>

@@ -51,7 +51,7 @@ const Applications = () => {
       <SetPageTitle title={"Manage Scholarships"} />
       <section className=" bg-white rounded-lg p-6 font-inter">
         <div className="flex justify-between items-center">
-          <h1 className="text-xl font-bold font-railway">My Applications</h1>
+          <h1 className="text-xl font-bold font-railway">All Scholarships</h1>
           <form>
             <Input
               className="border-none focus:border-none"

@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 const StatCard = ({ data, icon, title }) => {
   return (
     <div>
-      <div className="flex justify-between items-center bg-white p-4 rounded-lg drop-shadow-xl overflow-hidden relative">
+      <div className="flex justify-between items-center bg-white p-4 rounded-lg drop-shadow overflow-hidden relative">
         <div className="bg-sky-50 block h-52 w-24 absolute -left-0 top-0 -rotate-45"></div>
         <div className="[&>svg]:size-12 lg:[&>svg]:size-18 2xl:[&>svg]:size-20  absolute left-4 text-blue-300">
           {icon}
