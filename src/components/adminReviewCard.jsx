@@ -19,7 +19,7 @@ const AdminReviewCard = ({ review }) => {
       university_name = "--",
       // university_logo,
       // university_location,
-      subject_name = "--",
+      degree = "--",
       // scholarship_category,
       // scholarship_description,
       // application_deadline,
@@ -31,18 +31,18 @@ const AdminReviewCard = ({ review }) => {
   } = reviewDetails;
   return (
     <motion.div
-      className="bg-white rounded-2xl shadow-lg p-5 flex flex-col justify-between border hover:shadow-xl transition"
+      className="bg-white rounded-2xl shadow-lg p-5 flex flex-col justify-between border hover:shadow-xl transition "
       whileHover={{ scale: 1.02 }}
     >
       {/* University Info */}
       <div className="mb-3">
-        <h3 className="text-xl font-semibold">{scholarship_name}</h3>
-        <h3 className="text-xl font-semibold">{university_name}</h3>
-        <p className="text-sm text-gray-500">{subject_name}</p>
+        <h3 className="text-sm font-semibold">{scholarship_name}</h3>
+        <h3 className="text-xs text-gray-500">{university_name}</h3>
+        <p className="text-xs text-gray-500">{degree}</p>
       </div>
 
       {/* Reviewer Info */}
-      <div className="flex items-center gap-3 border-t pt-3">
+      <div className="flex items-center gap-3 ">
         <img
           src={userPhoto}
           alt="Reviewer"
@@ -56,7 +56,7 @@ const AdminReviewCard = ({ review }) => {
 
       {/* Rating and Comment */}
       <div className="mt-3">
-        <div className="flex items-center gap-1 text-yellow-500">
+        <div className="flex items-center gap-1 text-sm text-yellow-500">
           {[...Array(5)].map((_, i) => (
             <FaStar
               key={i}
@@ -73,7 +73,7 @@ const AdminReviewCard = ({ review }) => {
         onClick={() => handleDeleteReview(_id)}
         className="mt-4 bg-red-500 hover:bg-red-600 text-white py-2 rounded-xl flex items-center justify-center gap-2 transition cursor-pointer"
       >
-        <FaTrashAlt /> Delete Review
+        <FaTrashAlt />
       </button>
     </motion.div>
   );

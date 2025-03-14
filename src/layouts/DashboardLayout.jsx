@@ -48,13 +48,13 @@ const DashboardLayout = () => {
                   <Avatar>
                     <AvatarImage
                       className="rounded-full size-9 cursor-pointer"
-                      src={user.photoURL}
+                      src={user?.photoURL}
                     />
                     <AvatarFallback>DP</AvatarFallback>
                   </Avatar>
                   <div>
                     <h1 className="text-sm text-text font-medium">
-                      {user.displayName}
+                      {user?.displayName}
                     </h1>
                     <p className={"text-xs text-text"}>
                       {role.isAdmin
