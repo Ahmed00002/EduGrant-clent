@@ -21,7 +21,7 @@ const DashboardLayout = () => {
 
           {/* Main Content */}
           <main className="flex-1 w-full ">
-            <div className="flex items-center gap-2 sticky top-2 z-50 p-2 md:p-3 rounded-lg bg-white/10 backdrop-blur-2xl shadow mt-2">
+            <div className=" lg:ml-2 flex items-center gap-2 sticky top-0 md:top-2 z-50 p-2 md:p-[13px] rounded-none md:rounded-lg bg-white/10 backdrop-blur-2xl shadow md:mt-2 md:mr-2">
               <SidebarTrigger />
               {/* menus */}
               <div className="flex items-center justify-between w-full">
@@ -52,7 +52,7 @@ const DashboardLayout = () => {
                     />
                     <AvatarFallback>DP</AvatarFallback>
                   </Avatar>
-                  <div>
+                  <div className="hidden md:block">
                     <h1 className="text-sm text-text font-medium">
                       {user?.displayName}
                     </h1>
@@ -67,7 +67,7 @@ const DashboardLayout = () => {
                 </div>
               </div>
             </div>
-            <div className="p-4">
+            <div className="p-2 sm:px-2 md:pl-[2px] md:pr-2  lg:px-2">
               <Outlet />
             </div>
           </main>

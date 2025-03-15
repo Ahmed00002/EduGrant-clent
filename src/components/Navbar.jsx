@@ -1,6 +1,6 @@
 import * as motion from "motion/react-client";
 import useCustomToast from "@/hooks/useCustomToast";
-import logo from "../assets/logo/logo.png";
+import logo from "../assets/logo/logoWhiteMode.png";
 import { Link, NavLink, useNavigate } from "react-router";
 import { Button } from "./ui/button";
 import { LogOut, User } from "lucide-react";
@@ -52,7 +52,7 @@ const Navbar = () => {
        * the right side should contain
        * ( Home, All Scholarship, User Dashboard (private), Admin Dashboard(private), and Login & Logout Button ( will show according to user login).
        */}
-      <nav className="bg-white text-text shadow-2xl shadow-gray-200 font-inter sticky top-0 left-0 z-50 w-full">
+      <nav className="bg-white text-text shadow shadow-gray-500/20 font-inter sticky top-0 left-0 z-50 w-full">
         <section className=" flex justify-between gap-4 items-center center">
           <div className="flex items-center gap-4">
             {isMobile && <MobileDrawer />}
@@ -63,7 +63,7 @@ const Navbar = () => {
             />
           </div>
           {!isMobile && (
-            <div className="grow text-center space-x-4 navMenu">
+            <div className="grow text-center lg:text-lg space-x-4 navMenu">
               <NavLink to={"/"}>Home</NavLink>
               <NavLink to={"/scholarships"}>All Scholarship</NavLink>
               <NavLink
