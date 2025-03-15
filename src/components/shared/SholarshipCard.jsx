@@ -9,6 +9,7 @@ import { Separator } from "@radix-ui/react-dropdown-menu";
 import { Avatar, AvatarFallback } from "../ui/avatar";
 import { AvatarImage } from "@radix-ui/react-avatar";
 import { motion } from "motion/react";
+import { useEffect, useState } from "react";
 
 const ScholarshipCard = ({ scholarship }) => {
   const {
@@ -46,6 +47,22 @@ const ScholarshipCard = ({ scholarship }) => {
 
   const month_sl = parseInt(post_date.split("-")[1]);
 
+  // const deadline = application_deadline.split("-");
+  const [deadlineOver, setDeadlineOver] = useState(false);
+
+  // check deadline is over
+  useEffect(() => {
+    const today = new Date();
+    const deadLine = new Date(application_deadline);
+    console.log(today.toISOString().split("T")[0]);
+    console.log(application_deadline);
+    if (today > deadLine) {
+      setDeadlineOver(true);
+    } else {
+      setDeadlineOver(false);
+    }
+  }, [application_deadline]);
+
   return (
     <>
       <motion.div
@@ -53,8 +70,16 @@ const ScholarshipCard = ({ scholarship }) => {
         whileInView={{ y: 0 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.5 }}
-        className="shadow-md rounded-lg cardContainer cursor-pointer overflow-hidden flex flex-col"
+        className="shadow-md rounded-lg cardContainer cursor-pointer overflow-hidden flex flex-col relative "
       >
+        <div
+          className={`absolute top-0 left-0 ${
+            deadlineOver ? "bg-red-500" : "bg-green-500"
+          } text-white px-6 py-1 text-sm font-bold transform z-10 rounded-br-lg`}
+        >
+          {deadlineOver ? "Closed" : "Open"}
+        </div>
+
         <div className="aspect-video relative ">
           <div className="overflow-hidden">
             <img
@@ -86,7 +111,6 @@ const ScholarshipCard = ({ scholarship }) => {
             </button>
           </div>
         </div>
-
         {/* card content container */}
         <div className="px-4 py-2 mt-8 flex flex-col  grow">
           <h1 className="text-2xl font-medium">{scholarship_name}</h1>

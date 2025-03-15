@@ -5,7 +5,7 @@ import useAuth from "@/hooks/useAuth";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
 import useCustomToast from "@/hooks/useCustomToast";
 import useSingleLoader from "@/hooks/useSingleLoader";
-import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import { TabsTrigger } from "@radix-ui/react-tabs";
 import * as motion from "motion/react-client";
 import {
@@ -37,6 +37,21 @@ const ScholarshipDetails = () => {
   const [userRatings, setUserRatings] = useState([]);
   const customToast = useCustomToast();
   const { ratings, refetch } = useAverageRating(scholarship?._id);
+
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
 
   //   user data
   const { user } = useAuth();
@@ -111,6 +126,22 @@ const ScholarshipDetails = () => {
     degree = "--",
   } = scholarship;
 
+  const deadline = application_deadline.split("-");
+  const [deadlineOver, setDeadlineOver] = useState(false);
+
+  // check deadline is over
+  useEffect(() => {
+    const today = new Date();
+    const deadLine = new Date(application_deadline);
+    console.log(today.toISOString().split("T")[0]);
+    console.log(application_deadline);
+    if (today > deadLine) {
+      setDeadlineOver(true);
+    } else {
+      setDeadlineOver(false);
+    }
+  }, [application_deadline, deadline]);
+
   return (
     <>
       <SetPageTitle title={"Scholarship Details"} />
@@ -134,12 +165,13 @@ const ScholarshipDetails = () => {
               </div>
               {/* university name */}
               <div className="mt-4 flex flex-wrap gap-4 items-center">
-                <div className="flex w-full gap-2 items-center">
-                  <Avatar className="w-16 md:w-10 h-16 md:h-10">
+                <div className="flex w-full md:w-auto gap-2 items-center">
+                  <Avatar className="w-16 md:w-10 h-16 md:h-10 aspect-square bg-gray-100 rounded-full flex items-center justify-center text-gray-500">
                     <AvatarImage
                       className="w-16 md:w-10 h-16 md:h-10 aspect-square object-cover"
                       src={university_logo}
                     />
+                    <AvatarFallback>{university_name[0]}</AvatarFallback>
                   </Avatar>
                   <div className="p-0">
                     <p className="text-md font-medium text-gray-400">
@@ -372,13 +404,24 @@ const ScholarshipDetails = () => {
                   <Calendar size={17} color="#004aad" />
                   Deadline
                 </p>
-                <p className="text-right">{application_deadline}</p>
+                <p
+                  className={`text-right ${
+                    deadlineOver ? "text-red-500" : "text-green-500"
+                  }`}
+                >
+                  {deadline[2]} {months[parseInt(deadline[1])]} {deadline[0]}{" "}
+                </p>
               </div>
 
               <div className="p-6">
                 <Link to={`/scholarships/${_id}/checkout`}>
-                  <button className="w-full bg-Primary text-white text-xl font-medium py-2 rounded-xl cursor-pointer">
-                    Apply Now
+                  <button
+                    disabled={deadlineOver}
+                    className={`w-full ${
+                      deadlineOver ? "bg-gray-300" : "bg-Primary"
+                    } text-white text-xl font-medium py-2 rounded-xl cursor-pointer`}
+                  >
+                    {deadlineOver ? "Deadline Over" : "Apply Now"}
                   </button>
                 </Link>
               </div>
