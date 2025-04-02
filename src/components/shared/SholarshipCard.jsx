@@ -19,7 +19,7 @@ const ScholarshipCard = ({ scholarship }) => {
     scholarship_category = "-- ",
     scholarship_description = "--",
     // service_charge,
-    stipend = "--",
+    // stipend = "--",
     subject_category = "--",
     university_city = "--",
     university_country = "--",
@@ -30,6 +30,7 @@ const ScholarshipCard = ({ scholarship }) => {
   } = scholarship;
 
   const { ratings } = useAverageRating(_id);
+  console.log("total rating", ratings);
   const shortMonths = [
     "Jan",
     "Feb",
@@ -54,8 +55,6 @@ const ScholarshipCard = ({ scholarship }) => {
   useEffect(() => {
     const today = new Date();
     const deadLine = new Date(application_deadline);
-    console.log(today.toISOString().split("T")[0]);
-    console.log(application_deadline);
     if (today > deadLine) {
       setDeadlineOver(true);
     } else {
@@ -74,8 +73,8 @@ const ScholarshipCard = ({ scholarship }) => {
       >
         <div
           className={`absolute top-0 left-0 ${
-            deadlineOver ? "bg-red-500" : "bg-green-500"
-          } text-white px-6 py-1 text-sm font-bold transform z-10 rounded-br-lg`}
+            deadlineOver ? "bg-Secondary text-black" : "bg-Primary text-white"
+          }  px-6 py-1 text-sm font-bold transform z-10 rounded-br-lg`}
         >
           {deadlineOver ? "Closed" : "Open"}
         </div>

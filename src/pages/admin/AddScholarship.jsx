@@ -65,38 +65,58 @@ const AddScholarship = () => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto p-8 bg-white rounded-xl shadow-lg">
+    <div className="w-full mx-auto p-8 bg-white rounded-xl shadow-lg">
       <h2 className="text-3xl font-bold text-center mb-6">
         🎓 Add Scholarship
       </h2>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-        {/* Scholarship Name & University Name */}
-        <input
-          {...register("scholarship_name", { required: true })}
-          placeholder="Scholarship Name"
-          className="bordered w-full p-3 border rounded-lg"
-        />
-        {errors.scholarship_name && (
-          <p className="text-red-500 text-xs">Scholarship Name is required</p>
-        )}
+        <div className="flex flex-col md:flex-row gap-4">
+          {/* Scholarship Name & University Name */}
+          <div className="w-full">
+            <label htmlFor="scholarship_name" className="text-xs text-gray-500">
+              Scholarship Name <span className="text-red-500">*</span>
+            </label>
+            <input
+              id="scholarship_name"
+              {...register("scholarship_name", { required: true })}
+              placeholder="Scholarship Name"
+              className="bordered w-full p-3 border rounded-lg mt-1"
+            />
+            {errors.scholarship_name && (
+              <p className="text-red-500 text-xs">
+                Scholarship Name is required
+              </p>
+            )}
+          </div>
 
-        <input
-          {...register("university_name", { required: true })}
-          placeholder="University Name"
-          className="bordered w-full p-3 border rounded-lg"
-        />
-        {errors.university_name && (
-          <p className="text-red-500 text-xs">University Name is required</p>
-        )}
+          <div className="w-full">
+            <label htmlFor="university_name" className="text-xs text-gray-500">
+              University Name <span className="text-red-500">*</span>
+            </label>
+
+            <input
+              id="university_name"
+              {...register("university_name", { required: true })}
+              placeholder="University Name"
+              className="bordered w-full p-3 border rounded-lg mt-1"
+            />
+            {errors.university_name && (
+              <p className="text-red-500 text-xs">
+                University Name is required
+              </p>
+            )}
+          </div>
+        </div>
 
         {/* Image Upload */}
         <div>
           <label
             htmlFor="formFile"
-            className="mb-2 inline-block text-gray-600 dark:text-neutral-400"
+            className="mb-2 inline-block text-gray-500 text-xs "
           >
-            Upload University Logo
+            University Logo
+            <span className="text-red-500"> *</span>
           </label>
           <input
             onChange={handleImageUpload}
@@ -106,12 +126,7 @@ const AddScholarship = () => {
             id="formFile"
           />
         </div>
-        {/* <input
-          type="file"
-          onChange={handleImageUpload}
-          required
-          className="file-input w-full border p-2 rounded-lg"
-        /> */}
+        {/* img after upload */}
         {imageURL && (
           <img
             src={imageURL}
@@ -121,115 +136,207 @@ const AddScholarship = () => {
         )}
 
         {/* University Location */}
-        <input
-          {...register("university_country", { required: true })}
-          placeholder="University Country"
-          className="bordered w-full p-3 border rounded-lg"
-        />
-        {errors.university_country && (
-          <p className="text-red-500 text-xs">University Country is required</p>
-        )}
-        <input
-          {...register("university_city", { required: true })}
-          placeholder="University City"
-          className="bordered w-full p-3 border rounded-lg"
-        />
-        {errors.university_city && (
-          <p className="text-red-500 text-xs">City is required</p>
-        )}
-        <input
-          {...register("university_rank", { required: true })}
-          type="number"
-          placeholder="University World Rank"
-          className="bordered w-full p-3 border rounded-lg"
-        />
-        {errors.university_rank && (
-          <p className="text-red-500 text-xs">World Rank is required</p>
-        )}
+        <div className="flex flex-col md:flex-row gap-4">
+          {/* university country */}
+          <div className="w-full">
+            <label htmlFor="scholarship_name" className="text-xs text-gray-500">
+              Country <span className="text-red-500">*</span>
+            </label>
 
-        {/* Dropdowns */}
-        <select
-          {...register("subject_category", { required: true })}
-          className="bordered w-full p-3 border rounded-lg"
-        >
-          <option value="">Select Subject Category</option>
-          <option>Agriculture</option>
-          <option>Engineering</option>
-          <option>Doctor</option>
-        </select>
-        {errors.subject_category && (
-          <p className="text-red-500 text-xs">Subject category is required</p>
-        )}
+            <input
+              {...register("university_country", { required: true })}
+              placeholder="University Country"
+              className="bordered w-full p-3 border rounded-lg mt-1"
+            />
+            {errors.university_country && (
+              <p className="text-red-500 text-xs">
+                University Country is required
+              </p>
+            )}
+          </div>
+          {/* university city */}
+          <div className="w-full">
+            <label htmlFor="scholarship_name" className="text-xs text-gray-500">
+              City <span className="text-red-500">*</span>
+            </label>
 
-        <select
-          {...register("scholarship_category", { required: true })}
-          className="bordered w-full p-3 border rounded-lg"
-        >
-          <option value="">Select Scholarship Type</option>
-          <option>Full fund</option>
-          <option>Partial</option>
-          <option>Self-fund</option>
-        </select>
-        {errors.scholarship_category && (
-          <p className="text-red-500 text-xs">Scholarship Type is required</p>
-        )}
+            <input
+              {...register("university_city", { required: true })}
+              placeholder="University City"
+              className="bordered w-full p-3 border rounded-lg mt-1"
+            />
+            {errors.university_city && (
+              <p className="text-red-500 text-xs">City is required</p>
+            )}
+          </div>
+        </div>
 
-        <select
-          {...register("degree", { required: true })}
-          className="select-bordered w-full p-3 border rounded-lg"
-        >
-          <option value="">Select Degree</option>
-          <option>Diploma</option>
-          <option>Bachelor</option>
-          <option>Masters</option>
-        </select>
-        {errors.degree && (
-          <p className="text-red-500 text-xs">Scholarship Degree is required</p>
-        )}
+        {/* university world rank */}
+        <div className="w-full">
+          <label htmlFor="scholarship_name" className="text-xs text-gray-500">
+            World Rank <span className="text-red-500">*</span>
+          </label>
+
+          <input
+            {...register("university_rank", { required: true })}
+            type="number"
+            placeholder="University World Rank"
+            className="bordered w-full p-3 border rounded-lg mt-1"
+          />
+          {errors.university_rank && (
+            <p className="text-red-500 text-xs">World Rank is required</p>
+          )}
+        </div>
+
+        {/* category, type, degree selection input */}
+        <div className="flex flex-col lg:flex-row gap-4">
+          <div className="w-full">
+            <label htmlFor="scholarship_name" className="text-xs text-gray-500">
+              Category <span className="text-red-500">*</span>
+            </label>
+
+            <select
+              {...register("subject_category", { required: true })}
+              className="bordered w-full p-3 border rounded-lg mt-1"
+            >
+              <option value="">Select Subject Category</option>
+              <option>Agriculture</option>
+              <option>Engineering</option>
+              <option>Doctor</option>
+            </select>
+            {errors.subject_category && (
+              <p className="text-red-500 text-xs">
+                Subject category is required
+              </p>
+            )}
+          </div>
+
+          <div className="w-full">
+            <label htmlFor="scholarship_name" className="text-xs text-gray-500">
+              Scholarship Type <span className="text-red-500">*</span>
+            </label>
+
+            <select
+              {...register("scholarship_category", { required: true })}
+              className="bordered w-full p-3 border rounded-lg mt-1"
+            >
+              <option value="">Select Scholarship Type</option>
+              <option>Full fund</option>
+              <option>Partial</option>
+              <option>Self-fund</option>
+            </select>
+            {errors.scholarship_category && (
+              <p className="text-red-500 text-xs">
+                Scholarship Type is required
+              </p>
+            )}
+          </div>
+
+          <div className="w-full">
+            <label htmlFor="scholarship_name" className="text-xs text-gray-500">
+              Degree <span className="text-red-500">*</span>
+            </label>
+
+            <select
+              {...register("degree", { required: true })}
+              className="select-bordered w-full p-3 border rounded-lg mt-1"
+            >
+              <option value="">Select Degree</option>
+              <option>Diploma</option>
+              <option>Bachelor</option>
+              <option>Masters</option>
+            </select>
+            {errors.degree && (
+              <p className="text-red-500 text-xs">
+                Scholarship Degree is required
+              </p>
+            )}
+          </div>
+        </div>
 
         {/* Fees & Charges  & stipend */}
-        <input
-          {...register("tuition_fees")}
-          type="number"
-          placeholder="Tuition Fees (Optional)"
-          className="input-bordered w-full p-3 border rounded-lg"
-        />
+        <div className="flex flex-col md:flex-row gap-4">
+          {/* tuition fees */}
+          <div className="w-full">
+            <label htmlFor="scholarship_name" className="text-xs text-gray-500">
+              Tuition Fees <span className="text-red-500">*</span>
+            </label>
 
-        <input
-          {...register("stipend", { required: true })}
-          type="number"
-          placeholder="stipend (Optional)"
-          className="input-bordered w-full p-3 border rounded-lg"
-        />
-        {errors.stipend && (
-          <p className="text-red-500 text-xs">Stipend is required</p>
-        )}
-        <input
-          {...register("application_fees", { required: true })}
-          type="number"
-          placeholder="Application Fees"
-          className="input-bordered w-full p-3 border rounded-lg"
-        />
-        {errors.application_fees && (
-          <p className="text-red-500 text-xs">Application fees is required</p>
-        )}
-        <input
-          {...register("service_charge", { required: true })}
-          type="number"
-          placeholder="Service Charge"
-          className="input-bordered w-full p-3 border rounded-lg"
-        />
-        {errors.service_charge && (
-          <p className="text-red-500 text-xs">Service Charge is required</p>
-        )}
+            <input
+              {...register("tuition_fees")}
+              type="number"
+              placeholder="Tuition Fees (Optional)"
+              className="input-bordered w-full p-3 border rounded-lg mt-1"
+            />
+          </div>
+
+          {/* stipend */}
+          <div className="w-full">
+            <label htmlFor="scholarship_name" className="text-xs text-gray-500">
+              Stipend <span className="text-red-500">*</span>
+            </label>
+
+            <input
+              {...register("stipend", { required: true })}
+              type="number"
+              placeholder="stipend (Optional)"
+              className="input-bordered w-full p-3 border rounded-lg mt-1"
+            />
+            {errors.stipend && (
+              <p className="text-red-500 text-xs">Stipend is required</p>
+            )}
+          </div>
+        </div>
+
+        {/* application fees &  service charge */}
+        <div className="flex flex-col md:flex-row gap-4">
+          <div className="w-full">
+            <label htmlFor="scholarship_name" className="text-xs text-gray-500">
+              Application Fees <span className="text-red-500">*</span>
+            </label>
+
+            <input
+              {...register("application_fees", { required: true })}
+              type="number"
+              placeholder="Application Fees"
+              className="input-bordered w-full p-3 border rounded-lg mt-1"
+            />
+            {errors.application_fees && (
+              <p className="text-red-500 text-xs">
+                Application fees is required
+              </p>
+            )}
+          </div>
+
+          <div className="w-full">
+            <label htmlFor="scholarship_name" className="text-xs text-gray-500">
+              Service Charge <span className="text-red-500">*</span>
+            </label>
+
+            <input
+              {...register("service_charge", { required: true })}
+              type="number"
+              placeholder="Service Charge"
+              className="input-bordered w-full p-3 border rounded-lg mt-1"
+            />
+            {errors.service_charge && (
+              <p className="text-red-500 text-xs">Service Charge is required</p>
+            )}
+          </div>
+        </div>
+
         <div>
-          <label htmlFor="date" className="text-md block pb-2 ">
-            Application Deadline
+          <label
+            htmlFor="application_deadline"
+            className="text-xs text-gray-500"
+          >
+            Application Deadline <span className="text-red-500">*</span>
           </label>
           <input
+            id="application_deadline"
             type="date"
             {...register("application_deadline", { required: true })}
-            className="input-bordered w-full p-3 border rounded-lg"
+            className="input-bordered w-full p-3 border rounded-lg mt-1"
           />
           {errors.application_deadline && (
             <p className="text-red-500 text-xs">
@@ -261,7 +368,7 @@ const AddScholarship = () => {
         {/* Submit Button */}
         <button
           type="submit"
-          className="w-full mt-4 bg-Primary text-white p-3 rounded-lg"
+          className="w-full mt-4 bg-Primary text-white p-3 rounded-lg cursor-pointer"
         >
           Publish
         </button>
