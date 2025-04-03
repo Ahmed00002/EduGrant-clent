@@ -8,7 +8,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 const Profile = () => {
   const { user } = useAuth();
   const { role } = useUserRole();
-  console.log(role);
 
   return (
     <>

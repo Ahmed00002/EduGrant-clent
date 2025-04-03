@@ -1,6 +1,7 @@
 import { FaFacebookF, FaInstagram, FaTwitch, FaTwitter } from "react-icons/fa";
 // import * as motion from "motion/react-client";
 import logo from "../assets/logo/logo-01.png";
+import { Link } from "react-router";
 
 const Footer = () => {
   const d = new Date();
@@ -38,11 +39,14 @@ const Footer = () => {
                 Scholarships
               </h6>
               <p className="mb-2">
-                <a className="hover:text-Secondary cursor-pointer text-sm">
-                  Top
-                </a>
+                <Link
+                  to="/scholarships"
+                  className="hover:text-Secondary cursor-pointer text-sm"
+                >
+                  All Scholarships
+                </Link>
               </p>
-              <p className="mb-2">
+              {/* <p className="mb-2">
                 <a className="hover:text-Secondary cursor-pointer text-sm">
                   Latest
                 </a>
@@ -56,7 +60,7 @@ const Footer = () => {
                 <a className="hover:text-Secondary cursor-pointer text-sm">
                   Cheap
                 </a>
-              </p>
+              </p> */}
             </div>
             {/* <!-- Useful links section --> */}
             <div className="">
@@ -64,16 +68,22 @@ const Footer = () => {
                 Useful links
               </h6>
               <p className="mb-2">
-                <a className="hover:text-Secondary cursor-pointer text-sm dark:text-neutral-200">
-                  Pricing
-                </a>
+                <Link
+                  to={"/dashboard/user/profile"}
+                  className="hover:text-Secondary cursor-pointer text-sm dark:text-neutral-200"
+                >
+                  Dashboard
+                </Link>
               </p>
               <p className="mb-2">
-                <a className="hover:text-Secondary cursor-pointer text-sm dark:text-neutral-200">
-                  Settings
-                </a>
+                <Link
+                  to={"privacyPolicy"}
+                  className="hover:text-Secondary cursor-pointer text-sm dark:text-neutral-200"
+                >
+                  Privacy & Policy
+                </Link>
               </p>
-              <p className="mb-2">
+              {/* <p className="mb-2">
                 <a className="hover:text-Secondary cursor-pointer text-sm dark:text-neutral-200">
                   Orders
                 </a>
@@ -82,7 +92,7 @@ const Footer = () => {
                 <a className="hover:text-Secondary cursor-pointer text-sm dark:text-neutral-200">
                   Help
                 </a>
-              </p>
+              </p> */}
             </div>
             {/* <!-- Contact section --> */}
             <div>

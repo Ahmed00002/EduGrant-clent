@@ -1,11 +1,10 @@
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
-import { Outlet, useLocation } from "react-router";
+import { Outlet } from "react-router";
 import { Bell, Search } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import useAuth from "@/hooks/useAuth";
 import useUserRole from "@/hooks/useUserRole";
-import { Badge } from "@/components/ui/badge";
 
 const DashboardLayout = () => {
   // const location = useLocation();

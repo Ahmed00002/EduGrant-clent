@@ -8,7 +8,7 @@ const TopScholarship = () => {
 
   return (
     <>
-      <section className="center my-24">
+      <section id="topScholarships" className="center my-24">
         {/* section title */}
         <SectionTitle
           title={"Top Scholarships for You"}

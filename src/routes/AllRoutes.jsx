@@ -21,6 +21,7 @@ import PrivateRoutes from "./private/PrivateRoutes";
 import AdminOnly from "./private/AdminOnly";
 import ManageApplications from "@/pages/admin/manage_applications/ManageApplications";
 import Stats from "@/pages/admin/Stats";
+import PrivacyPolicy from "@/components/PrivacyPolicy";
 
 const AllRoutes = () => {
   return (
@@ -48,6 +49,7 @@ const AllRoutes = () => {
               </PrivateRoutes>
             }
           />
+          <Route path="/privacyPolicy" element={<PrivacyPolicy />} />
         </Route>
 
         {/* user dashboard paths */}
