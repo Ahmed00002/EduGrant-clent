@@ -55,7 +55,7 @@ const Scholarships = () => {
             </>
           )}
         </div>
-        {scholarships.length === 0 && (
+        {!isLoading && scholarships.length === 0 && (
           <p className="mx-auto w-full text-center font-medium text-gray-400">
             No results found
           </p>

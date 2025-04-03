@@ -69,6 +69,7 @@ const ScholarshipCard = ({ scholarship }) => {
         whileInView={{ y: 0 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.5 }}
+        viewport={{ once: true }}
         className="shadow-md rounded-lg cardContainer cursor-pointer overflow-hidden flex flex-col relative "
       >
         <div

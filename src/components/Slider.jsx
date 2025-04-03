@@ -6,6 +6,7 @@ import "swiper/css/effect-fade";
 import "swiper/css/navigation";
 import { MoveLeft, MoveRight } from "lucide-react";
 import { useRef } from "react";
+import { Link } from "react-router";
 
 const Slider = () => {
   const prevRef = useRef(null);
@@ -86,15 +87,18 @@ const Slider = () => {
         <h1 className="text-white text-md 2xl:text-lg">
           Empower the leaders of tomorrow through education
         </h1>
-        <motion.button
-          whileHover={{ translateY: -7 }}
-          whileTap={{ translateY: 0 }}
-          className={
-            "bg-Secondary rounded-none mt-5 text-text py-2 px-4 cursor-pointer hover:shadow-lg shadow-Secondary"
-          }
-        >
-          Apply Now
-        </motion.button>
+
+        <Link to={"/scholarships"}>
+          <motion.button
+            whileHover={{ translateY: -7 }}
+            whileTap={{ translateY: 0 }}
+            className={
+              "bg-Secondary rounded-none mt-5 text-text py-2 px-4 cursor-pointer hover:shadow-lg shadow-Secondary"
+            }
+          >
+            Apply Now
+          </motion.button>
+        </Link>
       </div>
     </div>
   );
