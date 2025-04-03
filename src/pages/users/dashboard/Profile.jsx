@@ -4,10 +4,18 @@ import EditButton from "@/components/ui/EditButton";
 import useAuth from "@/hooks/useAuth";
 import useUserRole from "@/hooks/useUserRole";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
+import { useState } from "react";
 
 const Profile = () => {
   const { user } = useAuth();
   const { role } = useUserRole();
+  const [edit, setEdit] = useState(false);
+
+  console.log(user);
+
+  const EditMode = () => {
+    setEdit(!edit);
+  };
 
   return (
     <>
@@ -58,7 +66,7 @@ const Profile = () => {
               <div className="text-gray-500 text-md">
                 <h1 className="text-md font-inter">Full Name</h1>
                 <input
-                  className="font-medium mt-1"
+                  className="font-medium mt-1 w-full py-1 border px-2 rounded-lg"
                   type="text"
                   defaultValue={user?.displayName}
                 />
@@ -67,7 +75,8 @@ const Profile = () => {
               <div className="text-gray-500 text-md">
                 <h1 className="text-md font-inter">Email</h1>
                 <input
-                  className="font-medium mt-1 w-full"
+                  disabled
+                  className="font-medium mt-1 w-full py-1 border px-2 rounded-lg"
                   type="text"
                   defaultValue={user?.email}
                 />
@@ -79,7 +88,7 @@ const Profile = () => {
               <div className="text-gray-500 text-md">
                 <h1 className="text-md font-inter">Age</h1>
                 <input
-                  className="font-medium mt-1"
+                  className="font-medium mt-1 w-full py-1 border px-2 rounded-lg"
                   type="text"
                   defaultValue={"0"}
                 />
@@ -88,15 +97,15 @@ const Profile = () => {
               <div className="text-gray-500 text-md">
                 <h1 className="text-md font-inter">Phone</h1>
                 <input
-                  className="font-medium mt-1"
+                  className="font-medium mt-1 w-full py-1 border px-2 rounded-lg"
                   type="text"
-                  defaultValue={"017123438"}
+                  defaultValue={"000-00000-000"}
                 />
               </div>
             </div>
           </div>
           <div className="absolute top-4 right-4">
-            <EditButton />
+            <EditButton setMode={EditMode} editMode={edit} />
           </div>
         </div>
       </section>
